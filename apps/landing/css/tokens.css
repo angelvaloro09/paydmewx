@@ -1,0 +1,91 @@
+:root {
+  /* Color tokens — Light (Paper theme) */
+  --bg: #FAF9F6;
+  --surface: #FFFFFF;
+  --surface2: #F1EFEA;
+  --ink: #0A0A0A;
+  --inkMuted: #5B5B57;
+  --line: rgba(10, 10, 10, .10);
+  --brand: #00C853;
+  --brandText: #00763A;
+  --onBrand: #0A0A0A;
+  --cempasuchil: #FF8A1F;
+  --rosa: #E4007C;
+  --codi: #2F6BFF;
+  --danger: #D92D20;
+
+  /* Dark frame constants (used for the inset hero & POS screen mock) */
+  --hero-bg: #0B0B0C;
+  --hero-surface: rgba(255, 255, 255, .04);
+  --hero-surface2: rgba(255, 255, 255, .08);
+  --hero-ink: #F5F4F0;
+  --hero-inkMuted: #A3A39E;
+  --hero-line: rgba(255, 255, 255, .10);
+
+  /* Motion tokens */
+  --easeOut: cubic-bezier(.215, .61, .355, 1);
+  --easeStd: cubic-bezier(.4, 0, .2, 1);
+  --fast: 150ms;
+  --base: 300ms;
+  --slow: 600ms;
+  --hero: 1000ms;
+
+  /* Radius tokens */
+  --sm: 8px;
+  --md: 12px;
+  --lg: 16px;
+  --xl: 24px;
+  --pill: 999px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* Spacing & Layout */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --max-width: 1120px;
+
+  /* Elevation */
+  --shadow-float: 0 8px 24px rgba(0, 0, 0, .18), 0 2px 6px rgba(0, 0, 0, .12);
+
+  /* Fonts */
+  --font-sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0B0B0C;
+    --surface: rgba(255, 255, 255, .04);
+    --surface2: rgba(255, 255, 255, .08);
+    --ink: #F5F4F0;
+    --inkMuted: #A3A39E;
+    --line: rgba(255, 255, 255, .10);
+    --brand: #19E36B;
+    --brandText: #19E36B;
+    --onBrand: #0A0A0A;
+    --cempasuchil: #FFA04D;
+    --rosa: #FF3D9A;
+    --codi: #6C9BFF;
+    --danger: #FF6B5E;
+
+    --hero-bg: #141416;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --fast: 150ms;
+    --base: 150ms;
+    --slow: 150ms;
+    --hero: 150ms;
+  }
+}

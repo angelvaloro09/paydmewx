@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PaydMex — Cobros con QR CoDi, inventario e inteligencia artificial para puestos, locales y tiendas en CDMX.">
+  <meta name="app-url" content="#">
+  <title>PaydMex — Cobra en segundos. Sin terminal.</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+
+  <header class="site-header" id="site-header">
+    <div class="nav-container">
+      <a class="brand-logo" href="#top" aria-label="PaydMex, ir al inicio">
+        <svg class="logo-mark" width="32" height="32" viewBox="0 0 40 40" fill="none" aria-hidden="true" focusable="false">
+          <circle cx="20" cy="20" r="17" stroke="currentColor" stroke-width="2.5"></circle>
+          <path d="M15.5 27.5V12.5H21.5C24.5376 12.5 27 14.7386 27 17.5C27 20.2614 24.5376 22.5 21.5 22.5H18.5V27.5H15.5ZM18.5 19.75H21.25C22.7688 19.75 24 18.7426 24 17.5C24 16.2574 22.7688 15.25 21.25 15.25H18.5V19.75Z" fill="currentColor"></path>
+        </svg>
+        <span class="brand-name">PaydMex</span>
+      </a>
+
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menú de navegación">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="nav-menu" aria-label="Navegación principal">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="#como-funciona">Cómo funciona</a></li>
+          <li><a class="nav-link" href="#para-tu-negocio">Para tu negocio</a></li>
+          <li><a class="nav-link" href="#ia">IA</a></li>
+          <li><a class="nav-link" href="#accesibilidad">Accesibilidad</a></li>
+        </ul>
+        <a class="btn btn-dark nav-cta" href="#" data-app-cta>Probar demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- 2. Hero inside a dark rounded frame -->
+    <section class="hero-wrapper" id="top" aria-labelledby="hero-title">
+      <div class="hero-frame">
+        <canvas id="hero-particles" class="hero-canvas" aria-hidden="true"></canvas>
+        <div class="hero-content">
+          <p class="eyebrow eyebrow-dark">
+            <span class="eyebrow-line" aria-hidden="true"></span>
+            <span>— COBROS CON CODI PARA CDMX</span>
+          </p>
+          <h1 class="hero-title" id="hero-title">
+            <span class="hero-reveal-line hero-reveal-line-1">Cobra en segundos.</span>
+            <span class="hero-reveal-line hero-reveal-line-2">Sin terminal.</span>
+          </h1>
+          <p class="hero-subcopy">
+            Para puestos, locales y tiendas en toda la ciudad. Genera cobros con QR CoDi —el sistema de cobro digital del Banco de México—, controla tu inventario y usa inteligencia artificial en una sola app.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-brand" href="#" data-app-cta>Probar demo</a>
+            <a class="btn btn-outline-light" href="#como-funciona">Ver cómo funciona</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Facts strip -->
+    <section class="section facts-section" aria-label="Datos clave de la plataforma">
+      <div class="container">
+        <dl class="facts-grid" id="facts-strip">
+          <div class="fact-card">
+            <dt class="fact-label">Red de pagos de Banxico</dt>
+            <dd class="fact-value" data-fact-type="text">CoDi</dd>
+          </div>
+          <div class="fact-card">
+            <dt class="fact-label">Costo del API de pey</dt>
+            <dd class="fact-value" data-fact-type="currency" data-target="0">$0</dd>
+          </div>
+          <div class="fact-card">
+            <dt class="fact-label">Pago desde cualquier banco</dt>
+            <dd class="fact-value" data-fact-type="text">QR</dd>
+          </div>
+          <div class="fact-card">
+            <dt class="fact-label">Pagos instantáneos</dt>
+            <dd class="fact-value" data-fact-type="ratio" data-target-a="24" data-target-b="7">24/7</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 4. Cómo funciona -->
+    <section class="section" id="como-funciona" aria-labelledby="como-funciona-title">
+      <div class="container">
+        <p class="eyebrow">
+          <span class="eyebrow-line" aria-hidden="true"></span>
+          <span>CÓMO FUNCIONA</span>
+        </p>
+        <h2 class="section-title" id="como-funciona-title">Tres pasos del mostrador a tu cuenta.</h2>
+
+        <ol class="steps-grid">
+          <li class="step-card">
+            <span class="step-number" aria-hidden="true">01</span>
+            <h3 class="step-title">Arma tu catálogo</h3>
+            <p class="step-desc">Registra tus productos con precio y existencias, o escribe montos libres al instante desde el teclado numérico.</p>
+          </li>
+          <li class="step-card">
+            <span class="step-number" aria-hidden="true">02</span>
+            <h3 class="step-title">Cobra con QR CoDi</h3>
+            <p class="step-desc">Muestra el código QR en pantalla. Tu cliente lo escanea desde la app de su banco y autoriza sin comisiones.</p>
+          </li>
+          <li class="step-card">
+            <span class="step-number" aria-hidden="true">03</span>
+            <h3 class="step-title">Se descuenta tu inventario</h3>
+            <p class="step-desc">En cuanto se confirma el pago, tus existencias se actualizan solas y el pedido pasa a preparación o entrega.</p>
+          </li>
+        </ol>
+
+        <!-- CSS-only animated mock of the phone POS -->
+        <section class="pos-showcase" aria-label="Demostración visual de cobro en punto de venta">
+          <div class="pos-phone">
+            <div class="pos-topbar">
+              <span class="pos-merchant">Taquería El Porvenir</span>
+              <span class="badge badge-live">
+                <span class="badge-dot" aria-hidden="true"></span>
+                <span>PUNTO DE VENTA</span>
+              </span>
+            </div>
+
+            <div class="pos-stage">
+              <!-- State 1: Amount entry -->
+              <div class="pos-frame pos-frame-amount">
+                <span class="pos-caption">MONTO A COBRAR</span>
+                <p class="pos-amount">$85.00 <span class="pos-currency">MXN</span></p>
+                <p class="pos-items">3× Tacos al pastor · 1× Agua fresca</p>
+                <div class="pos-pill-indicator">Generando QR CoDi…</div>
+              </div>
+
+              <!-- State 2: QR Card -->
+              <div class="pos-frame pos-frame-qr">
+                <div class="pos-qr-card">
+                  <div class="pos-qr-header">
+                    <span class="badge badge-codi">
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <rect x="2" y="2" width="5" height="5" stroke="currentColor" stroke-width="1.8"></rect>
+                        <rect x="9" y="2" width="5" height="5" stroke="currentColor" stroke-width="1.8"></rect>
+                        <rect x="2" y="9" width="5" height="5" stroke="currentColor" stroke-width="1.8"></rect>
+                        <rect x="9" y="9" width="5" height="5" fill="currentColor"></rect>
+                      </svg>
+                      <span>QR CoDi</span>
+                    </span>
+                    <span class="pos-qr-amount">$85.00</span>
+                  </div>
+                  <div class="pos-qr-matrix" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                  <p class="pos-qr-hint">Escanea desde tu app bancaria</p>
+                </div>
+              </div>
+
+              <!-- State 3: Success check inside expanding brand ring -->
+              <div class="pos-frame pos-frame-success">
+                <div class="pos-success-ring-wrap">
+                  <span class="pos-expanding-ring" aria-hidden="true"></span>
+                  <div class="pos-success-circle">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M5 13L9.5 17.5L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                </div>
+                <p class="pos-success-title">¡Cobrado! +$85.00</p>
+                <p class="pos-success-sub">Inventario actualizado · Orden #104 pagada</p>
+              </div>
+            </div>
+
+            <div class="pos-Timeline-dots" aria-hidden="true">
+              <span class="pos-step-label">1. Monto</span>
+              <span class="pos-step-label">2. QR CoDi</span>
+              <span class="pos-step-label">3. ¡Cobrado!</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- 5. Para todos los negocios -->
+    <section class="section" id="para-tu-negocio" aria-labelledby="negocios-title">
+      <div class="container">
+        <p class="eyebrow">
+          <span class="eyebrow-line" aria-hidden="true"></span>
+          <span>PARA TODOS LOS NEGOCIOS</span>
+        </p>
+        <h2 class="section-title" id="negocios-title">Desde un puesto en la esquina hasta una tienda departamental.</h2>
+        <p class="section-lead">Elige el giro de tu negocio y adapta el flujo de entrega según cómo atiendes a tus clientes.</p>
+
+        <ul class="category-grid">
+          <li class="category-card">
+            <span class="category-icon" aria-hidden="true">🌮</span>
+            <span class="category-name">Comida</span>
+          </li>
+          <li class="category-card">
+            <span class="category-icon" aria-hidden="true">🪡</span>
+            <span class="category-name">Sastrería</span>
+          </li>
+          <li class="category-card">
+            <span class="category-icon" aria-hidden="true">👟</span>
+            <span class="category-name">Calzado</span>
+          </li>
+          <li class="category-card">
+            <span class="category-icon" aria-hidden="true">👕</span>
+            <span class="category-name">Ropa</span>
+          </li>
+          <li class="category-card">
+            <span class="category-icon" aria-hidden="true">🏬</span>
+            <span class="category-name">Departamental</span>
+          </li>
+          <li class="category-card">
+            <span class="category-icon" aria-hidden="true">🧺</span>
+            <span class="category-name">Abarrotes</span>
+          </li>
+          <li class="category-card">
+            <span class="category-icon" aria-hidden="true">🔧</span>
+            <span class="category-name">Servicios</span>
+          </li>
+          <li class="category-card">
+            <span class="category-icon" aria-hidden="true">✨</span>
+            <span class="category-name">Otros</span>
+          </li>
+        </ul>
+
+        <div class="fulfillment-grid">
+          <article class="fulfillment-card">
+            <div class="fulfillment-header">
+              <span class="badge badge-paid">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>Al instante</span>
+              </span>
+              <span class="mono-tag">Abarrotes · Ropa · Calzado</span>
+            </div>
+            <h3 class="fulfillment-title">Entrega inmediata</h3>
+            <p class="fulfillment-desc">El cliente toma el producto en el mostrador, escanea el QR CoDi y la venta queda cerrada y descontada del inventario en un solo paso.</p>
+            <div class="timeline-preview">
+              <div class="timeline-row">
+                <span class="timeline-dot timeline-dot-brand" aria-hidden="true"></span>
+                <span class="timeline-time">13:04</span>
+                <span class="timeline-text">Cobro confirmado · Entregado en mostrador</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="fulfillment-card">
+            <div class="fulfillment-header">
+              <span class="badge badge-prep">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.8"></circle>
+                  <path d="M8 5V8.2L10.2 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                </svg>
+                <span>Preparando → Listo</span>
+              </span>
+              <span class="mono-tag">Comida · Sastrería · Servicios</span>
+            </div>
+            <h3 class="fulfillment-title">Con tiempo de elaboración</h3>
+            <p class="fulfillment-desc">Cuando tu pedido requiere cocina, taller o ajuste, la orden entra a la fila activa con estado <strong>Preparando</strong> y avisa al pasar a <strong>Listo</strong>.</p>
+            <div class="timeline-preview">
+              <div class="timeline-row">
+                <span class="timeline-dot timeline-dot-cempasuchil" aria-hidden="true"></span>
+                <span class="timeline-time">13:05</span>
+                <span class="timeline-text">Estado: <strong>Preparando</strong> — Orden #104 en cocina</span>
+              </div>
+              <div class="timeline-row">
+                <span class="timeline-dot timeline-dot-brand" aria-hidden="true"></span>
+                <span class="timeline-time">13:12</span>
+                <span class="timeline-text">Estado: <strong>Listo</strong> — Avisar al cliente para recoger</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Un perfil, dos modos -->
+    <section class="section" id="modos" aria-labelledby="modos-title">
+      <div class="container">
+        <p class="eyebrow">
+          <span class="eyebrow-line" aria-hidden="true"></span>
+          <span>UN PERFIL, DOS MODOS</span>
+        </p>
+        <h2 class="section-title" id="modos-title">Cambia entre Cliente y Negocio con un toque.</h2>
+        <p class="section-lead">Una misma cuenta te sirve para vender en tu puesto por la mañana y comprar en el barrio por la tarde.</p>
+
+        <div class="mode-demo">
+          <div class="segmented-control" role="tablist" aria-label="Seleccionar modo de uso">
+            <span class="segmented-thumb" id="mode-thumb" aria-hidden="true"></span>
+            <button type="button" role="tab" class="segmented-btn is-active" id="tab-cliente" aria-selected="true" aria-controls="panel-cliente" data-mode="cliente">
+              Modo Cliente
+            </button>
+            <button type="button" role="tab" class="segmented-btn" id="tab-negocio" aria-selected="false" aria-controls="panel-negocio" data-mode="negocio">
+              Modo Negocio
+            </button>
+          </div>
+
+          <div class="mode-panels">
+            <div class="mode-panel is-active" id="panel-cliente" role="tabpanel" aria-labelledby="tab-cliente">
+              <div class="mode-panel-grid">
+                <div>
+                  <span class="mono-tag">VISTA CLIENTE</span>
+                  <h3 class="mode-panel-title">Paga rápido y sigue el estado de tu pedido.</h3>
+                  <p class="mode-panel-copy">Consulta tus compras recientes, revisa el desglose de cada recibo y mira en tiempo real si tu orden está en estado <strong>Preparando</strong> o <strong>Listo</strong> para recoger.</p>
+                </div>
+                <div class="mode-mock-card">
+                  <div class="mode-mock-row">
+                    <span>Orden #104 · Taquería El Porvenir</span>
+                    <span class="badge badge-prep">
+                      <span class="badge-dot" aria-hidden="true"></span>
+                      <span>Preparando</span>
+                    </span>
+                  </div>
+                  <p class="mode-mock-amount">$85.00</p>
+                  <p class="mode-mock-meta">Pagado con CoDi · Hace 2 min</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mode-panel" id="panel-negocio" role="tabpanel" aria-labelledby="tab-negocio" hidden>
+              <div class="mode-panel-grid">
+                <div>
+                  <span class="mono-tag">VISTA NEGOCIO</span>
+                  <h3 class="mode-panel-title">Teclado de cobro, QR al instante e inventario al día.</h3>
+                  <p class="mode-panel-copy">Genera cobros en segundos, administra tu catálogo, recibe alertas cuando un insumo está por agotarse y marca órdenes como listas.</p>
+                </div>
+                <div class="mode-mock-card">
+                  <div class="mode-mock-row">
+                    <span>Ventas del turno actual</span>
+                    <span class="badge badge-paid">
+                      <span class="badge-dot" aria-hidden="true"></span>
+                      <span>Activo</span>
+                    </span>
+                  </div>
+                  <p class="mode-mock-amount">+$1,420.00</p>
+                  <p class="mode-mock-meta">18 cobros CoDi confirmados · 0 rechazados</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Asistente IA -->
+    <section class="section" id="ia" aria-labelledby="ia-title">
+      <div class="container">
+        <p class="eyebrow">
+          <span class="eyebrow-line" aria-hidden="true"></span>
+          <span>ASISTENTE IA</span>
+        </p>
+        <h2 class="section-title" id="ia-title">Habla o escribe como en el mostrador.</h2>
+        <p class="section-lead">Registra ventas rápidas, pregunta qué mercancía falta surtir o consulta tu corte del día sin navegar menús complicados.</p>
+
+        <div class="ai-card">
+          <div class="ai-header">
+            <div class="ai-orb-wrap" aria-hidden="true">
+              <div class="ai-orb"></div>
+            </div>
+            <div>
+              <p class="ai-greeting" id="ai-greeting">Hola, soy tu asistente. ¿Qué hacemos hoy?</p>
+              <p class="ai-sub">Toca una sugerencia para probar cómo responde en tu negocio:</p>
+            </div>
+          </div>
+
+          <div class="ai-chips" role="group" aria-label="Sugerencias para el asistente IA">
+            <button type="button" class="prompt-chip" data-prompt-index="0">
+              <span>«Vendí 3 tacos de pastor»</span>
+            </button>
+            <button type="button" class="prompt-chip" data-prompt-index="1">
+              <span>«¿Qué se me está acabando?»</span>
+            </button>
+            <button type="button" class="prompt-chip" data-prompt-index="2">
+              <span>«¿Cuánto vendí hoy?»</span>
+            </button>
+          </div>
+
+          <div class="ai-chat-window" aria-live="polite" aria-atomic="false">
+            <div class="ai-bubble ai-bubble-user" id="ai-user-bubble">
+              «Vendí 3 tacos de pastor»
+            </div>
+            <div class="ai-bubble ai-bubble-assistant" id="ai-reply-bubble">
+              <span class="ai-reply-tag">Asistente PaydMex</span>
+              <p class="ai-reply-text" id="ai-reply-text">Listo: armé el cobro por $75.00 (3× Tacos de pastor) y preparé el QR CoDi. Al pagarse, quedarán 27 órdenes disponibles en tu inventario.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Accesibilidad -->
+    <section class="section" id="accesibilidad" aria-labelledby="a11y-title">
+      <div class="container">
+        <p class="eyebrow">
+          <span class="eyebrow-line" aria-hidden="true"></span>
+          <span>ACCESIBILIDAD DESDE LA BASE</span>
+        </p>
+        <h2 class="section-title" id="a11y-title">Diseñado para que cualquier persona pueda cobrar y pagar.</h2>
+        <p class="section-lead">Bajo el sol del tianguis, con una mano ocupada o usando lector de pantalla: la accesibilidad no es un extra, es parte del sistema.</p>
+
+        <ul class="a11y-grid">
+          <li class="a11y-card">
+            <h3 class="a11y-card-title">Lector de pantalla</h3>
+            <p class="a11y-card-desc">Etiquetas semánticas en cada control y anuncios audibles cuando cambia el estado del cobro («Pago recibido por 85 pesos»).</p>
+          </li>
+          <li class="a11y-card">
+            <h3 class="a11y-card-title">Contraste verificado</h3>
+            <p class="a11y-card-desc">Relación mínima de 4.5:1 en textos y 3:1 en interfaz. Nunca usamos texto blanco sobre verde ni comunicamos estados solo con color.</p>
+          </li>
+          <li class="a11y-card">
+            <h3 class="a11y-card-title">Texto hasta 200%</h3>
+            <p class="a11y-card-desc">Tipografía clara en Instrument Sans y números tabulares en JetBrains Mono que escalan hasta el 200% sin recortar botones ni montos.</p>
+          </li>
+          <li class="a11y-card">
+            <h3 class="a11y-card-title">Reducir movimiento</h3>
+            <p class="a11y-card-desc">Respetamos la preferencia del sistema operativo desactivando partículas, conteos y bucles para mostrar confirmaciones estáticas y directas.</p>
+          </li>
+          <li class="a11y-card">
+            <h3 class="a11y-card-title">Control por voz</h3>
+            <p class="a11y-card-desc">El asistente IA permite dictar ventas o consultar inventario con la voz cuando tienes las manos ocupadas atendiendo.</p>
+          </li>
+          <li class="a11y-card">
+            <h3 class="a11y-card-title">Teclas grandes (48dp+)</h3>
+            <p class="a11y-card-desc">Áreas táctiles de al menos 48×48 dp y anillos de enfoque visibles de 2px para navegar con teclado o interruptor.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 9. CTA final -->
+    <section class="section cta-final-section" aria-labelledby="cta-final-title">
+      <div class="container">
+        <div class="cta-final-card">
+          <h2 class="cta-final-title" id="cta-final-title">Que tu negocio cobre como el futuro.</h2>
+          <div class="cta-final-actions">
+            <a class="btn btn-brand btn-lg" href="#" data-app-cta>Probar demo</a>
+          </div>
+          <p class="cta-disclaimer">
+            PaydMex es un prototipo del hackatón DevDay Exchange CDMX. Los pagos se procesan a través de pey sobre CoDi (Banco de México).
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 10. Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a class="brand-logo" href="#top" aria-label="PaydMex, volver arriba">
+        <svg class="logo-mark" width="28" height="28" viewBox="0 0 40 40" fill="none" aria-hidden="true" focusable="false">
+          <circle cx="20" cy="20" r="17" stroke="currentColor" stroke-width="2.5"></circle>
+          <path d="M15.5 27.5V12.5H21.5C24.5376 12.5 27 14.7386 27 17.5C27 20.2614 24.5376 22.5 21.5 22.5H18.5V27.5H15.5ZM18.5 19.75H21.25C22.7688 19.75 24 18.7426 24 17.5C24 16.2574 22.7688 15.25 21.25 15.25H18.5V19.75Z" fill="currentColor"></path>
+        </svg>
+        <span class="brand-name">PaydMex</span>
+      </a>
+
+      <ul class="footer-links">
+        <li><a class="footer-link" href="#como-funciona">Cómo funciona</a></li>
+        <li><a class="footer-link" href="#para-tu-negocio">Para tu negocio</a></li>
+        <li><a class="footer-link" href="#accesibilidad">Accesibilidad</a></li>
+      </ul>
+
+      <p class="footer-copy">© 2026 PaydMex</p>
+    </div>
+  </footer>
+
+  <script src="js/particles.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
