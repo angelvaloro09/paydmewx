@@ -121,6 +121,8 @@ export const payments = sqliteTable('payments', {
     .notNull()
     .references(() => orders.id),
   codiQrId: text('codiQrId'),
+  qrString: text('qrString'),
+  expiresAt: integer('expiresAt'),
   transactionId: text('transactionId'),
   status: text('status').notNull(),
   amountCents: integer('amountCents').notNull(),

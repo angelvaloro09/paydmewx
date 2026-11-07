@@ -3,12 +3,18 @@ import cors from '@fastify/cors';
 import { ZodError } from 'zod';
 import { runMigrations } from './db/migrate.js';
 import { AppError } from './lib/errors.js';
+import type { PeyClient } from './lib/pey.js';
 import { authRoutes } from './routes/auth.js';
 import { businessRoutes } from './routes/business.js';
 import { discoveryRoutes } from './routes/discovery.js';
 import { healthRoutes } from './routes/health.js';
+import { orderRoutes } from './routes/orders.js';
 
-export async function buildApp(): Promise<FastifyInstance> {
+export interface BuildAppOptions {
+  pey?: PeyClient;
+}
+
+export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyInstance> {
   await runMigrations();
 
   const app = Fastify({
@@ -77,6 +83,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(authRoutes);
   await app.register(discoveryRoutes);
   await app.register(businessRoutes);
+  await app.register(orderRoutes, { pey: options.pey });
 
   return app;
 }

@@ -61,11 +61,10 @@ export function loadConfig(overrides?: Record<string, string | undefined>): AppC
   };
   const parsed = envSchema.parse(merged);
 
-  if (
-    merged.NODE_ENV === 'production' &&
-    (INSECURE_JWT_SECRETS.has(parsed.JWT_SECRET) || parsed.JWT_SECRET.length < 32)
-  ) {
-    throw new Error('JWT_SECRET must be set to a random value of at least 32 chars in production');
+  // Strict everywhere except the test runner: a missing/weak secret must never boot a real server.
+  const strict = !isTest || merged.NODE_ENV === 'production';
+  if (strict && (INSECURE_JWT_SECRETS.has(parsed.JWT_SECRET) || parsed.JWT_SECRET.length < 32)) {
+    throw new Error('JWT_SECRET must be set to a random value of at least 32 chars');
   }
 
   return parsed;

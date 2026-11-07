@@ -67,6 +67,8 @@ const MIGRATION_STATEMENTS = [
     id TEXT PRIMARY KEY NOT NULL,
     orderId TEXT NOT NULL REFERENCES orders(id),
     codiQrId TEXT,
+    qrString TEXT,
+    expiresAt INTEGER,
     transactionId TEXT,
     status TEXT NOT NULL,
     amountCents INTEGER NOT NULL,
@@ -89,6 +91,17 @@ const MIGRATION_STATEMENTS = [
 export async function runMigrations(dbClient: Client = defaultClient): Promise<void> {
   for (const statement of MIGRATION_STATEMENTS) {
     await dbClient.execute(statement);
+  }
+
+  const paymentCols = await dbClient.execute(`PRAGMA table_info(payments)`);
+  const existingColNames = new Set(
+    paymentCols.rows.map((r) => String((r as Record<string, unknown>).name))
+  );
+  if (!existingColNames.has('qrString')) {
+    await dbClient.execute(`ALTER TABLE payments ADD COLUMN qrString TEXT`);
+  }
+  if (!existingColNames.has('expiresAt')) {
+    await dbClient.execute(`ALTER TABLE payments ADD COLUMN expiresAt INTEGER`);
   }
 }
 
