@@ -5,6 +5,7 @@
   --surface2: #F1EFEA;
   --ink: #0A0A0A;
   --inkMuted: #5B5B57;
+  --ink-ghost: #C2C1BE;
   --line: rgba(10, 10, 10, .10);
   --brand: #00C853;
   --brandText: #00763A;
@@ -20,6 +21,7 @@
   --hero-surface2: rgba(255, 255, 255, .08);
   --hero-ink: #F5F4F0;
   --hero-inkMuted: #A3A39E;
+  --hero-ink-ghost: #464649;
   --hero-line: rgba(255, 255, 255, .10);
 
   /* Motion tokens */
@@ -68,6 +70,7 @@
     --surface2: rgba(255, 255, 255, .08);
     --ink: #F5F4F0;
     --inkMuted: #A3A39E;
+    --ink-ghost: #464649;
     --line: rgba(255, 255, 255, .10);
     --brand: #19E36B;
     --brandText: #19E36B;

@@ -55,12 +55,15 @@
       </button>
 
       <nav class="site-nav" id="nav-menu" aria-label="Navegación principal">
-        <ul class="nav-list">
-          <li><a class="nav-link" href="#como-funciona">Cómo funciona</a></li>
-          <li><a class="nav-link" href="#para-tu-negocio">Para tu negocio</a></li>
-          <li><a class="nav-link" href="#ia">IA</a></li>
-          <li><a class="nav-link" href="#accesibilidad">Accesibilidad</a></li>
-        </ul>
+        <div class="nav-list-wrap">
+          <span class="nav-active-pill" id="nav-active-pill" aria-hidden="true"></span>
+          <ul class="nav-list">
+            <li><a class="nav-link" href="#como-funciona" aria-current="true">Cómo funciona</a></li>
+            <li><a class="nav-link" href="#para-tu-negocio">Para tu negocio</a></li>
+            <li><a class="nav-link" href="#ia">IA</a></li>
+            <li><a class="nav-link" href="#accesibilidad">Accesibilidad</a></li>
+          </ul>
+        </div>
         <a class="btn btn-dark nav-cta" href="#" data-app-cta>Probar demo</a>
       </nav>
     </div>
@@ -80,7 +83,7 @@
             <span class="hero-reveal-line hero-reveal-line-1">Cobra en segundos.</span>
             <span class="hero-reveal-line hero-reveal-line-2">Sin terminal.</span>
           </h1>
-          <p class="hero-subcopy">
+          <p class="hero-subcopy" data-scroll-words>
             Para puestos, locales y tiendas en toda la ciudad. Genera cobros con QR CoDi —el sistema de cobro digital del Banco de México—, controla tu inventario y usa inteligencia artificial en una sola app.
           </p>
           <div class="hero-actions">
@@ -122,7 +125,7 @@
           <span class="eyebrow-line" aria-hidden="true"></span>
           <span>CÓMO FUNCIONA</span>
         </p>
-        <h2 class="section-title" id="como-funciona-title">Tres pasos del mostrador a tu cuenta.</h2>
+        <h2 class="section-title" id="como-funciona-title" data-scroll-words>Tres pasos del mostrador <span data-emph>a tu cuenta.</span></h2>
 
         <ol class="steps-grid">
           <li class="step-card">
@@ -483,7 +486,7 @@
           <span class="eyebrow-line" aria-hidden="true"></span>
           <span>UN PERFIL, DOS MODOS</span>
         </p>
-        <h2 class="section-title" id="modos-title">Cambia entre Cliente y Negocio con un toque.</h2>
+        <h2 class="section-title" id="modos-title" data-scroll-words>Cambia entre Cliente y Negocio <span data-emph>con un toque.</span></h2>
         <p class="section-lead">Una misma cuenta te sirve para vender en tu puesto por la mañana y comprar en el barrio por la tarde.</p>
 
         <div class="mode-demo">
@@ -633,7 +636,7 @@
     <section class="section cta-final-section" aria-labelledby="cta-final-title">
       <div class="container">
         <div class="cta-final-card">
-          <h2 class="cta-final-title" id="cta-final-title">Que tu negocio cobre como el futuro.</h2>
+          <h2 class="cta-final-title" id="cta-final-title" data-scroll-words>Que tu negocio cobre <span data-emph>como el futuro.</span></h2>
           <div class="cta-final-actions">
             <a class="btn btn-brand btn-lg" href="#" data-app-cta>Probar demo</a>
           </div>
@@ -668,6 +671,8 @@
 
   <script src="js/particles.js" defer></script>
   <script src="js/carousel.js" defer></script>
+  <script src="js/nav.js" defer></script>
+  <script src="js/scroll-reveal.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>

@@ -2,10 +2,9 @@
  * PaydMex — Main Landing Interactions (js/main.js)
  * Handles:
  * 1. <meta name="app-url"> CTA wiring
- * 2. Sticky header blur-on-scroll & accessible mobile menu disclosure (< 760px)
- * 3. Facts strip one-time count-up (respects prefers-reduced-motion)
- * 4. Cliente <-> Negocio pill segmented toggle (300ms slide + keyboard arrow support)
- * 5. AI Assistant prompt chips -> canned reply typewriter (instant in reduced motion)
+ * 2. Facts strip one-time count-up (respects prefers-reduced-motion)
+ * 3. Cliente <-> Negocio pill segmented toggle (300ms slide + keyboard arrow support)
+ * 4. AI Assistant prompt chips -> canned reply typewriter (instant in reduced motion)
  */
 (function () {
   'use strict';
@@ -20,51 +19,7 @@
     link.setAttribute('href', appUrl);
   });
 
-  // 2. Sticky header blur-on-scroll & mobile menu disclosure
-  const header = document.getElementById('site-header');
-  const navToggle = document.getElementById('nav-toggle');
-  const navMenu = document.getElementById('nav-menu');
-
-  function syncScrollHeader() {
-    if (!header) return;
-    if (window.scrollY > 8) {
-      header.classList.add('is-scrolled');
-    } else {
-      header.classList.remove('is-scrolled');
-    }
-  }
-
-  window.addEventListener('scroll', syncScrollHeader, { passive: true });
-  syncScrollHeader();
-
-  function setMenuOpen(open) {
-    if (!navToggle || !navMenu) return;
-    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    navToggle.setAttribute('aria-label', open ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
-    navMenu.classList.toggle('is-open', open);
-  }
-
-  if (navToggle && navMenu) {
-    navToggle.addEventListener('click', function () {
-      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-      setMenuOpen(!expanded);
-    });
-
-    navMenu.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        setMenuOpen(false);
-      });
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
-        setMenuOpen(false);
-        navToggle.focus();
-      }
-    });
-  }
-
-  // 3. Facts strip count-up once on first view
+  // 2. Facts strip count-up once on first view
   const factsStrip = document.getElementById('facts-strip');
   let factsAnimated = false;
 

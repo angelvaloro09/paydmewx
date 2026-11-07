@@ -67,6 +67,7 @@ body {
 .section {
   padding-block: var(--space-12);
   border-bottom: 1px solid var(--line);
+  scroll-margin-top: 88px;
 }
 
 @media (min-width: 760px) {
@@ -230,38 +231,50 @@ body {
 }
 
 /* ==========================================================================
-   1. Sticky Nav
+   1. Floating Glass Pill Nav (B2)
    ========================================================================== */
 .site-header {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: 12px;
+  left: 0;
+  right: 0;
   z-index: 100;
-  background-color: var(--bg);
-  border-bottom: 1px solid transparent;
-  transition: background-color var(--base) var(--easeStd), border-color var(--base) var(--easeStd), backdrop-filter var(--base) var(--easeStd);
-}
-
-.site-header.is-scrolled {
-  background-color: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom-color: var(--line);
+  display: flex;
+  justify-content: center;
+  padding-inline: var(--space-3);
+  pointer-events: none;
 }
 
 .nav-container {
+  pointer-events: auto;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-4);
-  max-width: var(--max-width);
-  margin-inline: auto;
-  padding: var(--space-3) var(--space-4);
-  min-height: 68px;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 520px;
+  min-height: 60px;
+  padding: 6px var(--space-2) 6px var(--space-4);
+  background-color: rgba(250, 249, 246, 0.92);
+  background-color: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid var(--line);
+  border-radius: var(--pill);
+  box-shadow: var(--shadow-float);
 }
 
 @media (min-width: 760px) {
+  .site-header {
+    padding-inline: var(--space-4);
+  }
+
   .nav-container {
-    padding-inline: var(--space-6);
+    width: fit-content;
+    max-width: calc(100vw - 32px);
+    gap: var(--space-4);
+    padding: 6px 6px 6px var(--space-4);
   }
 }
 
@@ -270,11 +283,14 @@ body {
   align-items: center;
   gap: var(--space-2);
   min-height: 48px;
+  padding-inline: var(--space-1);
   color: var(--ink);
   text-decoration: none;
   font-weight: 600;
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   letter-spacing: -0.02em;
+  border-radius: var(--pill);
+  flex-shrink: 0;
 }
 
 .logo-mark {
@@ -295,6 +311,7 @@ body {
   border: 1px solid var(--line);
   border-radius: var(--pill);
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .nav-toggle-bar {
@@ -316,13 +333,39 @@ body {
 .site-nav {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
+  gap: var(--space-3);
+}
+
+.nav-list-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-active-pill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  border-radius: var(--pill);
+  background-color: var(--surface2);
+  border: 1px solid var(--line);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--base) var(--easeStd), width var(--base) var(--easeStd), opacity var(--fast) var(--easeStd);
+}
+
+.nav-active-pill.is-visible {
+  opacity: 1;
 }
 
 .nav-list {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 2px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -331,23 +374,32 @@ body {
 .nav-link {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   min-height: 48px;
+  min-width: 48px;
   padding-inline: var(--space-3);
   color: var(--inkMuted);
   text-decoration: none;
   font-size: 0.9375rem;
   font-weight: 500;
-  border-radius: var(--sm);
+  border-radius: var(--pill);
+  white-space: nowrap;
   transition: color var(--fast) var(--easeStd);
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link[aria-current="true"] {
   color: var(--ink);
+}
+
+.nav-link[aria-current="true"] {
+  font-weight: 600;
 }
 
 .nav-cta {
   min-height: 48px;
-  padding-block: 10px;
+  padding: 10px var(--space-4);
+  white-space: nowrap;
 }
 
 @media (min-width: 760px) {
@@ -360,16 +412,19 @@ body {
   .site-nav {
     display: none;
     position: absolute;
-    top: 100%;
-    left: var(--space-4);
-    right: var(--space-4);
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
     flex-direction: column;
     align-items: stretch;
     gap: var(--space-3);
     padding: var(--space-4);
-    background-color: var(--bg);
+    background-color: rgba(250, 249, 246, 0.96);
+    background-color: color-mix(in srgb, var(--bg) 96%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
     border: 1px solid var(--line);
-    border-radius: var(--lg);
+    border-radius: var(--xl);
     box-shadow: var(--shadow-float);
   }
 
@@ -377,14 +432,30 @@ body {
     display: flex;
   }
 
+  .nav-list-wrap {
+    width: 100%;
+  }
+
+  .nav-active-pill {
+    display: none;
+  }
+
   .nav-list {
+    width: 100%;
     flex-direction: column;
     align-items: stretch;
+    gap: var(--space-1);
   }
 
   .nav-link {
     width: 100%;
-    padding-inline: var(--space-3);
+    justify-content: flex-start;
+    padding-inline: var(--space-4);
+  }
+
+  .nav-link[aria-current="true"] {
+    background-color: var(--surface2);
+    border: 1px solid var(--line);
   }
 
   .nav-cta {
@@ -393,17 +464,55 @@ body {
 }
 
 /* ==========================================================================
+   1b. Progressive Word Color (B2 — data-scroll-words)
+   ========================================================================== */
+[data-scroll-words] {
+  --p: 1;
+  --sw-start: var(--ink-ghost);
+  --sw-end: var(--ink);
+}
+
+.hero-frame [data-scroll-words],
+.cta-final-card [data-scroll-words] {
+  --sw-start: var(--hero-ink-ghost);
+  --sw-end: var(--hero-ink);
+}
+
+[data-scroll-words] .sw {
+  color: var(--sw-end);
+}
+
+[data-scroll-words] .sw[data-emph] {
+  --sw-end: var(--brandText);
+}
+
+.hero-frame [data-scroll-words] .sw[data-emph],
+.cta-final-card [data-scroll-words] .sw[data-emph] {
+  --sw-end: #19E36B;
+}
+
+@supports (color: color-mix(in srgb, black 50%, white)) {
+  [data-scroll-words] .sw {
+    color: color-mix(
+      in srgb,
+      var(--sw-end) clamp(0%, calc((var(--p, 1) - var(--o, 0)) / 0.45 * 100%), 100%),
+      var(--sw-start)
+    );
+  }
+}
+
+/* ==========================================================================
    2. Hero inside a dark rounded frame (radius 24, inset 16px)
    ========================================================================== */
 .hero-wrapper {
-  padding: var(--space-2) 16px var(--space-6) 16px;
+  padding: var(--space-3) 16px var(--space-6) 16px;
 }
 
 .hero-frame {
   position: relative;
   max-width: 1408px;
   margin-inline: auto;
-  min-height: 540px;
+  min-height: 560px;
   border-radius: var(--xl);
   background-color: var(--hero-bg);
   color: var(--hero-ink);
@@ -428,7 +537,7 @@ body {
   width: 100%;
   max-width: var(--max-width);
   margin-inline: auto;
-  padding: var(--space-12) var(--space-6);
+  padding: calc(var(--space-12) + 52px) var(--space-6) var(--space-12) var(--space-6);
 }
 
 /* Narrow screens: text spans the full frame, so keep a soft backdrop. Wide screens use the in-canvas scrim. */
@@ -440,7 +549,7 @@ body {
 
 @media (min-width: 760px) {
   .hero-content {
-    padding: var(--space-16) var(--space-12);
+    padding: calc(var(--space-16) + 44px) var(--space-12) var(--space-16) var(--space-12);
   }
 }
 
@@ -1539,17 +1648,26 @@ body {
     animation: none;
   }
 
-  /* Transitions <= 150ms opacity only */
+  /* Transitions <= 150ms opacity only; nav pill & scroll reveal instant */
   .btn,
   .segmented-thumb,
   .segmented-btn,
   .prompt-chip,
-  .site-header,
   .carousel-btn,
   .carousel-dot::before,
   .category-card,
   .category-illustration {
     transition: opacity 150ms linear;
+  }
+
+  .nav-active-pill,
+  .nav-toggle-bar,
+  .nav-link {
+    transition: none;
+  }
+
+  [data-scroll-words] .sw {
+    color: var(--sw-end);
   }
 
   .btn:hover,
