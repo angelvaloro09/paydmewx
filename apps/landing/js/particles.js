@@ -1,7 +1,8 @@
 /**
  * PaydMex — Hero Glyph-Particle Sphere (js/particles.js)
- * Renders ~600 currency/math glyphs ($ ¢ ₱ +) distributed on a Fibonacci sphere.
+ * Renders 380 currency/math glyphs ($ ¢ ₱ +) distributed on a Fibonacci sphere.
  * Features: slow rotation, pointer parallax, DPR capped at 2,
+ * left-to-right scrim for headline contrast, front hemisphere brand glow,
  * IntersectionObserver off-screen pause, single static frame when prefers-reduced-motion: reduce.
  */
 (function () {
@@ -14,25 +15,35 @@
   if (!ctx) return;
 
   const GLYPHS = ['$', '¢', '₱', '+'];
-  const COUNT = 600;
+  const COUNT = 380;
   const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
+
+  const FRONT_COLOR = '#19E36B';
+  const FRONT_GLOW_COLOR = 'rgba(25, 227, 107, 0.4)';
+  const FRONT_SHADOW_BLUR = 8;
+  const REAR_COLOR = '#F5F4F0';
 
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   let isReducedMotion = reducedMotionQuery.matches;
 
-  // Build Fibonacci sphere points
-  const points = [];
+  // Build Fibonacci sphere points and reusable projection buffers
+  const points = new Array(COUNT);
+  const rearQueue = new Array(COUNT);
+  const frontQueue = new Array(COUNT);
+
   for (let i = 0; i < COUNT; i++) {
     const y = 1 - (i / (COUNT - 1)) * 2;
     const radiusAtY = Math.sqrt(1 - y * y);
     const theta = GOLDEN_ANGLE * i;
-    points.push({
+    points[i] = {
       x: Math.cos(theta) * radiusAtY,
       y: y,
       z: Math.sin(theta) * radiusAtY,
       glyph: GLYPHS[i % GLYPHS.length],
-      isBrand: i % 19 === 0
-    });
+      screenX: 0,
+      screenY: 0,
+      alpha: 0
+    };
   }
 
   let width = 0;
@@ -47,8 +58,17 @@
   let isVisible = true;
   let rafId = null;
 
+  function computeScrimFactor(screenX) {
+    const xNorm = screenX / width;
+    if (xNorm <= 0.35) return 0.25;
+    if (xNorm >= 0.70) return 1.0;
+    return 0.25 + ((xNorm - 0.35) / 0.35) * 0.75;
+  }
+
   function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
+    const parent = canvas.parentElement;
+    if (!parent) return;
+    const rect = parent.getBoundingClientRect();
     width = Math.max(1, Math.floor(rect.width));
     height = Math.max(1, Math.floor(rect.height));
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -63,9 +83,16 @@
   function drawFrame() {
     ctx.clearRect(0, 0, width, height);
 
-    const sphereRadius = Math.min(width, height) * (width >= 760 ? 0.42 : 0.36);
-    const centerX = width >= 760 ? width * 0.72 : width * 0.58;
-    const centerY = height * 0.52;
+    const shorterSide = Math.min(width, height);
+    const sphereRadius = shorterSide * 0.46;
+    const narrow = width < 760;
+    // On narrow screens the text spans the full width: keep the sphere as a faint backdrop.
+    const alphaMul = narrow ? 0.4 : 1;
+    const centerX = width * (narrow ? 0.7 : 0.68);
+    const centerY = height * (narrow ? 0.7 : 0.52);
+
+    // Scale font size with sphere radius between 15px and 22px
+    const fontSize = Math.round(Math.min(22, Math.max(15, sphereRadius * 0.072)));
 
     const pitch = rotX + currentParallaxY * 0.35;
     const yaw = rotY + currentParallaxX * 0.35;
@@ -75,9 +102,8 @@
     const cosX = Math.cos(pitch);
     const sinX = Math.sin(pitch);
 
-    ctx.font = '500 13px "JetBrains Mono", monospace';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+    let rearCount = 0;
+    let frontCount = 0;
 
     for (let i = 0; i < COUNT; i++) {
       const p = points[i];
@@ -92,22 +118,55 @@
 
       // Depth normalize (-1..1 -> 0..1)
       const depth = (z2 + 1) * 0.5;
-      if (depth < 0.08) continue;
-
       const perspective = 0.78 + depth * 0.44;
       const screenX = centerX + x1 * sphereRadius * perspective;
       const screenY = centerY + y2 * sphereRadius * perspective;
+      const scrim = computeScrimFactor(screenX) * alphaMul;
 
-      const alpha = Math.min(0.88, Math.max(0.08, depth * depth * 0.85));
+      p.screenX = screenX;
+      p.screenY = screenY;
 
-      if (p.isBrand) {
-        ctx.fillStyle = 'rgba(25, 227, 107, ' + alpha.toFixed(2) + ')';
+      if (z2 < 0) {
+        // Rear hemisphere: alpha floor 0.30 up to 0.55 (light tint #F5F4F0 at ~55% alpha)
+        const rearAlpha = 0.30 + (depth / 0.5) * 0.25;
+        p.alpha = rearAlpha * scrim;
+        rearQueue[rearCount++] = p;
       } else {
-        ctx.fillStyle = 'rgba(245, 244, 240, ' + (alpha * 0.68).toFixed(2) + ')';
+        // Front hemisphere: brand green #19E36B, alpha 0.60 up to 1.0
+        const frontAlpha = 0.60 + ((depth - 0.5) / 0.5) * 0.40;
+        p.alpha = Math.min(1.0, frontAlpha) * scrim;
+        frontQueue[frontCount++] = p;
       }
-
-      ctx.fillText(p.glyph, screenX, screenY);
     }
+
+    ctx.font = '600 ' + fontSize + 'px "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Pass 1: Rear hemisphere glyphs (no shadow)
+    ctx.shadowBlur = 0;
+    ctx.shadowColor = 'transparent';
+    ctx.fillStyle = REAR_COLOR;
+    for (let i = 0; i < rearCount; i++) {
+      const p = rearQueue[i];
+      ctx.globalAlpha = p.alpha;
+      ctx.fillText(p.glyph, p.screenX, p.screenY);
+    }
+
+    // Pass 2: Front hemisphere glyphs (brand green + soft glow, reset after)
+    ctx.fillStyle = FRONT_COLOR;
+    ctx.shadowColor = FRONT_GLOW_COLOR;
+    ctx.shadowBlur = FRONT_SHADOW_BLUR;
+    for (let i = 0; i < frontCount; i++) {
+      const p = frontQueue[i];
+      ctx.globalAlpha = p.alpha;
+      ctx.fillText(p.glyph, p.screenX, p.screenY);
+    }
+
+    // Reset shadow and alpha state
+    ctx.shadowBlur = 0;
+    ctx.shadowColor = 'transparent';
+    ctx.globalAlpha = 1;
   }
 
   function tick() {
