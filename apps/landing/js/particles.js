@@ -60,9 +60,10 @@
 
   function computeScrimFactor(screenX) {
     const xNorm = screenX / width;
-    if (xNorm <= 0.35) return 0.25;
-    if (xNorm >= 0.70) return 1.0;
-    return 0.25 + ((xNorm - 0.35) / 0.35) * 0.75;
+    // Fully faded behind the text column, full strength on the right third.
+    if (xNorm <= 0.52) return 0.10;
+    if (xNorm >= 0.84) return 1.0;
+    return 0.10 + ((xNorm - 0.52) / 0.32) * 0.90;
   }
 
   function resize() {

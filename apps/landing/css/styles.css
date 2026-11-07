@@ -429,7 +429,13 @@ body {
   max-width: var(--max-width);
   margin-inline: auto;
   padding: var(--space-12) var(--space-6);
-  background: radial-gradient(circle at 20% 50%, rgba(11, 11, 12, 0.88) 0%, rgba(11, 11, 12, 0.55) 58%, transparent 100%);
+}
+
+/* Narrow screens: text spans the full frame, so keep a soft backdrop. Wide screens use the in-canvas scrim. */
+@media (max-width: 759px) {
+  .hero-content {
+    background: radial-gradient(circle at 20% 50%, rgba(11, 11, 12, 0.88) 0%, rgba(11, 11, 12, 0.55) 58%, transparent 100%);
+  }
 }
 
 @media (min-width: 760px) {
@@ -801,31 +807,247 @@ body {
 }
 
 /* ==========================================================================
-   5. Para todos los negocios
+   5. Para todos los negocios — Icon Utility & Categories Carousel (B1)
    ========================================================================== */
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: var(--space-3);
-  list-style: none;
-  margin: 0 0 var(--space-8) 0;
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  flex-shrink: 0;
+  vertical-align: -0.125em;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
   padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.category-carousel {
+  position: relative;
+  margin: 0 0 var(--space-12) 0;
+}
+
+.carousel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.carousel-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.carousel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 48px;
+  min-height: 48px;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--pill);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--fast) var(--easeStd), border-color var(--fast) var(--easeStd), transform var(--fast) var(--easeStd);
+}
+
+.carousel-btn:hover {
+  background-color: var(--surface2);
+}
+
+.carousel-btn .icon {
+  font-size: 1.25rem;
+}
+
+.carousel-toggle-btn {
+  padding-inline: var(--space-4);
+}
+
+.carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(78vw, 320px);
+  gap: var(--space-4);
+  list-style: none;
+  margin: 0;
+  padding: var(--space-2) var(--space-1) var(--space-4) var(--space-1);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  cursor: grab;
+  border-radius: var(--xl);
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-track.is-dragging {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  cursor: grabbing;
+  user-select: none;
+}
+
+@media (min-width: 760px) {
+  .carousel-track {
+    grid-auto-columns: calc((100% - var(--space-4)) / 2);
+  }
+}
+
+@media (min-width: 1120px) {
+  .carousel-track {
+    grid-auto-columns: calc((100% - (var(--space-4) * 2)) / 3);
+  }
+}
+
+.carousel-slide {
+  scroll-snap-align: start;
+  display: flex;
 }
 
 .category-card {
+  width: 100%;
   display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  min-height: 56px;
-  padding: var(--space-3) var(--space-4);
+  flex-direction: column;
+  padding: var(--space-4);
   background-color: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--md);
-  font-weight: 500;
+  border-radius: var(--xl);
+  transition: transform var(--base) var(--easeOut), box-shadow var(--base) var(--easeOut);
 }
 
-.category-icon {
-  font-size: 1.25rem;
+.category-card:hover {
+  transform: translateY(-4px);
+}
+
+.category-illustration-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--lg);
+  overflow: hidden;
+  background-color: var(--surface2);
+  border: 1px solid var(--line);
+  margin-bottom: var(--space-4);
+}
+
+.category-illustration {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--base) var(--easeOut);
+  transform-origin: center center;
+}
+
+.category-card:hover .category-illustration {
+  transform: rotate(1.5deg) scale(1.02);
+}
+
+.category-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.category-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.category-icon-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--md);
+  background-color: var(--surface2);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  font-size: 1.375rem;
+}
+
+.category-name {
+  margin: var(--space-1) 0 0 0;
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.category-copy {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--inkMuted);
+}
+
+.carousel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-3);
+}
+
+.carousel-dots {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+.carousel-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: var(--pill);
+  cursor: pointer;
+}
+
+.carousel-dot::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--pill);
+  background-color: var(--surface2);
+  border: 1px solid var(--inkMuted);
+  transition: width var(--fast) var(--easeStd), background-color var(--fast) var(--easeStd), border-color var(--fast) var(--easeStd);
+}
+
+.carousel-dot[aria-current="true"]::before {
+  width: 28px;
+  background-color: var(--brand);
+  border-color: var(--ink);
 }
 
 .fulfillment-grid {
@@ -1322,11 +1544,21 @@ body {
   .segmented-thumb,
   .segmented-btn,
   .prompt-chip,
-  .site-header {
+  .site-header,
+  .carousel-btn,
+  .carousel-dot::before,
+  .category-card,
+  .category-illustration {
     transition: opacity 150ms linear;
   }
 
-  .btn:hover {
+  .btn:hover,
+  .category-card:hover,
+  .category-card:hover .category-illustration {
     transform: none;
+  }
+
+  .carousel-track {
+    scroll-behavior: auto;
   }
 }

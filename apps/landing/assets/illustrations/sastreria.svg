@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" fill="none">
+  <defs>
+    <radialGradient id="sun-sastreria" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E4007C" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#E4007C" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain-sastreria" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+
+  <!-- Paper background tint -->
+  <rect width="480" height="600" fill="#FDF2F7"/>
+
+  <!-- Soft sun blob behind subject -->
+  <circle cx="240" cy="300" r="190" fill="url(#sun-sastreria)"/>
+
+  <g stroke="#0A0A0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Mexican detail: Papel picado garland across workshop ceiling -->
+    <path d="M30 56 Q240 76 450 56" fill="none"/>
+    <g transform="translate(74,60)">
+      <path d="M0 0 H72 V46 L58 35 L44 46 L36 35 L28 46 L14 35 L0 46 Z" fill="#E4007C"/>
+      <path d="M36 10 L46 22 L36 34 L26 22 Z" fill="#FDF2F7"/>
+    </g>
+    <g transform="translate(204,64)">
+      <path d="M0 0 H72 V46 L58 35 L44 46 L36 35 L28 46 L14 35 L0 46 Z" fill="#FF8A1F"/>
+      <circle cx="36" cy="22" r="8" fill="#FDF2F7"/>
+    </g>
+    <g transform="translate(334,60)">
+      <path d="M0 0 H72 V46 L58 35 L44 46 L36 35 L28 46 L14 35 L0 46 Z" fill="#00C853"/>
+      <path d="M36 10 L46 22 L36 34 L26 22 Z" fill="#FDF2F7"/>
+    </g>
+
+    <!-- Tailor Mannequin on left -->
+    <rect x="134" y="146" width="20" height="16" rx="4" fill="#0A0A0A"/>
+    <path d="M108 168 C122 158 166 158 180 168 L192 224 C176 248 172 276 184 316 H104 C116 276 112 248 96 224 Z" fill="#FAF9F6"/>
+    <!-- Garment vest draped on mannequin -->
+    <path d="M112 168 L144 218 L176 168 L188 220 C174 246 172 274 180 306 H148 V218 L140 306 H108 C116 274 114 246 100 220 Z" fill="#E4007C"/>
+    <!-- Princess seam stitching lines -->
+    <path d="M126 172 C132 215 132 255 124 306" stroke-dasharray="4 4" fill="none"/>
+    <path d="M162 172 C156 215 156 255 164 306" stroke-dasharray="4 4" fill="none"/>
+
+    <!-- Tape measure draped around mannequin neck & waist -->
+    <path d="M122 162 C116 210 120 260 112 346 L126 348 C134 260 128 210 134 164 Z" fill="#FF8A1F"/>
+    <line x1="117" y1="200" x2="125" y2="200"/>
+    <line x1="118" y1="220" x2="126" y2="220"/>
+    <line x1="118" y1="240" x2="126" y2="240"/>
+    <line x1="117" y1="260" x2="125" y2="260"/>
+    <line x1="116" y1="280" x2="124" y2="280"/>
+    <line x1="115" y1="300" x2="123" y2="300"/>
+    <line x1="114" y1="320" x2="122" y2="320"/>
+
+    <!-- Mannequin stand pole & tripod -->
+    <rect x="140" y="316" width="8" height="156" fill="#F1EFEA"/>
+    <path d="M144 472 L104 516 M144 472 L184 516 M144 472 V516" fill="none"/>
+
+    <!-- Sewing Machine on table (right side) -->
+    <!-- Thread spool on top -->
+    <rect x="352" y="236" width="16" height="22" rx="2" fill="#00C853"/>
+    <line x1="360" y1="228" x2="360" y2="236"/>
+    <!-- Thread path to needle -->
+    <path d="M352 244 Q306 232 268 258" stroke="#E4007C" fill="none"/>
+
+    <!-- Sewing machine body -->
+    <path d="M254 258 H386 C398 258 406 266 406 278 V368 H242 V346 H344 V296 H284 V320 H254 Z" fill="#2F6BFF"/>
+    <!-- Handwheel -->
+    <circle cx="408" cy="296" r="18" fill="#FAF9F6"/>
+    <circle cx="408" cy="296" r="7" fill="#FF8A1F"/>
+    <!-- Tension dial -->
+    <circle cx="296" cy="278" r="8" fill="#FFFFFF"/>
+    <!-- Needle & presser foot -->
+    <line x1="268" y1="320" x2="268" y2="344"/>
+    <path d="M260 344 H276" fill="none"/>
+    <!-- Fabric flowing under needle -->
+    <path d="M224 346 Q256 342 292 346 L278 396 Q244 390 208 394 Z" fill="#F8BBD0"/>
+    <!-- Machine base plate -->
+    <rect x="234" y="368" width="182" height="16" rx="4" fill="#FFFFFF"/>
+
+    <!-- Worktable -->
+    <rect x="212" y="384" width="224" height="18" rx="4" fill="#FF8A1F"/>
+    <rect x="228" y="402" width="12" height="114" fill="#FAF9F6"/>
+    <rect x="408" y="402" width="12" height="114" fill="#FAF9F6"/>
+    <line x1="240" y1="476" x2="408" y2="476"/>
+
+    <!-- Pin cushion on table -->
+    <path d="M312 368 C312 350 340 350 340 368 Z" fill="#00C853"/>
+    <line x1="322" y1="354" x2="318" y2="340"/>
+    <circle cx="317" cy="338" r="3" fill="#E4007C"/>
+    <line x1="330" y1="354" x2="334" y2="340"/>
+    <circle cx="335" cy="338" r="3" fill="#FF8A1F"/>
+
+    <!-- Ground line -->
+    <line x1="40" y1="516" x2="440" y2="516"/>
+  </g>
+
+  <rect width="480" height="600" filter="url(#grain-sastreria)" opacity="0.06" pointer-events="none"/>
+</svg>

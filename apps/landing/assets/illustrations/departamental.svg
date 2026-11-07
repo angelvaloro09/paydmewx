@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" fill="none">
+  <defs>
+    <radialGradient id="sun-departamental" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2F6BFF" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#2F6BFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain-departamental" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+
+  <!-- Paper background tint -->
+  <rect width="480" height="600" fill="#F0F5FF"/>
+
+  <!-- Soft sun blob behind subject -->
+  <circle cx="240" cy="300" r="200" fill="url(#sun-departamental)"/>
+
+  <g stroke="#0A0A0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Multi-floor Department Store Building -->
+    <rect x="76" y="76" width="328" height="22" rx="4" fill="#2F6BFF"/>
+    <rect x="86" y="98" width="308" height="418" fill="#FAF9F6"/>
+
+    <!-- Mexican detail: Talavera tile decorative cornice band -->
+    <rect x="86" y="106" width="308" height="28" fill="#FFFFFF"/>
+    <path d="M106 120 L116 110 L126 120 L116 130 Z" fill="#2F6BFF"/>
+    <path d="M156 120 L166 110 L176 120 L166 130 Z" fill="#FF8A1F"/>
+    <path d="M206 120 L216 110 L226 120 L216 130 Z" fill="#E4007C"/>
+    <path d="M256 120 L266 110 L276 120 L266 130 Z" fill="#00C853"/>
+    <path d="M306 120 L316 110 L326 120 L316 130 Z" fill="#2F6BFF"/>
+    <path d="M356 120 L366 110 L376 120 L366 130 Z" fill="#FF8A1F"/>
+
+    <!-- Floor 3 Big Windows -->
+    <rect x="108" y="152" width="76" height="68" rx="6" fill="#C5D8FF"/>
+    <line x1="122" y1="204" x2="152" y2="168"/>
+    <rect x="202" y="152" width="76" height="68" rx="6" fill="#C5D8FF"/>
+    <line x1="216" y1="204" x2="246" y2="168"/>
+    <rect x="296" y="152" width="76" height="68" rx="6" fill="#C5D8FF"/>
+    <line x1="310" y1="204" x2="340" y2="168"/>
+
+    <!-- Floor divider band -->
+    <rect x="82" y="236" width="316" height="10" rx="3" fill="#FFFFFF"/>
+
+    <!-- Floor 2 Big Windows with display silhouettes -->
+    <rect x="108" y="262" width="76" height="72" rx="6" fill="#C5D8FF"/>
+    <path d="M132 334 L138 296 H154 L160 334 Z" fill="#E4007C"/>
+    <rect x="202" y="262" width="76" height="72" rx="6" fill="#C5D8FF"/>
+    <rect x="224" y="302" width="32" height="22" rx="3" fill="#FF8A1F"/>
+    <path d="M232 302 V294 C232 288 248 288 248 294 V302" fill="none"/>
+    <rect x="296" y="262" width="76" height="72" rx="6" fill="#C5D8FF"/>
+    <circle cx="334" cy="306" r="14" fill="#00C853"/>
+
+    <!-- Ground Floor Striped Awning -->
+    <path d="M74 352 H406 L418 386 H62 Z" fill="#FFFFFF"/>
+    <path d="M74 352 H122 L114 386 H62 Z" fill="#2F6BFF"/>
+    <path d="M168 352 H216 L214 386 H164 Z" fill="#FF8A1F"/>
+    <path d="M264 352 H312 L316 386 H266 Z" fill="#00C853"/>
+    <path d="M358 352 H406 L418 386 H366 Z" fill="#E4007C"/>
+
+    <!-- Ground Floor Showcase Windows & Double Entrance Doors -->
+    <rect x="104" y="404" width="74" height="92" rx="6" fill="#C5D8FF"/>
+    <rect x="124" y="454" width="34" height="42" fill="#FFD8B5"/>
+
+    <rect x="196" y="404" width="88" height="112" rx="4" fill="#FFFFFF"/>
+    <line x1="240" y1="404" x2="240" y2="516"/>
+    <rect x="206" y="416" width="26" height="84" rx="3" fill="#C5D8FF"/>
+    <rect x="248" y="416" width="26" height="84" rx="3" fill="#C5D8FF"/>
+    <line x1="234" y1="454" x2="234" y2="470"/>
+    <line x1="246" y1="454" x2="246" y2="470"/>
+
+    <rect x="302" y="404" width="74" height="92" rx="6" fill="#C5D8FF"/>
+    <rect x="322" y="446" width="34" height="50" fill="#B9F6CA"/>
+
+    <!-- Ground line -->
+    <line x1="40" y1="516" x2="440" y2="516"/>
+  </g>
+
+  <rect width="480" height="600" filter="url(#grain-departamental)" opacity="0.06" pointer-events="none"/>
+</svg>
