@@ -1,4 +1,4 @@
-# PaydMewx
+# PaydMex
 
 POS + CoDi payments + inventory + AI assistant for CDMX merchants — from street stalls to department stores. Built for the DevDay Exchange Community Hackathon CDMX on top of [pey](https://docs.pey.mx) (Banxico CoDi).
 

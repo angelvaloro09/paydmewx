@@ -1,4 +1,4 @@
-# PaydMewx API contract (apps/api)
+# PaydMex API contract (apps/api)
 
 JSON over HTTPS. Auth: `Authorization: Bearer <jwt>` (except where marked public). Money = integer centavos. IDs = ULID strings. Timestamps = unix seconds.
 Errors: `{ "error": { "code": string, "message": string } }` with proper HTTP status.

@@ -1,6 +1,6 @@
-# PaydMewx — Architecture
+# PaydMex — Architecture
 
-Working name: **PaydMewx** (pay + me + mx). POS + CoDi payments + inventory + AI assistant for CDMX merchants, from street stalls to malls.
+Working name: **PaydMex** (pay + me + mx). POS + CoDi payments + inventory + AI assistant for CDMX merchants, from street stalls to malls.
 Hackathon: DevDay Exchange Community Hackathon CDMX. Submission due **Sun 2026-11-08 13:00**. Theme: public-good tools with AI + CoDi via pey.
 
 ## Components
