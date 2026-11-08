@@ -3,7 +3,9 @@ import cors from '@fastify/cors';
 import { ZodError } from 'zod';
 import { runMigrations } from './db/migrate.js';
 import { AppError } from './lib/errors.js';
+import type { LlmClient } from './lib/llm.js';
 import type { PeyClient } from './lib/pey.js';
+import { aiRoutes } from './routes/ai.js';
 import { authRoutes } from './routes/auth.js';
 import { businessRoutes } from './routes/business.js';
 import { discoveryRoutes } from './routes/discovery.js';
@@ -12,6 +14,7 @@ import { orderRoutes } from './routes/orders.js';
 
 export interface BuildAppOptions {
   pey?: PeyClient;
+  llm?: LlmClient;
 }
 
 export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyInstance> {
@@ -84,6 +87,7 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyIn
   await app.register(discoveryRoutes);
   await app.register(businessRoutes);
   await app.register(orderRoutes, { pey: options.pey });
+  await app.register(aiRoutes, { llm: options.llm });
 
   return app;
 }
