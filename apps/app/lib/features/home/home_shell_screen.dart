@@ -6,8 +6,10 @@ import '../../core/theme/theme.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/ui/px_ui.dart';
 import '../auth/auth_controller.dart';
+import '../ai/ai_assistant_screen.dart';
 import '../discover/discover_screen.dart';
 import '../inventory/inventory_screen.dart';
+import '../orders/orders_screen.dart';
 import '../pos/pos_screen.dart';
 import '../profile/profile_screen.dart';
 import 'app_mode.dart';
@@ -48,12 +50,13 @@ class _HomeShellScreenState extends ConsumerState<HomeShellScreen> {
         label: 'Pedidos',
         icon: Icons.receipt_long_outlined,
         selectedIcon: Icons.receipt_long_rounded,
-        child: PxEmptyState(
-          glyph: '◎',
-          title: 'Próximamente',
-          message:
-              'Aquí podrás consultar el estado de tus pedidos y pagos CoDi en tiempo real.',
-        ),
+        child: OrdersScreen(role: OrdersRole.customer),
+      ),
+      _ShellTab(
+        label: 'Asistente',
+        icon: Icons.auto_awesome_outlined,
+        selectedIcon: Icons.auto_awesome_rounded,
+        child: AiAssistantScreen(isOwner: false),
       ),
       _ShellTab(
         label: 'Perfil',
@@ -76,17 +79,19 @@ class _HomeShellScreenState extends ConsumerState<HomeShellScreen> {
         label: 'Pedidos',
         icon: Icons.fact_check_outlined,
         selectedIcon: Icons.fact_check_rounded,
-        child: PxEmptyState(
-          glyph: '◎',
-          title: 'Próximamente',
-          message: 'Línea de tiempo con pedidos pagados y en preparación.',
-        ),
+        child: OrdersScreen(role: OrdersRole.business),
       ),
       _ShellTab(
         label: 'Inventario',
         icon: Icons.inventory_2_outlined,
         selectedIcon: Icons.inventory_2_rounded,
         child: InventoryScreen(),
+      ),
+      _ShellTab(
+        label: 'Asistente',
+        icon: Icons.auto_awesome_outlined,
+        selectedIcon: Icons.auto_awesome_rounded,
+        child: AiAssistantScreen(isOwner: true),
       ),
       _ShellTab(
         label: 'Perfil',
