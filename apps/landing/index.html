@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="PaydMex — Cobros con QR CoDi, inventario e inteligencia artificial para puestos, locales y tiendas en CDMX.">
+  <meta name="description" content="PaydMex — Cobra con CoDi, directo a tu cuenta. Tu cliente escanea un QR desde la app de su banco y te paga, sin terminal ni intermediarios. Inventario y asistente IA incluidos.">
   <meta name="app-url" content="https://paydmex-app.vercel.app">
-  <title>PaydMex — Cobra en segundos. Sin terminal.</title>
+  <title>PaydMex — Cobra con CoDi, directo a tu cuenta</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/category.css">
   <link rel="stylesheet" href="css/cycle.css">
+  <link rel="stylesheet" href="css/commission.css">
+  <link rel="stylesheet" href="css/modes.css">
 </head>
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" hidden aria-hidden="true" width="0" height="0">
@@ -38,6 +40,7 @@
     <symbol id="ph-shopping-bag-duotone" viewBox="0 0 256 256"><path d="M224,56V200a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V56a8,8,0,0,1,8-8H216A8,8,0,0,1,224,56Z" opacity="0.2"></path><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM176,88a48,48,0,0,1-96,0,8,8,0,0,1,16,0,32,32,0,0,0,64,0,8,8,0,0,1,16,0Z"></path></symbol>
     <symbol id="ph-wrench-duotone" viewBox="0 0 256 256"><path d="M224,96a64,64,0,0,1-94.94,56L73,217A24,24,0,0,1,39,183L104,126.94a64,64,0,0,1,80-90.29L144,80l5.66,26.34L176,112l43.35-40A63.8,63.8,0,0,1,224,96Z" opacity="0.2"></path><path d="M226.76,69a8,8,0,0,0-12.84-2.88l-40.3,37.19-17.23-3.7-3.7-17.23,37.19-40.3A8,8,0,0,0,187,29.24,72,72,0,0,0,88,96,72.34,72.34,0,0,0,94,124.94L33.79,177c-.15.12-.29.26-.43.39a32,32,0,0,0,45.26,45.26c.13-.13.27-.28.39-.42L131.06,162A72,72,0,0,0,232,96,71.56,71.56,0,0,0,226.76,69ZM160,152a56.14,56.14,0,0,1-27.07-7,8,8,0,0,0-9.92,1.77L67.11,211.51a16,16,0,0,1-22.62-22.62L109.18,133a8,8,0,0,0,1.77-9.93,56,56,0,0,1,58.36-82.31l-31.2,33.81a8,8,0,0,0-1.94,7.1L141.83,108a8,8,0,0,0,6.14,6.14l26.35,5.66a8,8,0,0,0,7.1-1.94l33.81-31.2A56.06,56.06,0,0,1,160,152Z"></path></symbol>
     <symbol id="ph-sparkle-duotone" viewBox="0 0 256 256"><path d="M194.82,151.43l-55.09,20.3-20.3,55.09a7.92,7.92,0,0,1-14.86,0l-20.3-55.09-55.09-20.3a7.92,7.92,0,0,1,0-14.86l55.09-20.3,20.3-55.09a7.92,7.92,0,0,1,14.86,0l20.3,55.09,55.09,20.3A7.92,7.92,0,0,1,194.82,151.43Z" opacity="0.2"></path><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"></path></symbol>
+    <symbol id="ph-arrow-square-out" viewBox="0 0 256 256"><path d="M224,104a8,8,0,0,1-16,0V59.32l-66.33,66.34a8,8,0,0,1-11.32-11.32L196.68,48H152a8,8,0,0,1,0-16h64a8,8,0,0,1,8,8Zm-40,24a8,8,0,0,0-8,8v72H48V80h72a8,8,0,0,0,0-16H48A16,16,0,0,0,32,80V208a16,16,0,0,0,16,16H176a16,16,0,0,0,16-16V136A8,8,0,0,0,184,128Z"></path></symbol>
   </svg>
   <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
 
@@ -67,7 +70,7 @@
             <li><a class="nav-link" href="#accesibilidad">Accesibilidad</a></li>
           </ul>
         </div>
-        <a class="btn btn-dark nav-cta" href="#" data-app-cta>Probar demo</a>
+        <a class="btn btn-dark nav-cta" href="https://paydmex-app.vercel.app" target="_blank" rel="noopener" aria-label="Probar la app (se abre en una pestaña nueva)" data-app-cta>Probar la app</a>
       </nav>
     </div>
   </header>
@@ -80,44 +83,206 @@
         <div class="hero-content">
           <p class="eyebrow eyebrow-dark">
             <span class="eyebrow-line" aria-hidden="true"></span>
-            <span>— COBROS CON CODI PARA CDMX</span>
+            <span>COBROS CON CODI, EL SISTEMA DE BANXICO</span>
           </p>
           <h1 class="hero-title" id="hero-title">
-            <span class="hero-reveal-line hero-reveal-line-1">Cobra en segundos.</span>
-            <span class="hero-reveal-line hero-reveal-line-2">Sin terminal.</span>
+            <span class="hero-reveal-line hero-reveal-line-1">Cobra con CoDi.</span>
+            <span class="hero-reveal-line hero-reveal-line-2">Directo a tu cuenta.</span>
           </h1>
-          <p class="hero-subcopy" data-scroll-words>
-            Para puestos, locales y tiendas en toda la ciudad. Genera cobros con QR CoDi —el sistema de cobro digital del Banco de México—, controla tu inventario y usa inteligencia artificial en una sola app.
+          <p class="hero-subcopy">
+            CoDi es el sistema de cobro digital del Banco de México. Tu cliente escanea un QR desde la app de su banco y te paga, sin terminal ni intermediarios. Inventario y asistente IA incluidos.
           </p>
           <div class="hero-actions">
-            <a class="btn btn-brand" href="#" data-app-cta>Probar demo</a>
+            <a class="btn btn-brand" href="https://paydmex-app.vercel.app" target="_blank" rel="noopener" aria-label="Probar la app (se abre en una pestaña nueva)" data-app-cta>Probar la app</a>
             <a class="btn btn-outline-light" href="#como-funciona">Ver cómo funciona</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. Facts strip -->
-    <section class="section facts-section" aria-label="Datos clave de la plataforma">
+    <!-- 3. 0% de comisión -->
+    <section class="section commission-section" id="comision" aria-labelledby="comision-title">
       <div class="container">
-        <dl class="facts-grid" id="facts-strip">
-          <div class="fact-card">
-            <dt class="fact-label">Red de pagos de Banxico</dt>
-            <dd class="fact-value" data-fact-type="text">CoDi</dd>
+        <p class="eyebrow">
+          <span class="eyebrow-line" aria-hidden="true"></span>
+          <span>SIN COMISIÓN POR VENTA</span>
+        </p>
+        <h2 class="section-title" id="comision-title">Con CoDi recibes el 100% de cada venta.</h2>
+        <p class="section-lead">CoDi no genera comisiones por operación. Las terminales de tarjeta descuentan un porcentaje de cada cobro.</p>
+
+        <div class="commission-layout">
+          <div class="commission-zero-card">
+            <span class="commission-zero-badge">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
+              <span>CoDi</span>
+            </span>
+            <p class="commission-zero-numeral">0%</p>
+            <p class="commission-zero-label">Comisión por operación CoDi</p>
+            <p class="commission-zero-desc">0% de comisión por CoDi: en una venta de $100.00 recibes $100.00 completos.</p>
+            <a class="commission-source-link" href="https://pey.mx/codi" target="_blank" rel="noopener">
+              <span>pey.mx/codi</span>
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
+              <span class="sr-only"> (se abre en una pestaña nueva)</span>
+            </a>
           </div>
-          <div class="fact-card">
-            <dt class="fact-label">Costo del API de pey</dt>
-            <dd class="fact-value" data-fact-type="currency" data-target="0">$0</dd>
+
+          <div class="commission-comparison">
+            <div class="commission-bars-card" aria-label="Gráfica comparativa de lo que recibes en una venta de 100 pesos">
+              <h3 class="commission-subtitle">Lo que recibes de una venta de $100.00</h3>
+              <ul class="commission-bars">
+                <li class="commission-bar-row commission-bar-row-codi">
+                  <div class="commission-bar-meta">
+                    <span class="commission-bar-name">
+                      <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
+                      <span>CoDi (pey)</span>
+                    </span>
+                    <span class="commission-bar-values">Recibes <strong>$100.00</strong> <span class="commission-bar-fee">(comisión $0.00)</span></span>
+                  </div>
+                  <div class="commission-bar-track" aria-hidden="true">
+                    <span class="commission-bar-fill" style="--bar-target: 100%"></span>
+                  </div>
+                </li>
+                <li class="commission-bar-row">
+                  <div class="commission-bar-meta">
+                    <span class="commission-bar-name">Mercado Pago Point</span>
+                    <span class="commission-bar-values">Recibes <strong>$95.94</strong> <span class="commission-bar-fee">(-$4.06)</span></span>
+                  </div>
+                  <div class="commission-bar-track" aria-hidden="true">
+                    <span class="commission-bar-fill" style="--bar-target: 95.94%"></span>
+                  </div>
+                </li>
+                <li class="commission-bar-row">
+                  <div class="commission-bar-meta">
+                    <span class="commission-bar-name">Clip</span>
+                    <span class="commission-bar-values">Recibes <strong>$95.37</strong> <span class="commission-bar-fee">(-$4.63)</span></span>
+                  </div>
+                  <div class="commission-bar-track" aria-hidden="true">
+                    <span class="commission-bar-fill" style="--bar-target: 95.37%"></span>
+                  </div>
+                </li>
+                <li class="commission-bar-row">
+                  <div class="commission-bar-meta">
+                    <span class="commission-bar-name">Zettle</span>
+                    <span class="commission-bar-values">Recibes <strong>$95.94</strong> <span class="commission-bar-fee">(-$4.06)</span></span>
+                  </div>
+                  <div class="commission-bar-track" aria-hidden="true">
+                    <span class="commission-bar-fill" style="--bar-target: 95.94%"></span>
+                  </div>
+                </li>
+                <li class="commission-bar-row">
+                  <div class="commission-bar-meta">
+                    <span class="commission-bar-name">SumUp</span>
+                    <span class="commission-bar-values">Recibes <strong>$95.94</strong> <span class="commission-bar-fee">(-$4.06)</span></span>
+                  </div>
+                  <div class="commission-bar-track" aria-hidden="true">
+                    <span class="commission-bar-fill" style="--bar-target: 95.94%"></span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="commission-table-wrap" role="region" aria-label="Tabla comparativa de tarifas y comisiones sobre 100 pesos" tabindex="0">
+              <table class="commission-table">
+                <caption class="sr-only">Comparación de tarifas publicadas y monto neto recibido en una venta de $100.00 MXN con IVA de 16% incluido</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Proveedor</th>
+                    <th scope="col">Tarifa publicada</th>
+                    <th scope="col">Comisión sobre $100</th>
+                    <th scope="col">Recibes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="commission-row-codi">
+                    <th scope="row">
+                      <a class="commission-provider-link" href="https://pey.mx/codi" target="_blank" rel="noopener">
+                        <span>CoDi (pey)</span>
+                        <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
+                        <span class="sr-only"> (se abre en una pestaña nueva)</span>
+                      </a>
+                    </th>
+                    <td>0%</td>
+                    <td>$0.00</td>
+                    <td>$100.00</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <a class="commission-provider-link" href="https://www.mercadopago.com.mx/herramientas-para-vender/lectores-point" target="_blank" rel="noopener">
+                        <span>Mercado Pago Point</span>
+                        <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
+                        <span class="sr-only"> (se abre en una pestaña nueva)</span>
+                      </a>
+                    </th>
+                    <td>3.5% + IVA</td>
+                    <td>$4.06</td>
+                    <td>$95.94</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <a class="commission-provider-link" href="https://www.clip.mx/como-funciona-clip/calculadora-clip" target="_blank" rel="noopener">
+                        <span>Clip</span>
+                        <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
+                        <span class="sr-only"> (se abre en una pestaña nueva)</span>
+                      </a>
+                    </th>
+                    <td>2.99% + $1 + IVA</td>
+                    <td>$4.63</td>
+                    <td>$95.37</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <a class="commission-provider-link" href="https://www.zettle.com/mx/comisiones" target="_blank" rel="noopener">
+                        <span>Zettle</span>
+                        <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
+                        <span class="sr-only"> (se abre en una pestaña nueva)</span>
+                      </a>
+                    </th>
+                    <td>3.5% + IVA</td>
+                    <td>$4.06</td>
+                    <td>$95.94</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <a class="commission-provider-link" href="https://www.sumup.com/es-mx/precios-del-procesamiento-de-pagos/" target="_blank" rel="noopener">
+                        <span>SumUp</span>
+                        <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
+                        <span class="sr-only"> (se abre en una pestaña nueva)</span>
+                      </a>
+                    </th>
+                    <td>3.50% + IVA</td>
+                    <td>$4.06</td>
+                    <td>$95.94</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="commission-callout-50">
+              <div class="commission-callout-head">
+                <h3 class="commission-callout-title">En una venta de $50.00</h3>
+                <p class="commission-callout-note">El cargo fijo de $1 pesa más en ventas chicas.</p>
+              </div>
+              <ul class="commission-callout-list">
+                <li class="commission-callout-item commission-callout-item-codi">
+                  <span class="commission-callout-provider">CoDi</span>
+                  <span class="commission-callout-amount">Recibes $50.00</span>
+                </li>
+                <li class="commission-callout-item">
+                  <span class="commission-callout-provider">Terminales de 3.5% + IVA</span>
+                  <span class="commission-callout-amount">Recibes $47.97</span>
+                </li>
+                <li class="commission-callout-item">
+                  <span class="commission-callout-provider">Clip</span>
+                  <span class="commission-callout-amount">Recibes $47.11</span>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="fact-card">
-            <dt class="fact-label">Pago desde cualquier banco</dt>
-            <dd class="fact-value" data-fact-type="text">QR</dd>
-          </div>
-          <div class="fact-card">
-            <dt class="fact-label">Pagos instantáneos</dt>
-            <dd class="fact-value" data-fact-type="ratio" data-target-a="24" data-target-b="7">24/7</dd>
-          </div>
-        </dl>
+        </div>
+
+        <p class="commission-footnote">
+          Tarifas publicadas por cada proveedor en sus páginas oficiales, consultadas el 8 de noviembre de 2026. Cálculo propio con IVA de 16% sobre venta de contado con tarjeta; no incluye pagos a meses sin intereses, que cuestan más. Con CoDi, la API de pey es gratuita por el momento.
+        </p>
       </div>
     </section>
 
@@ -126,27 +291,10 @@
       <div class="container">
         <p class="eyebrow">
           <span class="eyebrow-line" aria-hidden="true"></span>
-          <span>CÓMO FUNCIONA</span>
+          <span>ASÍ SE COBRA</span>
         </p>
-        <h2 class="section-title" id="como-funciona-title" data-scroll-words>Tres pasos del mostrador <span data-emph>a tu cuenta.</span></h2>
-
-        <ol class="steps-grid">
-          <li class="step-card">
-            <span class="step-number" aria-hidden="true">01</span>
-            <h3 class="step-title">Arma tu catálogo</h3>
-            <p class="step-desc">Registra tus productos con precio y existencias, o escribe montos libres al instante desde el teclado numérico.</p>
-          </li>
-          <li class="step-card">
-            <span class="step-number" aria-hidden="true">02</span>
-            <h3 class="step-title">Cobra con QR CoDi</h3>
-            <p class="step-desc">Muestra el código QR en pantalla. Tu cliente lo escanea desde la app de su banco y autoriza sin comisiones.</p>
-          </li>
-          <li class="step-card">
-            <span class="step-number" aria-hidden="true">03</span>
-            <h3 class="step-title">Se descuenta tu inventario</h3>
-            <p class="step-desc">En cuanto se confirma el pago, tus existencias se actualizan solas y el pedido pasa a preparación o entrega.</p>
-          </li>
-        </ol>
+        <h2 class="section-title" id="como-funciona-title">Del monto al pago confirmado.</h2>
+        <p class="section-lead">Escribes el monto, muestras el QR, el pago llega confirmado.</p>
 
         <!-- CSS-only animated mock of the phone POS -->
         <section class="pos-showcase" aria-label="Demostración visual de cobro en punto de venta">
@@ -190,7 +338,7 @@
                     <span></span><span></span><span></span><span></span><span></span>
                     <span></span><span></span><span></span><span></span><span></span>
                   </div>
-                  <p class="pos-qr-hint">Escanea desde tu app bancaria</p>
+                  <p class="pos-qr-hint">Escanea desde la app de su banco</p>
                 </div>
               </div>
 
@@ -251,193 +399,213 @@
           </div>
         </div>
 
-        <!-- 4-step responsive card grid -->
-        <div class="cycle-grid" data-cycle-grid>
-          <!-- Step 01 -->
-          <article class="cycle-card" tabindex="0" aria-label="Paso 1 de 4: Cataloga" data-cycle-card="0">
-            <div class="cycle-card-head">
-              <span class="cycle-numeral" aria-hidden="true">01</span>
-              <span class="cycle-label">Mostrador listo en minutos</span>
-            </div>
-            <h3 class="cycle-title">Cataloga</h3>
-            <p class="cycle-desc">Sube tus productos y su stock en tres toques.</p>
-            <ul class="cycle-checklist" aria-label="Características de Cataloga">
-              <li class="cycle-check-item">
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                <span>Importa tu lista</span>
-              </li>
-              <li class="cycle-check-item">
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                <span>Fotos opcionales</span>
-              </li>
-              <li class="cycle-check-item">
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                <span>Stock por producto</span>
-              </li>
-            </ul>
-            <div class="cycle-wireframe cycle-scene-catalog" role="group" aria-label="Vista previa de catálogo con existencias">
-              <div class="cycle-wf-row">
-                <span class="cycle-wf-name">Orden de tacos (3 pzas)</span>
-                <span class="cycle-wf-price">$75.00</span>
-                <span class="cycle-wf-stock" data-stock-target="32">32 disp.</span>
-              </div>
-              <div class="cycle-wf-row">
-                <span class="cycle-wf-name">Agua fresca 500 ml</span>
-                <span class="cycle-wf-price">$25.00</span>
-                <span class="cycle-wf-stock" data-stock-target="18">18 disp.</span>
-              </div>
-              <div class="cycle-wf-row">
-                <span class="cycle-wf-name">Gringa al pastor</span>
-                <span class="cycle-wf-price">$55.00</span>
-                <span class="cycle-wf-stock" data-stock-target="14">14 disp.</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Step 02 -->
-          <article class="cycle-card" tabindex="0" aria-label="Paso 2 de 4: Cobra" data-cycle-card="1">
-            <div class="cycle-card-head">
-              <span class="cycle-numeral" aria-hidden="true">02</span>
-              <span class="cycle-label">QR en segundos</span>
-            </div>
-            <h3 class="cycle-title">Cobra</h3>
-            <p class="cycle-desc">Genera un QR CoDi y recibe el pago al instante.</p>
-            <ul class="cycle-checklist" aria-label="Características de Cobra">
-              <li class="cycle-check-item">
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                <span>Cualquier banco</span>
-              </li>
-              <li class="cycle-check-item">
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                <span>Confirmación en vivo</span>
-              </li>
-              <li class="cycle-check-item">
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                <span>Recibo digital</span>
-              </li>
-            </ul>
-            <div class="cycle-wireframe cycle-wf-qr-card cycle-scene-qr" role="group" aria-label="Vista previa de tarjeta QR CoDi">
-              <div class="cycle-wf-qr-box" aria-hidden="true">
-                <span class="cycle-qr-scanline"></span>
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" focusable="false">
-                  <rect x="4" y="4" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"></rect>
-                  <rect x="8" y="8" width="6" height="6" fill="currentColor"></rect>
-                  <rect x="30" y="4" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"></rect>
-                  <rect x="34" y="8" width="6" height="6" fill="currentColor"></rect>
-                  <rect x="4" y="30" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"></rect>
-                  <rect x="8" y="34" width="6" height="6" fill="currentColor"></rect>
-                  <rect x="22" y="22" width="5" height="5" fill="currentColor"></rect>
-                  <rect x="30" y="28" width="6" height="6" stroke="currentColor" stroke-width="1.5"></rect>
-                  <rect x="38" y="36" width="6" height="6" fill="currentColor"></rect>
+        <!-- 4-step hover-expanding row / mobile accordion -->
+        <div class="cycle-row" data-cycle-row>
+          <!-- Step 01: Cataloga -->
+          <article class="cycle-card is-active" data-cycle-card="0">
+            <button type="button" class="cycle-head" id="cycle-head-1" aria-expanded="true" aria-controls="cycle-body-1" aria-label="Paso 1 de 4: Cataloga">
+              <span class="cycle-head-main">
+                <span class="cycle-numeral" aria-hidden="true">01</span>
+                <span class="cycle-title"><span class="sr-only">Paso 1 de 4: </span>Cataloga</span>
+              </span>
+              <span class="cycle-head-icon" aria-hidden="true">
+                <svg class="cycle-head-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" focusable="false">
+                  <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42l-8.704-8.704Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <circle cx="7.5" cy="7.5" r="1.5" fill="currentColor"></circle>
                 </svg>
-              </div>
-              <div class="cycle-wf-qr-meta">
-                <span class="cycle-wf-qr-tag">QR CoDi · Orden #104</span>
-                <span class="cycle-wf-qr-amount">$85.00 MXN</span>
-              </div>
-              <div class="cycle-wf-qr-status-wrap">
-                <span class="cycle-wf-qr-status cycle-qr-status-wait" aria-hidden="true">
-                  <span class="cycle-qr-wait-dot"></span>
-                  <span>Esperando pago</span>
-                </span>
-                <span class="cycle-wf-qr-status cycle-qr-status-paid">
-                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                  <span>Pagado · Confirmado en vivo</span>
-                </span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Step 03 -->
-          <article class="cycle-card" tabindex="0" aria-label="Paso 3 de 4: Entrega" data-cycle-card="2">
-            <div class="cycle-card-head">
-              <span class="cycle-numeral" aria-hidden="true">03</span>
-              <span class="cycle-label">Sin perder el hilo</span>
-            </div>
-            <h3 class="cycle-title">Entrega</h3>
-            <p class="cycle-desc">Sigue cada pedido de Preparando a Entregado.</p>
-            <ul class="cycle-checklist" aria-label="Características de Entrega">
-              <li class="cycle-check-item">
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                <span>Preparando</span>
-              </li>
-              <li class="cycle-check-item">
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                <span>Listo</span>
-              </li>
-              <li class="cycle-check-item">
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                <span>Entregado</span>
-              </li>
-            </ul>
-            <div class="cycle-wireframe cycle-scene-delivery" role="group" aria-label="Flujo de estados del pedido">
-              <div class="cycle-wf-chips">
-                <span class="cycle-status-chip cycle-status-prep">
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
-                    <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.6"></circle>
-                    <path d="M8 5V8.2L10.2 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
-                  </svg>
-                  <span>Preparando</span>
-                </span>
-                <span class="cycle-status-chip cycle-status-ready">
-                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-sparkle"></use></svg>
-                  <span>Listo</span>
-                </span>
-                <span class="cycle-status-chip cycle-status-done">
-                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                  <span>Entregado</span>
-                </span>
-              </div>
-              <div class="cycle-delivery-progress" aria-hidden="true">
-                <span class="cycle-delivery-fill"></span>
-              </div>
-              <p class="cycle-wf-caption">Orden #104 · Cliente notificado en cada paso</p>
-            </div>
-          </article>
-
-          <!-- Step 04 -->
-          <article class="cycle-card" tabindex="0" aria-label="Paso 4 de 4: Reabastece" data-cycle-card="3">
-            <div class="cycle-card-head">
-              <span class="cycle-numeral" aria-hidden="true">04</span>
-              <span class="cycle-label">Siempre surtido</span>
-            </div>
-            <h3 class="cycle-title">Reabastece</h3>
-            <p class="cycle-desc">La IA te avisa qué se acaba antes de que pase.</p>
-            <ul class="cycle-checklist" aria-label="Características de Reabastece">
-              <li class="cycle-check-item">
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                <span>Alertas de stock bajo</span>
-              </li>
-              <li class="cycle-check-item">
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                <span>Sugerencias de compra</span>
-              </li>
-              <li class="cycle-check-item">
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                <span>Resumen diario</span>
-              </li>
-            </ul>
-            <div class="cycle-wireframe cycle-scene-restock" role="group" aria-label="Alerta de inventario bajo">
-              <div class="cycle-wf-alert-row">
-                <span class="cycle-wf-alert-icon" aria-hidden="true">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" focusable="false">
-                    <path d="M8 2.2L14.2 13H1.8L8 2.2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path>
-                    <path d="M8 6.5V9.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                    <circle cx="8" cy="11.2" r="0.8" fill="currentColor"></circle>
-                  </svg>
-                </span>
-                <div class="cycle-wf-alert-copy">
-                  <span class="cycle-wf-alert-title">Tortillas de maíz · Quedan <span class="cycle-restock-num" data-restock-from="4" data-restock-to="24">24</span> paq.</span>
-                  <span class="cycle-wf-alert-sub">Sugerencia IA: pedir 20 paq. para mañana</span>
+              </span>
+            </button>
+            <div class="cycle-body" id="cycle-body-1" role="region" aria-labelledby="cycle-head-1">
+              <div class="cycle-scene cycle-scene-catalog">
+                <div class="cycle-scene-stat">
+                  <span class="cycle-scene-bignum" aria-hidden="true" data-catalog-count data-count-from="0" data-count-to="32">32</span>
+                  <span class="sr-only">32</span>
+                  <span class="cycle-scene-tag">$75.00</span>
                 </div>
-                <span class="cycle-wf-alert-pill">
-                  <span class="cycle-pill-rest" aria-hidden="true">Surtir +20</span>
-                  <span class="cycle-pill-done">
-                    <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                    <span>Surtir +20</span>
+                <p class="cycle-scene-caption">Orden de tacos · disponibles</p>
+              </div>
+              <dl class="cycle-beats">
+                <div class="cycle-beat">
+                  <dt class="cycle-beat-label">Haces</dt>
+                  <dd class="cycle-beat-text">Subes tus productos.</dd>
+                </div>
+                <div class="cycle-beat">
+                  <dt class="cycle-beat-label">Pasa</dt>
+                  <dd class="cycle-beat-text">Cada uno lleva su stock.</dd>
+                </div>
+                <div class="cycle-beat">
+                  <dt class="cycle-beat-label">Recibes</dt>
+                  <dd class="cycle-beat-text">Mostrador listo en minutos.</dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- Step 02: Cobra -->
+          <article class="cycle-card" data-cycle-card="1">
+            <button type="button" class="cycle-head" id="cycle-head-2" aria-expanded="false" aria-controls="cycle-body-2" aria-label="Paso 2 de 4: Cobra">
+              <span class="cycle-head-main">
+                <span class="cycle-numeral" aria-hidden="true">02</span>
+                <span class="cycle-title"><span class="sr-only">Paso 2 de 4: </span>Cobra</span>
+              </span>
+              <span class="cycle-head-icon" aria-hidden="true">
+                <svg class="cycle-head-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" focusable="false">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"></rect>
+                  <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"></rect>
+                  <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"></rect>
+                  <rect x="14" y="14" width="3" height="3" fill="currentColor"></rect>
+                  <rect x="18" y="18" width="3" height="3" fill="currentColor"></rect>
+                  <rect x="14" y="18" width="3" height="3" fill="currentColor"></rect>
+                </svg>
+              </span>
+            </button>
+            <div class="cycle-body" id="cycle-body-2" role="region" aria-labelledby="cycle-head-2" inert aria-hidden="true">
+              <div class="cycle-scene cycle-scene-cobra">
+                <div class="cycle-scene-cobra-row">
+                  <div class="cycle-qr-glyph" aria-hidden="true">
+                    <span class="cycle-qr-scanline"></span>
+                    <svg width="56" height="56" viewBox="0 0 48 48" fill="none" focusable="false">
+                      <rect x="4" y="4" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.8"></rect>
+                      <rect x="8" y="8" width="6" height="6" fill="currentColor"></rect>
+                      <rect x="30" y="4" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.8"></rect>
+                      <rect x="34" y="8" width="6" height="6" fill="currentColor"></rect>
+                      <rect x="4" y="30" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.8"></rect>
+                      <rect x="8" y="34" width="6" height="6" fill="currentColor"></rect>
+                      <rect x="22" y="22" width="5" height="5" fill="currentColor"></rect>
+                      <rect x="30" y="28" width="6" height="6" stroke="currentColor" stroke-width="1.8"></rect>
+                      <rect x="38" y="36" width="6" height="6" fill="currentColor"></rect>
+                    </svg>
+                  </div>
+                  <div class="cycle-scene-cobra-main">
+                    <p class="cycle-scene-bignum">$85.00</p>
+                    <div class="cycle-cobra-chips">
+                      <span class="cycle-status-pill cycle-status-wait" data-cobra-wait aria-hidden="true">
+                        <svg class="icon" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                          <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.6"></circle>
+                          <path d="M8 4.8V8.2L10.4 9.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <span>Esperando pago</span>
+                      </span>
+                      <span class="cycle-status-pill cycle-status-paid" data-cobra-paid>
+                        <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
+                        <span>Pagado</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <dl class="cycle-beats">
+                <div class="cycle-beat">
+                  <dt class="cycle-beat-label">Haces</dt>
+                  <dd class="cycle-beat-text">Muestras el QR CoDi.</dd>
+                </div>
+                <div class="cycle-beat">
+                  <dt class="cycle-beat-label">Pasa</dt>
+                  <dd class="cycle-beat-text">Tu cliente lo escanea.</dd>
+                </div>
+                <div class="cycle-beat">
+                  <dt class="cycle-beat-label">Recibes</dt>
+                  <dd class="cycle-beat-text">Pago confirmado en segundos.</dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- Step 03: Entrega -->
+          <article class="cycle-card" data-cycle-card="2">
+            <button type="button" class="cycle-head" id="cycle-head-3" aria-expanded="false" aria-controls="cycle-body-3" aria-label="Paso 3 de 4: Entrega">
+              <span class="cycle-head-main">
+                <span class="cycle-numeral" aria-hidden="true">03</span>
+                <span class="cycle-title"><span class="sr-only">Paso 3 de 4: </span>Entrega</span>
+              </span>
+              <span class="cycle-head-icon" aria-hidden="true">
+                <svg class="cycle-head-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" focusable="false">
+                  <path d="M5 7h14l-1 13H6L5 7Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="M9 7V5a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </span>
+            </button>
+            <div class="cycle-body" id="cycle-body-3" role="region" aria-labelledby="cycle-head-3" inert aria-hidden="true">
+              <div class="cycle-scene cycle-scene-delivery">
+                <div class="cycle-delivery-stage" aria-hidden="true">
+                  <span class="cycle-delivery-badge" data-delivery-badge data-state="done">
+                    <svg class="cycle-delivery-svg cycle-delivery-svg-prep" width="22" height="22" viewBox="0 0 16 16" fill="none" focusable="false">
+                      <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.6"></circle>
+                      <path d="M8 4.8V8.2L10.4 9.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                    <svg class="cycle-delivery-svg cycle-delivery-svg-ready" width="22" height="22" viewBox="0 0 256 256" fill="currentColor" focusable="false">
+                      <use href="#ph-sparkle"></use>
+                    </svg>
+                    <svg class="cycle-delivery-svg cycle-delivery-svg-done" width="22" height="22" viewBox="0 0 256 256" fill="currentColor" focusable="false">
+                      <use href="#ph-check"></use>
+                    </svg>
                   </span>
+                  <span class="cycle-scene-bigword" data-delivery-word>Entregado</span>
+                </div>
+                <span class="sr-only">Preparando, Listo, Entregado</span>
+                <div class="cycle-delivery-dots" aria-hidden="true">
+                  <span class="cycle-delivery-dot is-done" data-delivery-dot="0"></span>
+                  <span class="cycle-delivery-dot is-done" data-delivery-dot="1"></span>
+                  <span class="cycle-delivery-dot is-done is-current" data-delivery-dot="2"></span>
+                </div>
+                <p class="cycle-scene-caption">Orden #104</p>
+              </div>
+              <dl class="cycle-beats">
+                <div class="cycle-beat">
+                  <dt class="cycle-beat-label">Haces</dt>
+                  <dd class="cycle-beat-text">Marcas el avance.</dd>
+                </div>
+                <div class="cycle-beat">
+                  <dt class="cycle-beat-label">Pasa</dt>
+                  <dd class="cycle-beat-text">El pedido cambia de estado.</dd>
+                </div>
+                <div class="cycle-beat">
+                  <dt class="cycle-beat-label">Recibes</dt>
+                  <dd class="cycle-beat-text">Cliente informado.</dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- Step 04: Reabastece -->
+          <article class="cycle-card" data-cycle-card="3">
+            <button type="button" class="cycle-head" id="cycle-head-4" aria-expanded="false" aria-controls="cycle-body-4" aria-label="Paso 4 de 4: Reabastece">
+              <span class="cycle-head-main">
+                <span class="cycle-numeral" aria-hidden="true">04</span>
+                <span class="cycle-title"><span class="sr-only">Paso 4 de 4: </span>Reabastece</span>
+              </span>
+              <span class="cycle-head-icon" aria-hidden="true">
+                <svg class="cycle-head-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" focusable="false">
+                  <path d="M12 3l2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </span>
+            </button>
+            <div class="cycle-body" id="cycle-body-4" role="region" aria-labelledby="cycle-head-4" inert aria-hidden="true">
+              <div class="cycle-scene cycle-scene-restock">
+                <div class="cycle-scene-stat">
+                  <span class="cycle-scene-bignum" aria-hidden="true" data-restock-count data-count-from="4" data-count-to="24">24</span>
+                  <span class="sr-only">24</span>
+                </div>
+                <p class="cycle-scene-caption">paquetes de tortillas</p>
+                <span class="cycle-status-pill cycle-restock-chip">
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-sparkle"></use></svg>
+                  <span>Sugerencia IA: pedir 20</span>
                 </span>
               </div>
+              <dl class="cycle-beats">
+                <div class="cycle-beat">
+                  <dt class="cycle-beat-label">Haces</dt>
+                  <dd class="cycle-beat-text">Vendes como siempre.</dd>
+                </div>
+                <div class="cycle-beat">
+                  <dt class="cycle-beat-label">Pasa</dt>
+                  <dd class="cycle-beat-text">La IA vigila tu stock.</dd>
+                </div>
+                <div class="cycle-beat">
+                  <dt class="cycle-beat-label">Recibes</dt>
+                  <dd class="cycle-beat-text">Aviso antes de quedarte sin producto.</dd>
+                </div>
+              </dl>
             </div>
           </article>
         </div>
@@ -452,7 +620,6 @@
           <span>PARA TODOS LOS NEGOCIOS</span>
         </p>
         <h2 class="section-title" id="negocios-title">Desde un puesto en la esquina hasta una tienda departamental.</h2>
-        <p class="section-lead">Elige el giro de tu negocio y adapta el flujo de entrega según cómo atiendes a tus clientes.</p>
 
         <section class="category-carousel" aria-roledescription="carousel" aria-label="Giros de negocio" data-carousel>
           <div class="carousel-header">
@@ -779,7 +946,7 @@
                     </span>
                   </div>
                   <h3 class="category-name">Servicios</h3>
-                  <p class="category-copy">Cobra reparaciones, cerrajería o mantenimiento al momento con recibo digital.</p>
+                  <p class="category-copy">Cobra reparaciones, cerrajería o mantenimiento al momento, con QR CoDi.</p>
                 </div>
               </article>
             </li>
@@ -834,53 +1001,61 @@
           </div>
         </section>
 
-        <div class="fulfillment-grid">
+        <div class="fulfillment-grid" data-fulfillment-grid>
           <article class="fulfillment-card">
-            <div class="fulfillment-header">
-              <span class="badge badge-paid">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-                <span>Al instante</span>
-              </span>
-              <span class="mono-tag">Abarrotes · Ropa · Calzado</span>
-            </div>
             <h3 class="fulfillment-title">Entrega inmediata</h3>
-            <p class="fulfillment-desc">El cliente toma el producto en el mostrador, escanea el QR CoDi y la venta queda cerrada y descontada del inventario en un solo paso.</p>
-            <div class="timeline-preview">
-              <div class="timeline-row">
-                <span class="timeline-dot timeline-dot-brand" aria-hidden="true"></span>
-                <span class="timeline-time">13:04</span>
-                <span class="timeline-text">Cobro confirmado · Entregado en mostrador</span>
-              </div>
-            </div>
+            <p class="fulfillment-desc">Cobras y entregas en el mismo momento.</p>
+            <ol class="fulfillment-stepper" aria-label="Pasos de entrega inmediata: Pagado a Entregado">
+              <li class="stepper-node">
+                <span class="stepper-dot" aria-hidden="true">
+                  <svg class="icon" focusable="false"><use href="#ph-check"></use></svg>
+                </span>
+                <span class="stepper-label">Pagado</span>
+              </li>
+              <li class="stepper-connector" aria-hidden="true">
+                <span class="stepper-connector-fill"></span>
+              </li>
+              <li class="stepper-node">
+                <span class="stepper-dot" aria-hidden="true">
+                  <svg class="icon" focusable="false"><use href="#ph-check"></use></svg>
+                </span>
+                <span class="stepper-label">Entregado</span>
+              </li>
+            </ol>
           </article>
 
           <article class="fulfillment-card">
-            <div class="fulfillment-header">
-              <span class="badge badge-prep">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.8"></circle>
-                  <path d="M8 5V8.2L10.2 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
-                </svg>
-                <span>Preparando → Listo</span>
-              </span>
-              <span class="mono-tag">Comida · Sastrería · Servicios</span>
-            </div>
             <h3 class="fulfillment-title">Con tiempo de elaboración</h3>
-            <p class="fulfillment-desc">Cuando tu pedido requiere cocina, taller o ajuste, la orden entra a la fila activa con estado <strong>Preparando</strong> y avisa al pasar a <strong>Listo</strong>.</p>
-            <div class="timeline-preview">
-              <div class="timeline-row">
-                <span class="timeline-dot timeline-dot-cempasuchil" aria-hidden="true"></span>
-                <span class="timeline-time">13:05</span>
-                <span class="timeline-text">Estado: <strong>Preparando</strong> — Orden #104 en cocina</span>
-              </div>
-              <div class="timeline-row">
-                <span class="timeline-dot timeline-dot-brand" aria-hidden="true"></span>
-                <span class="timeline-time">13:12</span>
-                <span class="timeline-text">Estado: <strong>Listo</strong> — Avisar al cliente para recoger</span>
-              </div>
-            </div>
+            <p class="fulfillment-desc">El cliente sigue su pedido hasta que está listo.</p>
+            <ol class="fulfillment-stepper" aria-label="Pasos con tiempo de elaboración: Pagado, Preparando y Listo">
+              <li class="stepper-node">
+                <span class="stepper-dot" aria-hidden="true">
+                  <svg class="icon" focusable="false"><use href="#ph-check"></use></svg>
+                </span>
+                <span class="stepper-label">Pagado</span>
+              </li>
+              <li class="stepper-connector" aria-hidden="true">
+                <span class="stepper-connector-fill"></span>
+              </li>
+              <li class="stepper-node stepper-node-emph">
+                <span class="stepper-dot" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" focusable="false">
+                    <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.8"></circle>
+                    <path d="M8 5V8.2L10.2 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                  </svg>
+                </span>
+                <span class="stepper-label">Preparando</span>
+              </li>
+              <li class="stepper-connector" aria-hidden="true">
+                <span class="stepper-connector-fill"></span>
+              </li>
+              <li class="stepper-node">
+                <span class="stepper-dot" aria-hidden="true">
+                  <svg class="icon" focusable="false"><use href="#ph-check"></use></svg>
+                </span>
+                <span class="stepper-label">Listo</span>
+              </li>
+            </ol>
           </article>
         </div>
       </div>
@@ -896,56 +1071,102 @@
         <h2 class="section-title" id="modos-title" data-scroll-words>Cambia entre Cliente y Negocio <span data-emph>con un toque.</span></h2>
         <p class="section-lead">Una misma cuenta te sirve para vender en tu puesto por la mañana y comprar en el barrio por la tarde.</p>
 
-        <div class="mode-demo">
-          <div class="segmented-control" role="tablist" aria-label="Seleccionar modo de uso">
-            <span class="segmented-thumb" id="mode-thumb" aria-hidden="true"></span>
-            <button type="button" role="tab" class="segmented-btn is-active" id="tab-cliente" aria-selected="true" aria-controls="panel-cliente" data-mode="cliente">
-              Modo Cliente
-            </button>
-            <button type="button" role="tab" class="segmented-btn" id="tab-negocio" aria-selected="false" aria-controls="panel-negocio" data-mode="negocio">
-              Modo Negocio
-            </button>
-          </div>
-
-          <div class="mode-panels">
-            <div class="mode-panel is-active" id="panel-cliente" role="tabpanel" aria-labelledby="tab-cliente">
-              <div class="mode-panel-grid">
-                <div>
-                  <span class="mono-tag">VISTA CLIENTE</span>
-                  <h3 class="mode-panel-title">Paga rápido y sigue el estado de tu pedido.</h3>
-                  <p class="mode-panel-copy">Consulta tus compras recientes, revisa el desglose de cada recibo y mira en tiempo real si tu orden está en estado <strong>Preparando</strong> o <strong>Listo</strong> para recoger.</p>
+        <div class="modes-showcase">
+          <div class="modes-phone">
+            <div class="modes-account-header">
+              <div class="modes-account-id">
+                <span class="modes-avatar" aria-hidden="true">AP</span>
+                <div class="modes-account-meta">
+                  <span class="modes-account-name">Ana Pérez</span>
+                  <span class="modes-account-sub">Una sola cuenta</span>
                 </div>
-                <div class="mode-mock-card">
-                  <div class="mode-mock-row">
+              </div>
+              <span class="badge badge-paid">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
+                <span>Activa</span>
+              </span>
+            </div>
+
+            <div class="modes-tablist" role="tablist" aria-label="Seleccionar modo de uso" data-modes-tablist data-active-mode="cliente">
+              <span class="modes-tab-thumb" aria-hidden="true"></span>
+              <button type="button" role="tab" class="modes-tab" id="tab-cliente" aria-selected="true" aria-controls="panel-cliente" tabindex="0" data-mode="cliente">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-shopping-bag"></use></svg>
+                <span>Cliente</span>
+              </button>
+              <button type="button" role="tab" class="modes-tab" id="tab-negocio" aria-selected="false" aria-controls="panel-negocio" tabindex="-1" data-mode="negocio">
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-storefront"></use></svg>
+                <span>Negocio</span>
+              </button>
+            </div>
+
+            <div class="modes-viewport" data-modes-viewport>
+              <div class="modes-panel" id="panel-cliente" role="tabpanel" aria-labelledby="tab-cliente">
+                <h3 class="modes-panel-title">Paga rápido y sigue tu pedido.</h3>
+                <ul class="modes-feature-list">
+                  <li class="modes-feature-item">
+                    <span class="modes-feature-icon" aria-hidden="true">
+                      <svg class="icon" focusable="false"><use href="#ph-check"></use></svg>
+                    </span>
+                    <span>Paga con QR desde tu banco</span>
+                  </li>
+                  <li class="modes-feature-item">
+                    <span class="modes-feature-icon" aria-hidden="true">
+                      <svg class="icon" focusable="false"><use href="#ph-shopping-bag"></use></svg>
+                    </span>
+                    <span>Estado del pedido en vivo</span>
+                  </li>
+                  <li class="modes-feature-item">
+                    <span class="modes-feature-icon" aria-hidden="true">
+                      <svg class="icon" focusable="false"><use href="#ph-sparkle"></use></svg>
+                    </span>
+                    <span>Tus pedidos en un solo lugar</span>
+                  </li>
+                </ul>
+                <div class="modes-mock-card">
+                  <div class="modes-mock-row">
                     <span>Orden #104 · Taquería El Porvenir</span>
                     <span class="badge badge-prep">
                       <span class="badge-dot" aria-hidden="true"></span>
                       <span>Preparando</span>
                     </span>
                   </div>
-                  <p class="mode-mock-amount">$85.00</p>
-                  <p class="mode-mock-meta">Pagado con CoDi · Hace 2 min</p>
+                  <p class="modes-mock-amount">$85.00</p>
+                  <p class="modes-mock-meta">Pagado con CoDi · Hace 2 min</p>
                 </div>
               </div>
-            </div>
 
-            <div class="mode-panel" id="panel-negocio" role="tabpanel" aria-labelledby="tab-negocio" hidden>
-              <div class="mode-panel-grid">
-                <div>
-                  <span class="mono-tag">VISTA NEGOCIO</span>
-                  <h3 class="mode-panel-title">Teclado de cobro, QR al instante e inventario al día.</h3>
-                  <p class="mode-panel-copy">Genera cobros en segundos, administra tu catálogo, recibe alertas cuando un insumo está por agotarse y marca órdenes como listas.</p>
-                </div>
-                <div class="mode-mock-card">
-                  <div class="mode-mock-row">
+              <div class="modes-panel" id="panel-negocio" role="tabpanel" aria-labelledby="tab-negocio" hidden>
+                <h3 class="modes-panel-title">Cobra al instante y controla existencias.</h3>
+                <ul class="modes-feature-list">
+                  <li class="modes-feature-item">
+                    <span class="modes-feature-icon" aria-hidden="true">
+                      <svg class="icon" focusable="false"><use href="#ph-storefront"></use></svg>
+                    </span>
+                    <span>Teclado de cobro y catálogo</span>
+                  </li>
+                  <li class="modes-feature-item">
+                    <span class="modes-feature-icon" aria-hidden="true">
+                      <svg class="icon" focusable="false"><use href="#ph-check"></use></svg>
+                    </span>
+                    <span>Stock descontado en cada venta</span>
+                  </li>
+                  <li class="modes-feature-item">
+                    <span class="modes-feature-icon" aria-hidden="true">
+                      <svg class="icon" focusable="false"><use href="#ph-sparkle"></use></svg>
+                    </span>
+                    <span>Alertas de insumos por agotarse</span>
+                  </li>
+                </ul>
+                <div class="modes-mock-card">
+                  <div class="modes-mock-row">
                     <span>Ventas del turno actual</span>
                     <span class="badge badge-paid">
                       <span class="badge-dot" aria-hidden="true"></span>
                       <span>Activo</span>
                     </span>
                   </div>
-                  <p class="mode-mock-amount">+$1,420.00</p>
-                  <p class="mode-mock-meta">18 cobros CoDi confirmados · 0 rechazados</p>
+                  <p class="modes-mock-amount">+$1,420.00</p>
+                  <p class="modes-mock-meta">18 cobros CoDi confirmados · 0 rechazados</p>
                 </div>
               </div>
             </div>
@@ -1222,10 +1443,10 @@
         <div class="cta-final-card">
           <h2 class="cta-final-title" id="cta-final-title" data-scroll-words>Que tu negocio cobre <span data-emph>como el futuro.</span></h2>
           <div class="cta-final-actions">
-            <a class="btn btn-brand btn-lg" href="#" data-app-cta>Probar demo</a>
+            <a class="btn btn-brand btn-lg" href="https://paydmex-app.vercel.app" target="_blank" rel="noopener" aria-label="Probar la app (se abre en una pestaña nueva)" data-app-cta>Probar la app</a>
           </div>
           <p class="cta-disclaimer">
-            PaydMex es un prototipo del hackatón DevDay Exchange CDMX. Los pagos se procesan a través de pey sobre CoDi (Banco de México).
+            PaydMex es un prototipo para el hackatón DevDay Exchange CDMX.
           </p>
         </div>
       </div>

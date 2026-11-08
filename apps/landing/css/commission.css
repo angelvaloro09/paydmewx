@@ -1,0 +1,366 @@
+/* ==========================================================================
+   PaydMex Landing — 0% Commission Block (css/commission.css)
+   Tokens only. Mobile-first, 200% text scale safe, reduced-motion compliant.
+   ========================================================================== */
+
+.commission-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (min-width: 880px) {
+  .commission-layout {
+    grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+}
+
+/* Left: Large 0% CoDi Card */
+.commission-zero-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background-color: var(--surface);
+  border: 2px solid var(--brandText);
+  border-radius: var(--xl);
+  min-width: 0;
+}
+
+.commission-zero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--pill);
+  background-color: var(--brand);
+  color: var(--onBrand);
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.commission-zero-numeral {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: clamp(4.25rem, 9vw, 6.5rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--brandText);
+}
+
+.commission-zero-label {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.commission-zero-desc {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--inkMuted);
+}
+
+.commission-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: var(--space-2) var(--space-4);
+  margin-top: var(--space-1);
+  border-radius: var(--pill);
+  background-color: var(--surface2);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--font-label);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color var(--fast) var(--easeStd), border-color var(--fast) var(--easeStd);
+}
+
+.commission-source-link:hover {
+  background-color: var(--surface);
+  border-color: var(--ink);
+}
+
+/* Right: Comparison Column */
+.commission-comparison {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+.commission-bars-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--xl);
+  min-width: 0;
+}
+
+.commission-subtitle {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--inkMuted);
+}
+
+.commission-bars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.commission-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.commission-bar-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: 0.9375rem;
+}
+
+.commission-bar-name {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.commission-bar-row-codi .commission-bar-name {
+  font-weight: 600;
+}
+
+.commission-bar-values {
+  font-family: var(--font-label);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.commission-bar-fee {
+  color: var(--inkMuted);
+  font-weight: 400;
+}
+
+.commission-bar-track {
+  width: 100%;
+  height: 14px;
+  background-color: var(--surface2);
+  border: 1px solid var(--line);
+  border-radius: var(--pill);
+  overflow: hidden;
+}
+
+.commission-bar-fill {
+  display: block;
+  height: 100%;
+  width: var(--bar-target, 100%);
+  border-radius: var(--pill);
+  background-color: var(--inkMuted);
+}
+
+.commission-bar-row-codi .commission-bar-fill {
+  background-color: var(--brand);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .commission-section.is-bar-ready .commission-bar-fill {
+    width: 0%;
+  }
+
+  .commission-section.is-bar-ready.is-bar-animated .commission-bar-fill {
+    width: var(--bar-target, 100%);
+    transition: width var(--slow) var(--easeOut);
+  }
+}
+
+/* Comparison Table */
+.commission-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--xl);
+}
+
+.commission-table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.commission-table th,
+.commission-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.commission-table thead th {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--inkMuted);
+  background-color: var(--surface2);
+}
+
+.commission-table tbody tr:last-child th,
+.commission-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.commission-table tbody th {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.commission-row-codi th,
+.commission-row-codi td {
+  font-weight: 600;
+  background-color: color-mix(in srgb, var(--brand) 10%, var(--surface));
+}
+
+.commission-provider-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.commission-provider-link:hover {
+  color: var(--brandText);
+}
+
+/* Second small callout: $50.00 sale */
+.commission-callout-50 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  background-color: var(--surface2);
+  border: 1px solid var(--line);
+  border-radius: var(--lg);
+}
+
+.commission-callout-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.commission-callout-title {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.commission-callout-note {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.commission-callout-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-3);
+}
+
+.commission-callout-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--md);
+  font-size: 0.875rem;
+}
+
+.commission-callout-provider {
+  color: var(--inkMuted);
+  font-size: 0.8125rem;
+}
+
+.commission-callout-amount {
+  font-family: var(--font-label);
+  font-size: 1rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.commission-callout-item-codi .commission-callout-amount {
+  color: var(--brandText);
+}
+
+/* Footnote */
+.commission-footnote {
+  margin: var(--space-6) 0 0 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--inkMuted);
+  max-width: 78ch;
+}
+
+@media (max-width: 480px) {
+  .commission-zero-card,
+  .commission-bars-card,
+  .commission-callout-50 {
+    padding: var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .commission-source-link,
+  .commission-bar-fill {
+    transition: none;
+  }
+}

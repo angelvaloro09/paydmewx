@@ -1,5 +1,5 @@
 /**
- * PaydMex Landing — Categories Carousel (B1)
+ * PaydMex Landing — Categories Carousel (B1 / T23a)
  */
 (function () {
   'use strict';
@@ -28,6 +28,10 @@
   let activeIndex = 0;
   let timerId = null;
 
+  function isPaused() {
+    return Boolean(userPaused || isReducedMotion);
+  }
+
   function getSlideOffset(idx) {
     const first = slides[0];
     const target = slides[idx];
@@ -36,7 +40,7 @@
 
   function updateActiveUi(idx) {
     activeIndex = idx;
-    dots.forEach((dot, i) => {
+    dots.forEach(function (dot, i) {
       if (i === idx) {
         dot.setAttribute('aria-current', 'true');
         dot.classList.add('is-active');
@@ -49,7 +53,7 @@
 
   function updateToggleUi() {
     if (!toggleBtn) return;
-    const paused = userPaused || isReducedMotion;
+    const paused = isPaused();
     toggleBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
     toggleBtn.setAttribute(
       'aria-label',
@@ -68,21 +72,7 @@
     }
     const heading = slides[idx] ? slides[idx].querySelector('h3') : null;
     const title = heading ? heading.textContent.trim() : '';
-    liveRegion.textContent = `Tarjeta ${idx + 1} de ${slides.length}${title ? ': ' + title : ''}`;
-  }
-
-  function goToSlide(idx, opts) {
-    const options = opts || {};
-    const count = slides.length;
-    const normalized = ((idx % count) + count) % count;
-    const instant = Boolean(options.instant || isReducedMotion);
-
-    announceSlide(normalized, Boolean(options.announce));
-    updateActiveUi(normalized);
-    track.scrollTo({
-      left: getSlideOffset(normalized),
-      behavior: instant ? 'auto' : 'smooth',
-    });
+    liveRegion.textContent = 'Tarjeta ' + (idx + 1) + ' de ' + slides.length + (title ? ': ' + title : '');
   }
 
   function findClosestSlideIndex() {
@@ -97,6 +87,39 @@
       }
     }
     return best;
+  }
+
+  function clearAutoplayTimer() {
+    if (timerId !== null) {
+      window.clearInterval(timerId);
+      timerId = null;
+    }
+  }
+
+  function cancelInFlightScroll() {
+    track.style.scrollSnapType = 'none';
+    track.style.scrollBehavior = 'auto';
+    track.scrollTo({ left: track.scrollLeft, behavior: 'auto' });
+    updateActiveUi(findClosestSlideIndex());
+  }
+
+  function goToSlide(idx, opts) {
+    const options = opts || {};
+    if (options.fromAutoplay && isPaused()) return;
+
+    const count = slides.length;
+    const normalized = ((idx % count) + count) % count;
+    const instant = Boolean(options.instant || isReducedMotion);
+
+    track.style.scrollSnapType = '';
+    track.style.scrollBehavior = '';
+
+    announceSlide(normalized, Boolean(options.announce));
+    updateActiveUi(normalized);
+    track.scrollTo({
+      left: getSlideOffset(normalized),
+      behavior: instant ? 'auto' : 'smooth',
+    });
   }
 
   let scrollRaf = 0;
@@ -205,45 +228,57 @@
       userPaused = !userPaused;
       if (isReducedMotion && !userPaused) isReducedMotion = false;
       updateToggleUi();
-      restartAutoplay();
+      if (isPaused()) {
+        clearAutoplayTimer();
+        cancelInFlightScroll();
+      } else {
+        track.style.scrollSnapType = '';
+        track.style.scrollBehavior = '';
+        restartAutoplay();
+      }
     });
   }
 
-  carousel.addEventListener('pointerenter', function () {
+  track.addEventListener('pointerenter', function () {
     isHovered = true;
   });
-  carousel.addEventListener('pointerleave', function () {
+  track.addEventListener('pointerleave', function () {
     isHovered = false;
   });
-  carousel.addEventListener('focusin', function () {
+  track.addEventListener('focusin', function () {
     isFocusWithin = true;
   });
-  carousel.addEventListener('focusout', function (e) {
-    if (!carousel.contains(e.relatedTarget)) isFocusWithin = false;
+  track.addEventListener('focusout', function (e) {
+    if (!track.contains(e.relatedTarget)) isFocusWithin = false;
   });
 
   document.addEventListener('visibilitychange', function () {
-    if (!document.hidden) restartAutoplay();
+    if (document.hidden) {
+      clearAutoplayTimer();
+    } else {
+      restartAutoplay();
+    }
   });
 
   if (typeof motionQuery.addEventListener === 'function') {
     motionQuery.addEventListener('change', function (e) {
       isReducedMotion = e.matches;
-      if (isReducedMotion) userPaused = true;
+      if (isReducedMotion) {
+        userPaused = true;
+        clearAutoplayTimer();
+        cancelInFlightScroll();
+      }
       updateToggleUi();
       restartAutoplay();
     });
   }
 
   function restartAutoplay() {
-    if (timerId !== null) {
-      window.clearInterval(timerId);
-      timerId = null;
-    }
-    if (userPaused || isReducedMotion) return;
+    clearAutoplayTimer();
+    if (isPaused()) return;
     timerId = window.setInterval(function () {
-      if (!userPaused && !isReducedMotion && !isHovered && !isFocusWithin && !document.hidden) {
-        goToSlide(activeIndex + 1, { announce: false });
+      if (!isPaused() && !isHovered && !isFocusWithin && !document.hidden) {
+        goToSlide(activeIndex + 1, { announce: false, fromAutoplay: true });
       }
     }, AUTOPLAY_MS);
   }

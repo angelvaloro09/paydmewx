@@ -1,0 +1,321 @@
+/* ==========================================================================
+   PaydMex Landing — Un perfil, dos modos (css/modes.css)
+   Phone-like frame with constant account header, 2-tab switch, 280ms directional
+   slide+fade swap, swipe gesture support, and reduced-motion compliance.
+   ========================================================================== */
+
+.modes-showcase {
+  display: flex;
+  justify-content: center;
+}
+
+.modes-phone {
+  width: 100%;
+  max-width: 560px;
+  padding: var(--space-6);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--xl);
+  box-shadow: var(--shadow-float);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Constant Account Header */
+.modes-account-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.modes-account-id {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.modes-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--brand);
+  color: var(--onBrand);
+  font-family: var(--font-label);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--ink);
+  flex-shrink: 0;
+}
+
+.modes-account-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.modes-account-name {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.modes-account-sub {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  color: var(--inkMuted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Prominent Two-Tab Switch */
+.modes-tablist {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  background-color: var(--surface2);
+  border: 1px solid var(--line);
+  border-radius: var(--pill);
+  width: 100%;
+}
+
+.modes-tab-thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  background-color: var(--ink);
+  border-radius: var(--pill);
+  transition: transform 280ms var(--easeOut);
+  pointer-events: none;
+}
+
+.modes-tablist[data-active-mode="negocio"] .modes-tab-thumb {
+  transform: translateX(100%);
+}
+
+.modes-tab {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: var(--space-2) var(--space-4);
+  background: transparent;
+  border: 0;
+  border-radius: var(--pill);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--inkMuted);
+  cursor: pointer;
+  transition: color 280ms var(--easeOut);
+}
+
+.modes-tab .icon {
+  font-size: 1.125rem;
+}
+
+.modes-tab[aria-selected="true"] {
+  color: var(--bg);
+}
+
+/* Swappable Panel Viewport */
+.modes-viewport {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.modes-panel {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-top: var(--space-2);
+  min-width: 0;
+}
+
+.modes-panel[hidden] {
+  display: none;
+}
+
+.modes-panel-title {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.modes-feature-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.modes-feature-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.modes-feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--sm);
+  background-color: var(--surface2);
+  border: 1px solid var(--line);
+  color: var(--brandText);
+  font-size: 0.9375rem;
+  flex-shrink: 0;
+}
+
+/* Compact Mock Card inside Phone */
+.modes-mock-card {
+  padding: var(--space-4);
+  background-color: var(--surface2);
+  border: 1px solid var(--line);
+  border-radius: var(--lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.modes-mock-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  color: var(--inkMuted);
+}
+
+.modes-mock-amount {
+  margin: var(--space-1) 0 0 0;
+  font-family: var(--font-label);
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.modes-mock-meta {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  color: var(--inkMuted);
+}
+
+/* 280ms Directional Slide + Fade Keyframes */
+@keyframes modeLeaveLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+}
+
+@keyframes modeEnterRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes modeLeaveRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+
+@keyframes modeEnterLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .modes-panel.is-leaving-left {
+    animation: modeLeaveLeft 280ms var(--easeOut) forwards;
+    pointer-events: none;
+  }
+
+  .modes-panel.is-entering-right {
+    animation: modeEnterRight 280ms var(--easeOut) forwards;
+  }
+
+  .modes-panel.is-leaving-right {
+    animation: modeLeaveRight 280ms var(--easeOut) forwards;
+    pointer-events: none;
+  }
+
+  .modes-panel.is-entering-left {
+    animation: modeEnterLeft 280ms var(--easeOut) forwards;
+  }
+}
+
+@media (max-width: 480px) {
+  .modes-phone {
+    padding: var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modes-tab-thumb,
+  .modes-tab {
+    transition: none;
+  }
+
+  .modes-panel.is-leaving-left,
+  .modes-panel.is-entering-right,
+  .modes-panel.is-leaving-right,
+  .modes-panel.is-entering-left {
+    animation: none;
+    transform: none;
+    opacity: 1;
+  }
+}

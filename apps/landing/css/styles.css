@@ -592,92 +592,8 @@ body {
 }
 
 /* ==========================================================================
-   3. Facts strip
-   ========================================================================== */
-.facts-section {
-  padding-block: var(--space-8);
-}
-
-.facts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-4);
-  margin: 0;
-}
-
-.fact-card {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: space-between;
-  gap: var(--space-2);
-  padding: var(--space-6);
-  background-color: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--lg);
-}
-
-.fact-label {
-  margin: 0;
-  font-family: var(--font-label);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--inkMuted);
-}
-
-.fact-value {
-  margin: 0;
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
-  font-weight: 400;
-  line-height: 1.0;
-  letter-spacing: -0.03em;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink);
-}
-
-/* ==========================================================================
    4. Cómo funciona + Animated POS Mock (6s CSS loop)
    ========================================================================== */
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: var(--space-4);
-  list-style: none;
-  margin: var(--space-8) 0 var(--space-12) 0;
-  padding: 0;
-}
-
-.step-card {
-  padding: var(--space-6);
-  background-color: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--xl);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.step-number {
-  font-family: var(--font-label);
-  font-size: 2rem;
-  font-weight: 400;
-  color: var(--brandText);
-  line-height: 1;
-}
-
-.step-title {
-  margin: 0;
-  font-size: 1.375rem;
-  font-weight: 500;
-}
-
-.step-desc {
-  margin: 0;
-  color: var(--inkMuted);
-  font-size: 0.9375rem;
-}
-
 /* POS Phone Mock */
 .pos-showcase {
   display: flex;
@@ -1550,7 +1466,7 @@ body {
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   scrollbar-width: none;
   cursor: grab;
   border-radius: var(--xl);
@@ -1721,185 +1637,138 @@ body {
   border-radius: var(--xl);
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-}
-
-.fulfillment-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
+  gap: var(--space-3);
 }
 
 .fulfillment-title {
   margin: 0;
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--inkMuted);
 }
 
 .fulfillment-desc {
   margin: 0;
-  color: var(--inkMuted);
-}
-
-.timeline-preview {
-  margin-top: auto;
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.timeline-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  font-size: 0.875rem;
-}
-
-.timeline-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.timeline-dot-brand {
-  background-color: var(--brand);
-}
-
-.timeline-dot-cempasuchil {
-  background-color: var(--cempasuchil);
-}
-
-.timeline-time {
-  font-family: var(--font-label);
-  font-size: 0.75rem;
-  color: var(--inkMuted);
-  font-variant-numeric: tabular-nums;
-}
-
-/* ==========================================================================
-   6. Un perfil, dos modos (Segmented pill toggle, 300ms slide)
-   ========================================================================== */
-.mode-demo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-6);
-}
-
-.segmented-control {
-  position: relative;
-  display: inline-grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 4px;
-  background-color: var(--surface2);
-  border: 1px solid var(--line);
-  border-radius: var(--pill);
-  width: 100%;
-  max-width: 340px;
-}
-
-.segmented-thumb {
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: 4px;
-  width: calc(50% - 4px);
-  background-color: var(--ink);
-  border-radius: var(--pill);
-  transition: transform var(--base) var(--easeStd);
-  pointer-events: none;
-}
-
-.segmented-control[data-active="negocio"] .segmented-thumb {
-  transform: translateX(100%);
-}
-
-.segmented-btn {
-  position: relative;
-  z-index: 1;
-  min-height: 48px;
-  padding: var(--space-2) var(--space-4);
-  background: transparent;
-  border: 0;
-  border-radius: var(--pill);
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--inkMuted);
-  cursor: pointer;
-  transition: color var(--base) var(--easeStd);
-}
-
-.segmented-btn.is-active {
-  color: var(--bg);
-}
-
-.mode-panels {
-  width: 100%;
-}
-
-.mode-panel {
-  padding: var(--space-6);
-  background-color: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--xl);
-}
-
-.mode-panel-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: var(--space-6);
-  align-items: center;
-}
-
-.mode-panel-title {
-  margin: var(--space-2) 0 var(--space-3) 0;
-  font-size: 1.5rem;
+  font-size: 1.125rem;
   font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink);
 }
 
-.mode-panel-copy {
-  margin: 0;
-  color: var(--inkMuted);
-}
-
-.mode-mock-card {
-  padding: var(--space-6);
+/* Horizontal Stepper inside Fulfillment Cards */
+.fulfillment-stepper {
+  margin-top: auto;
+  padding: var(--space-4);
   background-color: var(--surface2);
   border: 1px solid var(--line);
   border-radius: var(--lg);
   display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.mode-mock-row {
-  display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
-  font-size: 0.875rem;
-  color: var(--inkMuted);
+  list-style: none;
+  margin-bottom: 0;
 }
 
-.mode-mock-amount {
-  margin: var(--space-2) 0 0 0;
-  font-size: 2.25rem;
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
+.stepper-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+  flex-shrink: 0;
 }
 
-.mode-mock-meta {
-  margin: 0;
+.stepper-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--brand);
+  color: var(--onBrand);
+  border: 1.5px solid var(--ink);
+  font-size: 1rem;
+}
+
+.stepper-node-emph .stepper-dot {
+  width: 42px;
+  height: 42px;
+  background-color: var(--surface);
+  color: var(--ink);
+  border: 2px solid var(--cempasuchil);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--cempasuchil) 20%, transparent);
+}
+
+.stepper-label {
   font-family: var(--font-label);
   font-size: 0.75rem;
-  color: var(--inkMuted);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+}
+
+.stepper-node-emph .stepper-label {
+  text-decoration: underline;
+  text-decoration-color: var(--cempasuchil);
+  text-underline-offset: 3px;
+}
+
+.stepper-connector {
+  flex: 1 1 24px;
+  height: 2px;
+  background-color: var(--line);
+  border-radius: var(--pill);
+  overflow: hidden;
+  align-self: center;
+  margin-bottom: 22px;
+}
+
+.stepper-connector-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--brandText);
+  transform-origin: left center;
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fulfillment-grid.is-stepper-ready .stepper-connector-fill {
+    transform: scaleX(0);
+  }
+
+  .fulfillment-grid.is-stepper-ready.is-stepper-animated .stepper-connector-fill {
+    transform: scaleX(1);
+    transition: transform var(--slow) var(--easeOut);
+  }
+
+  .fulfillment-grid.is-stepper-ready.is-stepper-animated .stepper-connector:nth-of-type(2) .stepper-connector-fill {
+    transition-delay: 220ms;
+  }
+}
+
+@media (max-width: 360px) {
+  .fulfillment-stepper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stepper-node {
+    flex-direction: row;
+  }
+
+  .stepper-connector {
+    width: 2px;
+    height: 16px;
+    flex: none;
+    margin-bottom: 0;
+    margin-left: 17px;
+  }
 }
 
 /* ==========================================================================
@@ -2296,14 +2165,17 @@ body {
 
   /* Transitions <= 150ms opacity only; nav pill & scroll reveal instant */
   .btn,
-  .segmented-thumb,
-  .segmented-btn,
   .prompt-chip,
   .carousel-btn,
   .carousel-dot::before,
   .category-card,
   .category-illustration {
     transition: opacity 150ms linear;
+  }
+
+  .stepper-connector-fill {
+    transition: none;
+    transform: scaleX(1);
   }
 
   .nav-active-pill,
