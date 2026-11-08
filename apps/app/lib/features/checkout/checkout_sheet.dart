@@ -135,6 +135,8 @@ class CheckoutSheet extends ConsumerWidget {
                         reduceMotion: reduceMotion,
                       ),
                     CheckoutPhase.waiting => PxQrCard(
+                      instruction:
+                          'Escanea este código con tu app bancaria para pagar.',
                         key: const ValueKey('checkout_waiting'),
                         qrString: state.qrString ?? '',
                         amountCents: state.amountCents,

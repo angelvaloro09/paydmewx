@@ -33,6 +33,7 @@ class PxQrCard extends StatelessWidget {
   final int remainingSeconds;
   final VoidCallback? onCancel;
   final Widget? demoAction;
+  final String instruction;
 
   const PxQrCard({
     super.key,
@@ -41,6 +42,8 @@ class PxQrCard extends StatelessWidget {
     required this.remainingSeconds,
     this.onCancel,
     this.demoAction,
+    this.instruction =
+        'Muestra este código a tu cliente para pagar desde su app bancaria.',
   });
 
   @override
@@ -126,7 +129,7 @@ class PxQrCard extends StatelessWidget {
           ),
           const SizedBox(height: PxSpacing.s4),
           Text(
-            'Muestra este código a tu cliente para pagar desde su app bancaria.',
+            instruction,
             textAlign: TextAlign.center,
             style: context.pxText.bodyMedium?.copyWith(
               color: colors.inkMuted,
