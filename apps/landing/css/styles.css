@@ -916,6 +916,555 @@ body {
 }
 
 /* ==========================================================================
+   4b. Un ciclo que no se detiene — Four-Stage Cycle Capsules (B3)
+   ========================================================================== */
+.cycle-section {
+  position: relative;
+  padding-block: var(--space-12);
+}
+
+.cycle-scroll-track {
+  position: relative;
+}
+
+.cycle-sticky {
+  width: 100%;
+}
+
+.cycle-stage-layout {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: stretch;
+  margin-top: var(--space-6);
+}
+
+.cycle-rail-mobile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: var(--space-2);
+  color: var(--brandText);
+}
+
+.cycle-rail-svg {
+  width: 32px;
+  height: 100%;
+  min-height: 280px;
+  overflow: visible;
+}
+
+.cycle-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.cycle-capsule {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--xl);
+  min-width: 0;
+  cursor: pointer;
+  transition:
+    flex-grow 500ms var(--easeOut),
+    background-color var(--base) var(--easeStd),
+    border-color var(--base) var(--easeStd),
+    box-shadow var(--base) var(--easeStd);
+}
+
+.cycle-capsule::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 24px;
+  right: 24px;
+  height: 3px;
+  border-radius: var(--pill);
+  background-color: var(--brand);
+  box-shadow: 0 2px 14px color-mix(in srgb, var(--brand) 65%, transparent);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition: opacity var(--base) var(--easeOut), transform 500ms var(--easeOut);
+  pointer-events: none;
+}
+
+.cycle-capsule.is-active {
+  cursor: default;
+  border-color: color-mix(in srgb, var(--brandText) 38%, var(--line));
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--brand) 8%, var(--surface)) 0%,
+    var(--surface) 58%
+  );
+}
+
+.cycle-capsule.is-active::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.cycle-tab {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-1) 0;
+  background: transparent;
+  border: 0;
+  border-radius: var(--md);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+
+.cycle-numeral {
+  font-family: var(--font-mono);
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-ghost);
+  transition: color var(--base) var(--easeOut), font-size var(--base) var(--easeOut);
+}
+
+.cycle-capsule.is-active .cycle-numeral {
+  color: var(--brandText);
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.cycle-tab-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.cycle-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--inkMuted);
+}
+
+.cycle-title {
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.cycle-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+  flex: 1;
+}
+
+.cycle-panel[hidden] {
+  display: none;
+}
+
+.cycle-desc {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--inkMuted);
+  max-width: 44ch;
+}
+
+.cycle-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cycle-check-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.cycle-check-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--brand) 18%, var(--surface2));
+  color: var(--brandText);
+  border: 1px solid color-mix(in srgb, var(--brandText) 35%, transparent);
+  font-size: 0.8125rem;
+  flex-shrink: 0;
+}
+
+/* Mini-wireframes inside each capsule */
+.cycle-wireframe {
+  margin-top: auto;
+  padding: var(--space-3);
+  background-color: var(--surface2);
+  border: 1px solid var(--line);
+  border-radius: var(--lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cycle-wf-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.8125rem;
+}
+
+.cycle-wf-row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.cycle-wf-name {
+  font-weight: 500;
+  color: var(--ink);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cycle-wf-price {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--inkMuted);
+  flex-shrink: 0;
+}
+
+.cycle-wf-stock {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  padding: 2px 8px;
+  border-radius: var(--pill);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--brandText);
+  flex-shrink: 0;
+}
+
+.cycle-wf-qr-card {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.cycle-wf-qr-box {
+  width: 56px;
+  height: 56px;
+  padding: 4px;
+  border-radius: var(--sm);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.cycle-wf-qr-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cycle-wf-qr-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--inkMuted);
+}
+
+.cycle-wf-qr-amount {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.cycle-wf-qr-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--brandText);
+}
+
+.cycle-wf-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cycle-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--pill);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.cycle-status-prep {
+  border-color: var(--cempasuchil);
+  background-color: color-mix(in srgb, var(--cempasuchil) 14%, var(--surface));
+}
+
+.cycle-status-ready {
+  border-color: var(--codi);
+  background-color: color-mix(in srgb, var(--codi) 14%, var(--surface));
+}
+
+.cycle-status-done {
+  background-color: var(--brand);
+  color: var(--onBrand);
+  border-color: var(--brandText);
+}
+
+.cycle-wf-caption {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--inkMuted);
+}
+
+.cycle-wf-alert-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.cycle-wf-alert-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--sm);
+  background-color: color-mix(in srgb, var(--cempasuchil) 18%, var(--surface));
+  border: 1px solid var(--cempasuchil);
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+.cycle-wf-alert-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.cycle-wf-alert-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.cycle-wf-alert-sub {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--inkMuted);
+}
+
+.cycle-wf-alert-pill {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--pill);
+  background-color: var(--brand);
+  color: var(--onBrand);
+  flex-shrink: 0;
+}
+
+/* Loop connector under the capsules */
+.cycle-loop {
+  position: relative;
+  margin-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--brandText);
+}
+
+.cycle-loop-svg {
+  display: none;
+  width: 100%;
+  height: 64px;
+  overflow: visible;
+}
+
+.cycle-loop-bg {
+  color: var(--line);
+}
+
+.cycle-loop-progress,
+.cycle-loop-arrow {
+  color: var(--brandText);
+}
+
+.cycle-loop-dot {
+  fill: var(--brand);
+  stroke: var(--ink);
+  stroke-width: 1.5px;
+}
+
+.cycle-loop-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--inkMuted);
+  padding: 4px 12px;
+  border-radius: var(--pill);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+}
+
+/* Desktop (>= 760px): tall sticky section + horizontal capsule accordion */
+@media (min-width: 760px) {
+  .cycle-section {
+    padding-block: 0;
+  }
+
+  .cycle-scroll-track {
+    min-height: 300vh;
+    padding-block: var(--space-12);
+  }
+
+  .cycle-sticky {
+    position: sticky;
+    top: 84px;
+    padding-block: var(--space-4);
+  }
+
+  .cycle-stage-layout {
+    display: block;
+    margin-top: var(--space-6);
+  }
+
+  .cycle-rail-mobile {
+    display: none;
+  }
+
+  .cycle-row {
+    flex-direction: row;
+    align-items: stretch;
+    gap: var(--space-4);
+    min-height: 440px;
+  }
+
+  .cycle-capsule {
+    flex: 1 1 0%;
+    padding: var(--space-6);
+    justify-content: space-between;
+  }
+
+  .cycle-capsule.is-active {
+    flex: 3.4 1 0%;
+    justify-content: flex-start;
+  }
+
+  .cycle-capsule:not(.is-active) .cycle-tab {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 380px;
+  }
+
+  .cycle-capsule:not(.is-active) .cycle-tab-meta {
+    flex: 0 0 auto;
+    margin-top: auto;
+  }
+
+  .cycle-capsule:not(.is-active) .cycle-label {
+    display: none;
+  }
+
+  .cycle-capsule:not(.is-active) .cycle-title {
+    font-size: 1.125rem;
+    color: var(--inkMuted);
+  }
+
+  .cycle-capsule.is-active .cycle-tab {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .cycle-capsule.is-active .cycle-tab-meta {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .cycle-loop {
+    margin-top: var(--space-3);
+  }
+
+  .cycle-loop-svg {
+    display: block;
+  }
+
+  .cycle-loop-label {
+    /* Sits on the bottom run of the loop (y=54 of 68 in a 64px svg) and interrupts the line. */
+    position: absolute;
+    top: 51px;
+    left: 50%;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg);
+  }
+}
+
+/* ==========================================================================
    5. Para todos los negocios — Icon Utility & Categories Carousel (B1)
    ========================================================================== */
 .icon {
@@ -1678,5 +2227,54 @@ body {
 
   .carousel-track {
     scroll-behavior: auto;
+  }
+
+  /* Cycle section (B3): all 4 capsules expanded as a plain stacked list, no sticky stage, static loop */
+  .cycle-section {
+    padding-block: var(--space-16);
+  }
+
+  .cycle-scroll-track {
+    min-height: 0;
+    padding-block: 0;
+  }
+
+  .cycle-sticky {
+    position: static;
+    padding-block: 0;
+  }
+
+  .cycle-row {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .cycle-capsule,
+  .cycle-capsule.is-active,
+  .cycle-capsule::before,
+  .cycle-numeral {
+    flex: none;
+    transition: none;
+  }
+
+  .cycle-capsule:not(.is-active) .cycle-tab,
+  .cycle-capsule.is-active .cycle-tab {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: auto;
+    min-height: 48px;
+  }
+
+  .cycle-capsule:not(.is-active) .cycle-label {
+    display: block;
+  }
+
+  .cycle-panel[hidden] {
+    display: flex;
+  }
+
+  .cycle-loop-dot {
+    display: none;
   }
 }
