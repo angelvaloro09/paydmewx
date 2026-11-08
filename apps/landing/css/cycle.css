@@ -1,0 +1,955 @@
+/* ==========================================================================
+   4b. Un ciclo que no se detiene — Hover & Focus Step Cards (T21 / T22)
+   Loads after css/styles.css and overrides legacy accordion rules.
+   ========================================================================== */
+
+.cycle-section {
+  position: relative;
+  padding-block: var(--space-12);
+}
+
+@media (min-width: 760px) {
+  .cycle-section {
+    padding-block: var(--space-16);
+  }
+}
+
+/* Loop header above the cards (01 -> 02 -> 03 -> 04 -> return arrow) */
+.cycle-loop {
+  --active-step: 0;
+  position: relative;
+  margin: var(--space-6) 0 var(--space-6) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  color: var(--inkMuted);
+}
+
+.cycle-loop-track {
+  position: relative;
+  width: 100%;
+  padding-block: 6px;
+}
+
+.cycle-loop-line {
+  position: absolute;
+  top: 50%;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  transform: translateY(-50%);
+  background-color: var(--line);
+  border-radius: var(--pill);
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cycle-loop-line-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--brand);
+  transform-origin: left center;
+  transform: scaleX(calc(var(--active-step, 0) / 3));
+  transition: transform 420ms var(--easeOut);
+}
+
+.cycle-loop-dot {
+  position: absolute;
+  top: 50%;
+  left: calc((var(--active-step, 0) * 25%) + 12.5%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--brand);
+  border: 2px solid var(--surface);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 28%, transparent);
+  transform: translate(-50%, -50%);
+  transition: left 420ms var(--easeOut);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cycle-loop-nodes {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  place-items: center;
+}
+
+.cycle-loop-node {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 4px 10px;
+  border-radius: var(--pill);
+  background-color: var(--bg);
+  border: 1.5px solid var(--line);
+  color: var(--inkMuted);
+  font-family: var(--font-label);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  overflow: visible;
+  box-sizing: border-box;
+  transition:
+    background-color var(--base) var(--easeOut),
+    color var(--base) var(--easeOut),
+    border-color var(--base) var(--easeOut),
+    box-shadow var(--base) var(--easeOut),
+    transform var(--base) var(--easeOut);
+}
+
+.cycle-loop-node.is-active {
+  background-color: var(--brand);
+  color: var(--onBrand);
+  border-color: var(--brand);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 22%, transparent);
+  transform: scale(1.06);
+}
+
+.cycle-loop-return {
+  position: relative;
+  width: 100%;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cycle-loop-svg {
+  display: block;
+  width: 100%;
+  height: 36px;
+  color: var(--inkMuted);
+  overflow: visible;
+}
+
+.cycle-loop-return-path {
+  color: var(--line);
+}
+
+.cycle-loop-arrow {
+  color: var(--brand);
+}
+
+.cycle-loop .cycle-loop-label {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  padding: 2px 12px;
+  border-radius: var(--pill);
+  background-color: var(--surface2);
+  border: 1px solid var(--line);
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--inkMuted);
+  white-space: nowrap;
+}
+
+/* Responsive 4-step grid: 1 col (<600px), 2x2 (600-1023px), 4 cols (>=1024px) */
+.cycle-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+@media (min-width: 600px) {
+  .cycle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .cycle-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Step Card Tile */
+.cycle-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--xl);
+  min-width: 0;
+  cursor: pointer;
+  transition:
+    transform var(--base) var(--easeOut),
+    border-color var(--base) var(--easeStd),
+    background-color var(--base) var(--easeStd);
+}
+
+@media (min-width: 1200px) {
+  .cycle-card {
+    padding: 20px;
+  }
+}
+
+.cycle-card:hover,
+.cycle-card:focus-visible,
+.cycle-card.is-active {
+  transform: translateY(-4px);
+  border-color: var(--brand);
+}
+
+/* Header: Numeral on top, label stacked beneath left-aligned on all 4 cards */
+.cycle-card-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cycle-card .cycle-numeral {
+  font-family: var(--font-label);
+  font-size: clamp(2.35rem, 3.2vw, 3rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-ghost);
+  -webkit-text-stroke: 0;
+  transition: color var(--base) var(--easeOut);
+}
+
+.cycle-card:hover .cycle-numeral,
+.cycle-card:focus-visible .cycle-numeral,
+.cycle-card.is-active .cycle-numeral {
+  color: var(--brand);
+  font-size: clamp(2.35rem, 3.2vw, 3rem);
+}
+
+.cycle-card .cycle-label {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--inkMuted);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cycle-card .cycle-title {
+  margin: 2px 0 0 0;
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cycle-card .cycle-desc {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--inkMuted);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Scannable checklist chips: compact wrap-able row */
+.cycle-card .cycle-checklist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin: 2px 0 0 0;
+  padding: 0;
+  list-style: none;
+  min-width: 0;
+}
+
+.cycle-card .cycle-check-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: var(--pill);
+  background-color: var(--surface2);
+  border: 1px solid var(--line);
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ink);
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.cycle-card .cycle-check-item .icon {
+  color: var(--ink);
+  font-size: 0.6875rem;
+  flex-shrink: 0;
+}
+
+/* Live Mini Scene (Wireframe Preview): modest margin-top + shared min-height */
+.cycle-card .cycle-wireframe {
+  margin-top: var(--space-4);
+  min-height: 148px;
+  flex: 1 1 auto;
+  padding: var(--space-3);
+  background-color: var(--surface2);
+  border: 1px solid var(--line);
+  border-radius: var(--lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 0;
+  overflow: visible;
+  transition: border-color var(--base) var(--easeStd);
+}
+
+.cycle-card:hover .cycle-wireframe,
+.cycle-card:focus-visible .cycle-wireframe,
+.cycle-card.is-active .cycle-wireframe {
+  border-color: color-mix(in srgb, var(--brand) 45%, var(--line));
+}
+
+/* Scene 01 — Cataloga: 2-line rows (name on line 1, price + stock chip on line 2) */
+.cycle-scene-catalog .cycle-wf-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 3px;
+  column-gap: var(--space-2);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+  min-width: 0;
+  transition:
+    transform var(--base) var(--easeOut),
+    opacity var(--base) var(--easeOut);
+}
+
+.cycle-scene-catalog .cycle-wf-row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.cycle-scene-catalog .cycle-wf-name {
+  flex: 1 1 100%;
+  min-width: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.cycle-scene-catalog .cycle-wf-price {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  color: var(--inkMuted);
+  min-width: 0;
+}
+
+.cycle-scene-catalog .cycle-wf-stock {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  padding: 2px 8px;
+  border-radius: var(--pill);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  min-width: 56px;
+  text-align: center;
+  transition:
+    background-color var(--base) var(--easeOut),
+    color var(--base) var(--easeOut),
+    border-color var(--base) var(--easeOut);
+}
+
+@keyframes cycleRowSlide {
+  0% {
+    opacity: 0.25;
+    transform: translateX(-12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.cycle-card.is-animating .cycle-scene-catalog .cycle-wf-row:nth-child(1) {
+  animation: cycleRowSlide 340ms var(--easeOut) 0ms both;
+}
+
+.cycle-card.is-animating .cycle-scene-catalog .cycle-wf-row:nth-child(2) {
+  animation: cycleRowSlide 340ms var(--easeOut) 90ms both;
+}
+
+.cycle-card.is-animating .cycle-scene-catalog .cycle-wf-row:nth-child(3) {
+  animation: cycleRowSlide 340ms var(--easeOut) 180ms both;
+}
+
+.cycle-card:hover .cycle-scene-catalog .cycle-wf-stock,
+.cycle-card:focus-visible .cycle-scene-catalog .cycle-wf-stock,
+.cycle-card.is-active .cycle-scene-catalog .cycle-wf-stock {
+  background-color: var(--brand);
+  color: var(--onBrand);
+  border-color: var(--brand);
+}
+
+/* Scene 02 — Cobra: QR block left, tag + amount right, status pill on its own line below */
+.cycle-scene-qr.cycle-wf-qr-card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-2) var(--space-3);
+  min-width: 0;
+}
+
+.cycle-scene-qr .cycle-wf-qr-box {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  padding: 4px;
+  border-radius: var(--sm);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.cycle-scene-qr .cycle-wf-qr-meta {
+  flex: 1 1 92px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cycle-scene-qr .cycle-wf-qr-tag {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  line-height: 1.25;
+  color: var(--inkMuted);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cycle-scene-qr .cycle-wf-qr-amount {
+  font-family: var(--font-label);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cycle-qr-scanline {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  top: 0;
+  height: 2px;
+  border-radius: var(--pill);
+  background-color: var(--brand);
+  box-shadow: 0 0 8px var(--brand);
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+}
+
+@keyframes cycleQrSweep {
+  0% {
+    opacity: 0.95;
+    transform: translateY(2px);
+  }
+  75% {
+    opacity: 0.95;
+    transform: translateY(46px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+}
+
+.cycle-card.is-animating .cycle-qr-scanline {
+  animation: cycleQrSweep 440ms var(--easeOut) 1;
+}
+
+.cycle-wf-qr-status-wrap {
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: 28px;
+}
+
+.cycle-wf-qr-status-wrap .cycle-wf-qr-status {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.25;
+  padding: 4px 8px;
+  border-radius: var(--pill);
+  text-align: center;
+  overflow-wrap: anywhere;
+  transition:
+    opacity 220ms var(--easeOut),
+    transform 220ms var(--easeOut);
+}
+
+.cycle-qr-status-wait {
+  background-color: var(--surface);
+  border: 1px solid var(--cempasuchil);
+  color: var(--ink);
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0ms;
+}
+
+.cycle-qr-wait-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--cempasuchil);
+  flex-shrink: 0;
+}
+
+.cycle-qr-status-paid {
+  background-color: var(--brand);
+  border: 1px solid var(--brand);
+  color: var(--onBrand);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition-delay: 0ms;
+}
+
+.cycle-card:hover .cycle-qr-status-wait,
+.cycle-card:focus-visible .cycle-qr-status-wait,
+.cycle-card.is-active .cycle-qr-status-wait {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition-delay: 320ms;
+}
+
+.cycle-card:hover .cycle-qr-status-paid,
+.cycle-card:focus-visible .cycle-qr-status-paid,
+.cycle-card.is-active .cycle-qr-status-paid {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 320ms;
+}
+
+/* Scene 03 — Entrega: 3 status chips light up in sequence + progress line */
+.cycle-scene-delivery .cycle-wf-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  min-width: 0;
+}
+
+.cycle-scene-delivery .cycle-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--pill);
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.25;
+  background-color: var(--surface);
+  color: var(--inkMuted);
+  border: 1px solid var(--line);
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  transition:
+    background-color 220ms var(--easeOut),
+    color 220ms var(--easeOut),
+    border-color 220ms var(--easeOut),
+    transform 220ms var(--easeOut);
+}
+
+.cycle-scene-delivery .cycle-status-prep {
+  color: var(--ink);
+  border-color: var(--cempasuchil);
+}
+
+.cycle-card:hover .cycle-scene-delivery .cycle-status-prep,
+.cycle-card:focus-visible .cycle-scene-delivery .cycle-status-prep,
+.cycle-card.is-active .cycle-scene-delivery .cycle-status-prep {
+  background-color: color-mix(in srgb, var(--cempasuchil) 18%, var(--surface));
+  color: var(--ink);
+  border-color: var(--cempasuchil);
+  transition-delay: 0ms;
+}
+
+.cycle-card:hover .cycle-scene-delivery .cycle-status-ready,
+.cycle-card:focus-visible .cycle-scene-delivery .cycle-status-ready,
+.cycle-card.is-active .cycle-scene-delivery .cycle-status-ready {
+  background-color: color-mix(in srgb, var(--cempasuchil) 18%, var(--surface));
+  color: var(--ink);
+  border-color: var(--cempasuchil);
+  transform: translateY(-1px);
+  transition-delay: 180ms;
+}
+
+.cycle-card:hover .cycle-scene-delivery .cycle-status-done,
+.cycle-card:focus-visible .cycle-scene-delivery .cycle-status-done,
+.cycle-card.is-active .cycle-scene-delivery .cycle-status-done {
+  background-color: var(--brand);
+  color: var(--onBrand);
+  border-color: var(--brand);
+  font-weight: 600;
+  transform: translateY(-1px);
+  transition-delay: 360ms;
+}
+
+.cycle-delivery-progress {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: var(--pill);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.cycle-delivery-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--brand);
+  transform-origin: left center;
+  transform: scaleX(0.28);
+  transition: transform 520ms var(--easeOut);
+}
+
+.cycle-card:hover .cycle-delivery-fill,
+.cycle-card:focus-visible .cycle-delivery-fill,
+.cycle-card.is-active .cycle-delivery-fill {
+  transform: scaleX(1);
+}
+
+.cycle-scene-delivery .cycle-wf-caption {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--inkMuted);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Scene 04 — Reabastece: icon + title row 1, subtitle row 2, full-width pill row 3 */
+.cycle-scene-restock .cycle-wf-alert-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--space-2);
+  row-gap: 6px;
+  min-width: 0;
+}
+
+.cycle-scene-restock .cycle-wf-alert-copy {
+  display: contents;
+}
+
+.cycle-scene-restock .cycle-wf-alert-icon {
+  grid-column: 1;
+  grid-row: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--sm);
+  background-color: color-mix(in srgb, var(--cempasuchil) 18%, var(--surface));
+  border: 1px solid var(--cempasuchil);
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+.cycle-scene-restock .cycle-wf-alert-title {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.cycle-scene-restock .cycle-wf-alert-sub {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  min-width: 0;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--inkMuted);
+  overflow-wrap: anywhere;
+}
+
+@keyframes cycleAlertPulse {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.16);
+    background-color: var(--cempasuchil);
+    color: var(--onBrand);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cycle-card.is-animating .cycle-wf-alert-icon {
+  animation: cycleAlertPulse 340ms var(--easeOut) 1;
+}
+
+.cycle-restock-num {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.cycle-scene-restock .cycle-wf-alert-pill {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  position: relative;
+  display: inline-grid;
+  align-items: center;
+  justify-items: center;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  padding: 5px 10px;
+  border-radius: var(--pill);
+  background-color: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--cempasuchil);
+  transition:
+    background-color 220ms var(--easeOut),
+    color 220ms var(--easeOut),
+    border-color 220ms var(--easeOut);
+}
+
+.cycle-pill-rest,
+.cycle-pill-done {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 0;
+  transition:
+    opacity 200ms var(--easeOut),
+    transform 200ms var(--easeOut);
+}
+
+.cycle-pill-rest {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cycle-pill-done {
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+.cycle-card:hover .cycle-scene-restock .cycle-wf-alert-pill,
+.cycle-card:focus-visible .cycle-scene-restock .cycle-wf-alert-pill,
+.cycle-card.is-active .cycle-scene-restock .cycle-wf-alert-pill {
+  background-color: var(--brand);
+  color: var(--onBrand);
+  border-color: var(--brand);
+  transition-delay: 260ms;
+}
+
+.cycle-card:hover .cycle-pill-rest,
+.cycle-card:focus-visible .cycle-pill-rest,
+.cycle-card.is-active .cycle-pill-rest {
+  opacity: 0;
+  transform: scale(0.85);
+  transition-delay: 260ms;
+}
+
+.cycle-card:hover .cycle-pill-done,
+.cycle-card:focus-visible .cycle-pill-done,
+.cycle-card.is-active .cycle-pill-done {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 260ms;
+}
+
+/* Reduced Motion Compliance (prefers-reduced-motion: reduce) */
+@media (prefers-reduced-motion: reduce) {
+  .cycle-loop-dot {
+    display: none;
+  }
+
+  .cycle-loop-line-fill {
+    transform: scaleX(1);
+    transition: none;
+  }
+
+  .cycle-loop-node,
+  .cycle-loop-node.is-active {
+    transform: none;
+    transition: none;
+  }
+
+  .cycle-card,
+  .cycle-card:hover,
+  .cycle-card:focus-visible,
+  .cycle-card.is-active {
+    transform: none;
+    transition: border-color 150ms linear;
+  }
+
+  .cycle-card .cycle-numeral {
+    transition: none;
+  }
+
+  /* Show final state of every mini scene statically */
+  .cycle-card.is-animating .cycle-scene-catalog .cycle-wf-row:nth-child(1),
+  .cycle-card.is-animating .cycle-scene-catalog .cycle-wf-row:nth-child(2),
+  .cycle-card.is-animating .cycle-scene-catalog .cycle-wf-row:nth-child(3) {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .cycle-scene-catalog .cycle-wf-stock {
+    background-color: var(--brand);
+    color: var(--onBrand);
+    border-color: var(--brand);
+    transition: none;
+  }
+
+  .cycle-qr-scanline,
+  .cycle-card.is-animating .cycle-qr-scanline {
+    display: none;
+    animation: none;
+  }
+
+  .cycle-qr-status-wait,
+  .cycle-card:hover .cycle-qr-status-wait,
+  .cycle-card:focus-visible .cycle-qr-status-wait,
+  .cycle-card.is-active .cycle-qr-status-wait {
+    opacity: 0;
+    transform: none;
+    transition: none;
+  }
+
+  .cycle-qr-status-paid,
+  .cycle-card:hover .cycle-qr-status-paid,
+  .cycle-card:focus-visible .cycle-qr-status-paid,
+  .cycle-card.is-active .cycle-qr-status-paid {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .cycle-scene-delivery .cycle-status-prep,
+  .cycle-scene-delivery .cycle-status-ready {
+    background-color: color-mix(in srgb, var(--cempasuchil) 18%, var(--surface));
+    color: var(--ink);
+    border-color: var(--cempasuchil);
+    transform: none;
+    transition: none;
+  }
+
+  .cycle-scene-delivery .cycle-status-done {
+    background-color: var(--brand);
+    color: var(--onBrand);
+    border-color: var(--brand);
+    font-weight: 600;
+    transform: none;
+    transition: none;
+  }
+
+  .cycle-delivery-fill {
+    transform: scaleX(1);
+    transition: none;
+  }
+
+  .cycle-card.is-animating .cycle-wf-alert-icon {
+    animation: none;
+  }
+
+  .cycle-scene-restock .cycle-wf-alert-pill {
+    background-color: var(--brand);
+    color: var(--onBrand);
+    border-color: var(--brand);
+    transition: none;
+  }
+
+  .cycle-pill-rest {
+    opacity: 0;
+    transform: none;
+    transition: none;
+  }
+
+  .cycle-pill-done {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

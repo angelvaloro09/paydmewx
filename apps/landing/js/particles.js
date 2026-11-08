@@ -140,7 +140,7 @@
       }
     }
 
-    ctx.font = '600 ' + fontSize + 'px "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+    ctx.font = '600 ' + fontSize + 'px "Space Grotesk", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 

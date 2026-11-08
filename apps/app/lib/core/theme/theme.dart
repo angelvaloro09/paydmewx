@@ -73,7 +73,7 @@ class PxTheme {
     double letterSpacing = 0.0,
     bool tabular = true,
   }) {
-    return GoogleFonts.jetBrainsMono(
+    return GoogleFonts.spaceGrotesk(
       fontSize: fontSize,
       fontWeight: fontWeight,
       color: color,
@@ -83,7 +83,7 @@ class PxTheme {
   }
 
   static TextStyle eyebrowStyle(Color color) {
-    return GoogleFonts.jetBrainsMono(
+    return GoogleFonts.spaceGrotesk(
       fontSize: PxTypographyTokens.micro,
       fontWeight: FontWeight.w500,
       color: color,
