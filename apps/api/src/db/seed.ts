@@ -1,3 +1,4 @@
+import { randomBytes } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import bcrypt from 'bcryptjs';
 import { and, eq } from 'drizzle-orm';
@@ -22,7 +23,6 @@ interface SeedProductSpec {
 
 interface SeedBusinessSpec {
   ownerEmail: string;
-  ownerPassword: string;
   ownerName: string;
   name: string;
   description: string;
@@ -38,7 +38,6 @@ interface SeedBusinessSpec {
 const SEED_DATA: SeedBusinessSpec[] = [
   {
     ownerEmail: 'demo@paydmewx.mx',
-    ownerPassword: 'demo1234',
     ownerName: 'Don Carlos Hernández',
     name: 'Taquería El Tizoncito Callejero',
     description: 'Tacos al pastor, suadero y volcanes al carbón en la Roma Norte.',
@@ -58,7 +57,6 @@ const SEED_DATA: SeedBusinessSpec[] = [
   },
   {
     ownerEmail: 'zapateria@paydmewx.mx',
-    ownerPassword: 'demo1234',
     ownerName: 'Elena Morales',
     name: 'Zapatería Paso Firme Coyoacán',
     description: 'Calzado artesanal mexicano en piel, botas y tenis casuales.',
@@ -78,7 +76,6 @@ const SEED_DATA: SeedBusinessSpec[] = [
   },
   {
     ownerEmail: 'sastreria@paydmewx.mx',
-    ownerPassword: 'demo1234',
     ownerName: 'Maestro Roberto Vega',
     name: 'Sastrería y Composturas Don Roberto',
     description: 'Ajustes de trajes, bastillas, cierres y confección a la medida.',
@@ -101,6 +98,10 @@ const SEED_DATA: SeedBusinessSpec[] = [
 export async function runSeed(): Promise<void> {
   await runMigrations();
 
+  // Fixture owners get a random password nobody knows unless SEED_OWNER_PASSWORD is set.
+  const seedPassword =
+    process.env.SEED_OWNER_PASSWORD?.trim() || randomBytes(24).toString('base64url');
+
   const now = Math.floor(Date.now() / 1000);
 
   for (const spec of SEED_DATA) {
@@ -108,7 +109,7 @@ export async function runSeed(): Promise<void> {
     let [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
 
     if (!user) {
-      const passwordHash = await bcrypt.hash(spec.ownerPassword, 10);
+      const passwordHash = await bcrypt.hash(seedPassword, 10);
       user = {
         id: ulid(),
         email,

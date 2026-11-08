@@ -433,6 +433,7 @@ describe('PaydMewx API Core (T01)', () => {
   });
 
   it('runs idempotent seed and logs in as demo@paydmewx.mx owning the taco stall', async () => {
+    process.env.SEED_OWNER_PASSWORD = 'test-only-seed-password-1';
     await runSeed();
     await runSeed(); // idempotent second run
 
@@ -443,7 +444,7 @@ describe('PaydMewx API Core (T01)', () => {
     const loginRes = await app.inject({
       method: 'POST',
       url: '/auth/login',
-      payload: { email: 'demo@paydmewx.mx', password: 'demo1234' },
+      payload: { email: 'demo@paydmewx.mx', password: 'test-only-seed-password-1' },
     });
     expect(loginRes.statusCode).toBe(200);
     const { token } = loginRes.json();
