@@ -44,11 +44,18 @@ class ApiClient {
           if (currentToken != null && currentToken.isNotEmpty) {
             options.headers['Authorization'] = 'Bearer $currentToken';
           }
+          // Fastify rejects an empty body that declares application/json.
+          if (options.data == null) {
+            options.headers.remove(Headers.contentTypeHeader);
+          }
           handler.next(options);
         },
       ),
     );
   }
+
+  /// Shared Dio (auth header already attached) for feature repositories.
+  Dio get dio => _dio;
 
   String? get token => _token;
   bool get hasToken => _token != null && _token!.isNotEmpty;

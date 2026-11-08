@@ -7,6 +7,8 @@ import '../../core/theme/tokens.dart';
 import '../../core/ui/px_ui.dart';
 import '../auth/auth_controller.dart';
 import '../discover/discover_screen.dart';
+import '../inventory/inventory_screen.dart';
+import '../pos/pos_screen.dart';
 import '../profile/profile_screen.dart';
 import 'app_mode.dart';
 
@@ -68,12 +70,7 @@ class _HomeShellScreenState extends ConsumerState<HomeShellScreen> {
         label: 'Cobrar',
         icon: Icons.point_of_sale_outlined,
         selectedIcon: Icons.point_of_sale_rounded,
-        child: PxEmptyState(
-          glyph: r'$',
-          title: 'Próximamente',
-          message:
-              'Punto de venta rápido con generación de QR CoDi al instante.',
-        ),
+        child: PosScreen(),
       ),
       _ShellTab(
         label: 'Pedidos',
@@ -89,11 +86,7 @@ class _HomeShellScreenState extends ConsumerState<HomeShellScreen> {
         label: 'Inventario',
         icon: Icons.inventory_2_outlined,
         selectedIcon: Icons.inventory_2_rounded,
-        child: PxEmptyState(
-          glyph: '□',
-          title: 'Próximamente',
-          message: 'Catálogo de productos, existencias y alertas de stock bajo.',
-        ),
+        child: InventoryScreen(),
       ),
       _ShellTab(
         label: 'Perfil',
