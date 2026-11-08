@@ -37,7 +37,3 @@ The LLM never touches money directly: `record_sale` only creates a `pending_paym
 
 ## Frontend structure
 Flutter feature-first: `lib/features/{auth,home,pos,inventory,orders,discover,ai,settings}`, `lib/core/{api,theme,a11y,router}`. One design system (tokens in `core/theme`). Responsive layouts: bottom-nav on phone, side-rail on web ≥ 900px.
-
-## Delivery
-- Repo private until submission, then public.
-- Each task = one brief in `tasks/`, one coder conversation, then architect audit → fix → commit → push.

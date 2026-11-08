@@ -14,3 +14,9 @@ build/
 .vscode/
 coverage/
 *.log
+
+# Internal working files (kept locally, not published)
+AGENTS.md
+tasks/
+docs/NEXT_SESSION_PROMPT.md
+docs/LANDING_V2_PLAN.md

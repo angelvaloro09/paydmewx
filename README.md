@@ -30,7 +30,6 @@ apps/api      Node 22, TypeScript, Fastify, Zod, Drizzle + libSQL/Turso, Vitest
 apps/app      Flutter (web, Android, iOS), Riverpod, go_router
 apps/landing  sitio estático (HTML, CSS, JS)
 docs/         arquitectura, contrato del API, sistema de diseño, despliegue
-tasks/        briefs de las tareas delegadas a agentes de código
 ```
 
 Más detalle en `docs/ARCHITECTURE.md`, `docs/API_CONTRACT.md` y `docs/DESIGN_SYSTEM.md`.
