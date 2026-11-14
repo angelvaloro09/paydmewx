@@ -17,6 +17,9 @@ public class FakePeyClient implements PeyClient {
 
 	public final List<Call> calls = new CopyOnWriteArrayList<>();
 
+	/** Every {@link #createCodiQr} request, in order. */
+	public final List<CodiQrRequest> qrCalls = new CopyOnWriteArrayList<>();
+
 	/** When set, every call throws it. */
 	public volatile AppException failure;
 
@@ -29,8 +32,19 @@ public class FakePeyClient implements PeyClient {
 		return new BankAccount("ba_fake_" + calls.size(), "PENDING");
 	}
 
+	@Override
+	public CodiQr createCodiQr(CodiQrRequest request) {
+		qrCalls.add(request);
+		if (failure != null) {
+			throw failure;
+		}
+		int n = qrCalls.size();
+		return new CodiQr("qr_fake_" + n + "_" + request.numRef(), "00020101fake-codi-qr-" + n);
+	}
+
 	public void reset() {
 		calls.clear();
+		qrCalls.clear();
 		failure = null;
 	}
 

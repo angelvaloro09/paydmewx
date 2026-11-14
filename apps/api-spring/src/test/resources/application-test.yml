@@ -9,3 +9,6 @@ app:
     secret: unit-test-only-hs256-key-0123456789-abcdef
   cors:
     allowed-origins: http://localhost:3000
+  pey:
+    # base64("test-webhook-secret-0123456789"), dummy; the webhook tests sign with it
+    webhook-secret: whsec_dGVzdC13ZWJob29rLXNlY3JldC0wMTIzNDU2Nzg5
