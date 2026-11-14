@@ -29,8 +29,10 @@ class ApiClient {
             Dio(
               BaseOptions(
                 baseUrl: baseUrl ?? kDefaultApiBaseUrl,
-                connectTimeout: const Duration(seconds: 10),
-                receiveTimeout: const Duration(seconds: 15),
+                // Render free tier sleeps after 15 min idle; a cold start
+                // takes 30-60 s, so short timeouts surface as false errors.
+                connectTimeout: const Duration(seconds: 60),
+                receiveTimeout: const Duration(seconds: 60),
                 headers: const {
                   'Content-Type': 'application/json',
                   'Accept': 'application/json',
@@ -52,6 +54,14 @@ class ApiClient {
         },
       ),
     );
+  }
+
+  /// Fire-and-forget ping to wake a sleeping host (Render free tier) while
+  /// the user is still filling the login/register form. Never throws.
+  Future<void> warmUp() async {
+    try {
+      await _dio.get<dynamic>('/health');
+    } catch (_) {}
   }
 
   /// Shared Dio (auth header already attached) for feature repositories.
