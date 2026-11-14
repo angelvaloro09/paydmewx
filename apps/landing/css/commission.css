@@ -4,8 +4,7 @@
    ========================================================================== */
 
 .commission-section .eyebrow,
-.commission-section .section-title,
-.commission-section .section-lead {
+.commission-section .section-title {
   text-align: center;
   margin-inline: auto;
 }
@@ -14,20 +13,23 @@
   justify-content: center;
 }
 
-.commission-section .section-lead {
-  font-size: 1.125rem; /* 18px */
-  line-height: 1.6;
-  max-width: 62ch;
-}
-
-/* Center Hero Block (Main benefit card + Secondary toggle button) */
+/* Center Hero Block (Main benefit card + Lead note + Secondary toggle button) */
 .commission-hero-block {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-6);
+  gap: var(--space-4);
   width: 100%;
   margin-top: var(--space-4);
+}
+
+.commission-lead-note {
+  margin: var(--space-2) 0 0 0;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.55;
+  color: var(--inkMuted);
+  text-align: center;
+  max-width: 58ch;
 }
 
 /* Main 100% / 0% CoDi Benefit Card (Centered, Dark Frame style) */
