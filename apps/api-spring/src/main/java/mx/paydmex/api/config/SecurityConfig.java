@@ -3,7 +3,10 @@ package mx.paydmex.api.config;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
+import com.nimbusds.jose.jwk.source.ImmutableSecret;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +19,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -48,8 +53,17 @@ class SecurityConfig {
 	/** HS256 over the UTF-8 bytes of JWT_SECRET: same key/claims as the Node API, so live sessions survive cutover. */
 	@Bean
 	JwtDecoder jwtDecoder(AppProperties props) {
-		var key = new SecretKeySpec(props.jwt().secret().getBytes(StandardCharsets.UTF_8), "HmacSHA256");
-		return NimbusJwtDecoder.withSecretKey(key).macAlgorithm(MacAlgorithm.HS256).build();
+		return NimbusJwtDecoder.withSecretKey(hmacKey(props)).macAlgorithm(MacAlgorithm.HS256).build();
+	}
+
+	/** Signs with the very same key the decoder verifies with. */
+	@Bean
+	JwtEncoder jwtEncoder(AppProperties props) {
+		return new NimbusJwtEncoder(new ImmutableSecret<>(hmacKey(props)));
+	}
+
+	private static SecretKey hmacKey(AppProperties props) {
+		return new SecretKeySpec(props.jwt().secret().getBytes(StandardCharsets.UTF_8), "HmacSHA256");
 	}
 
 	@Bean
