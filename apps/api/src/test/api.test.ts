@@ -194,6 +194,20 @@ describe('PaydMewx API Core (T01)', () => {
     expect(meRes.statusCode).toBe(200);
     expect(meRes.json().business.id).toBe(biz.id);
     expect(meRes.json().business.clabe).toBe('012180015826225713');
+
+    // Public discovery never exposes bank data, even after the owner saved a CLABE
+    const listRes = await app.inject({ method: 'GET', url: '/businesses' });
+    expect(listRes.statusCode).toBe(200);
+    const listed = listRes.json().find((b: { id: string }) => b.id === biz.id);
+    expect(listed.name).toBe('Tacos Don Carlos Oficial');
+    expect(listed).not.toHaveProperty('clabe');
+    expect(listed).not.toHaveProperty('peyBankAccountId');
+
+    const detailRes = await app.inject({ method: 'GET', url: `/businesses/${biz.id}` });
+    expect(detailRes.statusCode).toBe(200);
+    expect(detailRes.json()).not.toHaveProperty('clabe');
+    expect(detailRes.json()).not.toHaveProperty('peyBankAccountId');
+    expect(detailRes.body).not.toContain('012180015826225713');
   });
 
   it('filters businesses in discovery endpoints by category, prepType, and search query q', async () => {

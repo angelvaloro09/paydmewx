@@ -114,11 +114,19 @@ export async function updateBusinessForUser(
   return updated!;
 }
 
+/** Business as exposed on unauthenticated discovery routes: no bank data. */
+export type PublicBusiness = Omit<BusinessRow, 'clabe' | 'peyBankAccountId'>;
+
+function toPublicBusiness(row: BusinessRow): PublicBusiness {
+  const { clabe: _clabe, peyBankAccountId: _peyBankAccountId, ...rest } = row;
+  return rest;
+}
+
 export async function listActiveBusinesses(filters: {
   category?: BusinessCategory;
   prepType?: PrepType;
   q?: string;
-}): Promise<BusinessRow[]> {
+}): Promise<PublicBusiness[]> {
   const conditions = [eq(businesses.active, true)];
 
   if (filters.category) {
@@ -138,13 +146,14 @@ export async function listActiveBusinesses(filters: {
     );
   }
 
-  return db
+  const rows = await db
     .select()
     .from(businesses)
     .where(and(...conditions));
+  return rows.map(toPublicBusiness);
 }
 
-export async function getActiveBusinessById(id: string): Promise<BusinessRow> {
+export async function getActiveBusinessById(id: string): Promise<PublicBusiness> {
   const [business] = await db
     .select()
     .from(businesses)
@@ -155,7 +164,7 @@ export async function getActiveBusinessById(id: string): Promise<BusinessRow> {
     throw new AppError(404, 'BUSINESS_NOT_FOUND', 'Business not found');
   }
 
-  return business;
+  return toPublicBusiness(business);
 }
 
 export async function listActiveBusinessProducts(businessId: string): Promise<ProductRow[]> {
