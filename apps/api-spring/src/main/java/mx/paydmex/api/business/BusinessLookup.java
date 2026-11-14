@@ -10,7 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class BusinessLookup {
 
 	/** Only the fields orders need to authorize access and to route the CoDi charge. */
-	public record BusinessRef(String id, String ownerId, boolean active, String peyBankAccountId, String codiStatus) {
+	public record BusinessRef(String id, String ownerId, boolean active, String peyBankAccountId, String codiStatus,
+			String prepType) {
+
+		/** Made-to-order businesses may move a paid order through {@code preparing} -> {@code ready}. */
+		public boolean madeToOrder() {
+			return "made_to_order".equals(prepType);
+		}
 
 		/** The charge goes to the merchant's own account only once pey reports the CoDi enrolment as ACTIVE. */
 		public String codiBankAccountIdOrNull() {
@@ -47,7 +53,8 @@ public class BusinessLookup {
 	}
 
 	private static BusinessRef ref(Business b) {
-		return new BusinessRef(b.id(), b.ownerId(), b.active(), b.peyBankAccountId(), b.codiStatus());
+		return new BusinessRef(b.id(), b.ownerId(), b.active(), b.peyBankAccountId(), b.codiStatus(),
+				b.prepType());
 	}
 
 }

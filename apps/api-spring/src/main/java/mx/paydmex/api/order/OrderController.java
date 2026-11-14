@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +46,19 @@ class OrderController {
 	@PostMapping("/orders/{id}/pay")
 	PayResponse pay(@AuthenticationPrincipal Jwt jwt, @PathVariable String id) {
 		return service.pay(jwt.getSubject(), id);
+	}
+
+	/** Body {@code {"status": "..."}}. Missing/blank = 400; a string that is no order status = 409, like Node. */
+	@PatchMapping("/orders/{id}/status")
+	OrderDto updateStatus(@AuthenticationPrincipal Jwt jwt, @PathVariable String id, @RequestBody JsonNode body) {
+		JsonNode raw = body != null && body.isObject() ? body.get("status") : null;
+		if (raw == null || !raw.isString() || raw.stringValue().isEmpty()) {
+			throw new AppException(HttpStatus.BAD_REQUEST, "VALIDATION_ERROR", "status: is required");
+		}
+		OrderStatus next = OrderStatus.fromWire(raw.stringValue())
+			.orElseThrow(() -> new AppException(HttpStatus.CONFLICT, "INVALID_TRANSITION",
+					"Invalid order status: " + raw.stringValue()));
+		return service.updateStatus(jwt.getSubject(), id, next);
 	}
 
 	/** Absent = both roles. Anything but customer|business (even empty) is a 400, like the Node zod enum. */

@@ -55,4 +55,11 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 	@Query("update Product p set p.stock = p.stock - :qty where p.id = :id and p.trackStock = true and p.stock >= :qty")
 	int decrementIfEnough(@Param("id") String id, @Param("qty") int qty);
 
+	/** Restock increment; the bound is checked in BIGINT so it cannot overflow the INTEGER column. */
+	@Modifying(flushAutomatically = true, clearAutomatically = true)
+	@Query("""
+			update Product p set p.stock = p.stock + :qty
+			where p.id = :id and p.trackStock = true and cast(p.stock as long) + :qty <= 2147483647""")
+	int incrementIfFits(@Param("id") String id, @Param("qty") int qty);
+
 }

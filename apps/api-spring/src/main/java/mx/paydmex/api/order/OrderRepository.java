@@ -46,4 +46,12 @@ public interface OrderRepository extends JpaRepository<PurchaseOrder, String> {
 			where o.id = :id and o.status in ('pending_payment', 'expired')""")
 	int markPaid(@Param("id") String id, @Param("now") long now);
 
+	/**
+	 * Owner status change. {@code WHERE status = :from} makes the transition atomic: of two concurrent requests (two
+	 * cancels, or a cancel racing a webhook) exactly one gets rowCount 1, so stock is restored at most once.
+	 */
+	@Modifying(flushAutomatically = true, clearAutomatically = true)
+	@Query("update PurchaseOrder o set o.status = :to where o.id = :id and o.status = :from")
+	int transition(@Param("id") String id, @Param("from") String from, @Param("to") String to);
+
 }

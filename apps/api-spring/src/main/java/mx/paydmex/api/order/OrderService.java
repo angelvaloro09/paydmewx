@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ import mx.paydmex.api.pey.PeyClient.CodiQr;
 import mx.paydmex.api.pey.PeyClient.CodiQrRequest;
 import mx.paydmex.api.product.ProductLookup;
 import mx.paydmex.api.product.ProductLookup.ProductSnapshot;
+import mx.paydmex.api.product.StockLedger;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -61,12 +63,14 @@ public class OrderService {
 
 	private final PeyClient pey;
 
+	private final StockLedger stock;
+
 	private final TransactionTemplate tx;
 
 	private final Clock clock;
 
 	OrderService(OrderRepository orders, OrderItemRepository items, PaymentRepository payments,
-			BusinessLookup businesses, ProductLookup products, UserRepository users, PeyClient pey,
+			BusinessLookup businesses, ProductLookup products, UserRepository users, PeyClient pey, StockLedger stock,
 			PlatformTransactionManager txManager, Clock clock) {
 		this.orders = orders;
 		this.items = items;
@@ -75,6 +79,7 @@ public class OrderService {
 		this.products = products;
 		this.users = users;
 		this.pey = pey;
+		this.stock = stock;
 		this.tx = new TransactionTemplate(txManager);
 		this.clock = clock;
 	}
@@ -162,6 +167,55 @@ public class OrderService {
 			found = found.stream().filter(o -> o.status().equals(status.wire())).toList();
 		}
 		return hydrate(found);
+	}
+
+	/**
+	 * Owner-only status change. The transition is one conditional UPDATE ({@code WHERE status = :from}) and, when a
+	 * paid order is cancelled, the stock restore + {@code order_cancelled} movements run in the same transaction: a
+	 * failure rolls the status back too, and two concurrent cancels restore the stock only once. An {@link AppException}
+	 * (403/404/409) is thrown before any write of this method, so it must not roll back the lazy expiry that
+	 * {@link #requireAccess} may have just persisted; unexpected errors still roll everything back.
+	 */
+	@Transactional(noRollbackFor = AppException.class)
+	public OrderDto updateStatus(String userId, String orderId, OrderStatus next) {
+		Access access = requireAccess(userId, orderId);
+		PurchaseOrder order = access.order();
+		if (!access.business().ownerId().equals(userId)) {
+			throw new AppException(HttpStatus.FORBIDDEN, "FORBIDDEN", "Only the business owner may update order status");
+		}
+		OrderStatus current = OrderStatus.fromWire(order.status()).orElse(null);
+		if (current == null || !isValidOwnerTransition(current, next, access.business().madeToOrder())
+				|| orders.transition(order.id(), current.wire(), next.wire()) == 0) {
+			throw new AppException(HttpStatus.CONFLICT, "INVALID_TRANSITION",
+					"Invalid status transition from " + order.status() + " to " + next.wire());
+		}
+		if (current == OrderStatus.PAID && next == OrderStatus.CANCELLED) {
+			restock(order.id());
+		}
+		PurchaseOrder updated = orders.findById(order.id()).orElseThrow(OrderService::notFound);
+		return hydrate(List.of(updated)).getFirst();
+	}
+
+	/** Same table as the Node API: instant businesses skip preparing/ready; only pending/paid orders can be cancelled. */
+	static boolean isValidOwnerTransition(OrderStatus current, OrderStatus next, boolean madeToOrder) {
+		return switch (current) {
+			case PENDING_PAYMENT -> next == OrderStatus.CANCELLED;
+			case PAID -> next == OrderStatus.DELIVERED || next == OrderStatus.CANCELLED
+					|| (madeToOrder && next == OrderStatus.PREPARING);
+			case PREPARING -> next == OrderStatus.READY;
+			case READY -> next == OrderStatus.DELIVERED;
+			case DELIVERED, CANCELLED, EXPIRED -> false;
+		};
+	}
+
+	/** Products in id order, like the webhook, so concurrent stock writers lock rows in the same order. */
+	private void restock(String orderId) {
+		Map<String, Integer> qtyByProduct = new TreeMap<>();
+		for (OrderItem item : items.findByOrderIdOrderByIdAsc(orderId)) {
+			qtyByProduct.merge(item.productId(), item.qty(), Integer::sum);
+		}
+		long now = now();
+		qtyByProduct.forEach((productId, qty) -> stock.recordRestock(productId, qty, now));
 	}
 
 	/**

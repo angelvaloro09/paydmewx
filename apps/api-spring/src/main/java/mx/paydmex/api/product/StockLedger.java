@@ -13,6 +13,8 @@ public class StockLedger {
 
 	public static final String SALE_REASON = "sale";
 
+	public static final String ORDER_CANCELLED_REASON = "order_cancelled";
+
 	private static final Logger log = LoggerFactory.getLogger(StockLedger.class);
 
 	private final ProductRepository products;
@@ -43,6 +45,26 @@ public class StockLedger {
 		log.warn("Oversold product {}: sale of {} but only {} in stock; clamped to 0", productId, qty, taken);
 		p.setStock(0);
 		movements.save(StockMovement.create(productId, -taken, SALE_REASON, nowSeconds));
+	}
+
+	/**
+	 * Puts the units of a cancelled paid order back and logs an {@code order_cancelled} movement. Untracked or deleted
+	 * products are ignored. If the units would overflow the INTEGER column the stock is capped (and the movement logs
+	 * what was really added) instead of failing the cancellation.
+	 */
+	public void recordRestock(String productId, int qty, long nowSeconds) {
+		if (products.incrementIfFits(productId, qty) == 1) {
+			movements.save(StockMovement.create(productId, qty, ORDER_CANCELLED_REASON, nowSeconds));
+			return;
+		}
+		Product p = products.lockById(productId).orElse(null);
+		if (p == null || !p.trackStock() || p.stock() == Integer.MAX_VALUE) {
+			return;
+		}
+		int added = Integer.MAX_VALUE - p.stock();
+		log.warn("Restock of product {} capped: +{} requested, +{} applied", productId, qty, added);
+		p.setStock(Integer.MAX_VALUE);
+		movements.save(StockMovement.create(productId, added, ORDER_CANCELLED_REASON, nowSeconds));
 	}
 
 }
