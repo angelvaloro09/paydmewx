@@ -47,6 +47,15 @@ public class BusinessLookup {
 		return businesses.findByOwnerId(ownerId).map(Business::id);
 	}
 
+	/** Id + display name of the business a user owns (the AI assistant's role switch and system prompt). */
+	public record OwnBusiness(String id, String name) {
+	}
+
+	@Transactional(readOnly = true)
+	public Optional<OwnBusiness> findOwn(String ownerId) {
+		return businesses.findByOwnerId(ownerId).map(b -> new OwnBusiness(b.id(), b.name()));
+	}
+
 	@Transactional
 	public int markCodiActive(String peyBankAccountId) {
 		return businesses.markCodiActive(peyBankAccountId);
