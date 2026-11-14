@@ -32,3 +32,11 @@ Deploy `apps/landing` as-is (no build step).
 
 ## 6. Submission
 Make the repo public only when the owner authorizes it. Verify no secrets in history before that.
+
+## 7. Spring API on Render (migration, `apps/api-spring`)
+Docker web service `paydmex-api-spring` in `render.yaml`, alongside the Node one. Do not repoint the apps until cutover.
+1. Neon: create the project/branch, copy the JDBC URL (`jdbc:postgresql://<host>/<db>?sslmode=require`) into `DATABASE_URL`, plus `DATABASE_USERNAME` / `DATABASE_PASSWORD`. Flyway creates the schema on first boot.
+2. `JWT_SECRET` must equal the Node service's value (same sessions, same BCrypt hashes). Copy pey/LLM variables from the Node service. Do NOT set `ENABLE_DEV_ROUTES`.
+3. Image: multi-stage, Java 25 JRE, non-root, SerialGC, `MaxRAMPercentage=65`, JDK 25 AOT cache built at image build time (no DB needed).
+4. Local check: `docker build -t paydmex-api-spring apps/api-spring`, then run with `--memory 512m --cpus 0.1` against a throwaway `postgres:17-alpine`.
+5. Cold start measured locally (JVM + Flyway on empty Postgres, 512 MB): 0.5 CPU 14 s -> 7.8 s with AOT; 0.1 CPU (Render free) 62 s -> 36 s. RAM ~210 MB. Free instances sleep, so the first request after idle waits ~35 s: use a keep-alive on `/health` or a paid instance (0.5 CPU).

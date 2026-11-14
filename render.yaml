@@ -32,3 +32,40 @@ services:
         sync: false
       - key: LLM_MODEL
         sync: false
+
+  # Spring Boot port (ADR 2026-11-14). Runs alongside the Node service until cutover.
+  # Create it only when ready to test; the Node service stays the production API.
+  - type: web
+    name: paydmex-api-spring
+    runtime: docker
+    plan: free
+    dockerfilePath: ./apps/api-spring/Dockerfile
+    dockerContext: ./apps/api-spring
+    healthCheckPath: /health
+    envVars:
+      # JDBC form: jdbc:postgresql://<neon-host>/<db>?sslmode=require
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_USERNAME
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+      # Must equal the Node API's JWT_SECRET so existing sessions stay valid.
+      - key: JWT_SECRET
+        sync: false
+      - key: PEY_BASE_URL
+        value: https://api.pey.mx
+      - key: PEY_API_KEY
+        sync: false
+      - key: PEY_WEBHOOK_SECRET
+        sync: false
+      - key: PEY_TEST_AMOUNT_OVERRIDE
+        value: "0.01"
+      - key: LLM_BASE_URL
+        sync: false
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_MODEL
+        sync: false
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://paydmex-app.vercel.app,https://paydmex-landing.vercel.app
