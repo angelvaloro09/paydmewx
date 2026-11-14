@@ -29,6 +29,7 @@
     <symbol id="ph-sparkle" viewBox="0 0 256 256"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"></path></symbol>
     <symbol id="ph-caret-left" viewBox="0 0 256 256"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"></path></symbol>
     <symbol id="ph-caret-right" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></symbol>
+    <symbol id="ph-caret-down" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></symbol>
     <symbol id="ph-check" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path></symbol>
     <symbol id="ph-pause" viewBox="0 0 256 256"><path d="M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z"></path></symbol>
     <symbol id="ph-play" viewBox="0 0 256 256"><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"></path></symbol>
@@ -110,7 +111,8 @@
         <h2 class="section-title" id="comision-title">Con CoDi recibes el 100% de cada venta.</h2>
         <p class="section-lead">CoDi no genera comisiones por operación. Las terminales de tarjeta descuentan un porcentaje de cada cobro.</p>
 
-        <div class="commission-layout">
+        <!-- Tarjeta principal del beneficio centrada + Botón secundario -->
+        <div class="commission-hero-block">
           <div class="commission-zero-card">
             <span class="commission-zero-badge">
               <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
@@ -118,7 +120,7 @@
             </span>
             <p class="commission-zero-numeral">0%</p>
             <p class="commission-zero-label">Comisión por operación CoDi</p>
-            <p class="commission-zero-desc">0% de comisión por CoDi: en una venta de $100.00 recibes $100.00 completos.</p>
+            <p class="commission-zero-desc">Recibes el 100% de cada venta directo a tu cuenta: en un cobro de $100.00 recibes $100.00 completos, sin comisiones ni intermediarios.</p>
             <a class="commission-source-link" href="https://pey.mx/codi" target="_blank" rel="noopener">
               <span>pey.mx/codi</span>
               <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
@@ -126,163 +128,177 @@
             </a>
           </div>
 
-          <div class="commission-comparison">
-            <div class="commission-bars-card" aria-label="Gráfica comparativa de lo que recibes en una venta de 100 pesos">
-              <h3 class="commission-subtitle">Lo que recibes de una venta de $100.00</h3>
-              <ul class="commission-bars">
-                <li class="commission-bar-row commission-bar-row-codi">
-                  <div class="commission-bar-meta">
-                    <span class="commission-bar-name">
-                      <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
-                      <span>CoDi (pey)</span>
-                    </span>
-                    <span class="commission-bar-values">Recibes <strong>$100.00</strong> <span class="commission-bar-fee">(comisión $0.00)</span></span>
-                  </div>
-                  <div class="commission-bar-track" aria-hidden="true">
-                    <span class="commission-bar-fill" style="--bar-target: 100%"></span>
-                  </div>
-                </li>
-                <li class="commission-bar-row">
-                  <div class="commission-bar-meta">
-                    <span class="commission-bar-name">Mercado Pago Point</span>
-                    <span class="commission-bar-values">Recibes <strong>$95.94</strong> <span class="commission-bar-fee">(-$4.06)</span></span>
-                  </div>
-                  <div class="commission-bar-track" aria-hidden="true">
-                    <span class="commission-bar-fill" style="--bar-target: 95.94%"></span>
-                  </div>
-                </li>
-                <li class="commission-bar-row">
-                  <div class="commission-bar-meta">
-                    <span class="commission-bar-name">Clip</span>
-                    <span class="commission-bar-values">Recibes <strong>$95.37</strong> <span class="commission-bar-fee">(-$4.63)</span></span>
-                  </div>
-                  <div class="commission-bar-track" aria-hidden="true">
-                    <span class="commission-bar-fill" style="--bar-target: 95.37%"></span>
-                  </div>
-                </li>
-                <li class="commission-bar-row">
-                  <div class="commission-bar-meta">
-                    <span class="commission-bar-name">Zettle</span>
-                    <span class="commission-bar-values">Recibes <strong>$95.94</strong> <span class="commission-bar-fee">(-$4.06)</span></span>
-                  </div>
-                  <div class="commission-bar-track" aria-hidden="true">
-                    <span class="commission-bar-fill" style="--bar-target: 95.94%"></span>
-                  </div>
-                </li>
-                <li class="commission-bar-row">
-                  <div class="commission-bar-meta">
-                    <span class="commission-bar-name">SumUp</span>
-                    <span class="commission-bar-values">Recibes <strong>$95.94</strong> <span class="commission-bar-fee">(-$4.06)</span></span>
-                  </div>
-                  <div class="commission-bar-track" aria-hidden="true">
-                    <span class="commission-bar-fill" style="--bar-target: 95.94%"></span>
-                  </div>
-                </li>
-              </ul>
-            </div>
-
-            <div class="commission-table-wrap" role="region" aria-label="Tabla comparativa de tarifas y comisiones sobre 100 pesos" tabindex="0">
-              <table class="commission-table">
-                <caption class="sr-only">Comparación de tarifas publicadas y monto neto recibido en una venta de $100.00 MXN con IVA de 16% incluido</caption>
-                <thead>
-                  <tr>
-                    <th scope="col">Proveedor</th>
-                    <th scope="col">Tarifa publicada</th>
-                    <th scope="col">Comisión sobre $100</th>
-                    <th scope="col">Recibes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="commission-row-codi">
-                    <th scope="row">
-                      <a class="commission-provider-link" href="https://pey.mx/codi" target="_blank" rel="noopener">
-                        <span>CoDi (pey)</span>
-                        <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
-                        <span class="sr-only"> (se abre en una pestaña nueva)</span>
-                      </a>
-                    </th>
-                    <td>0%</td>
-                    <td>$0.00</td>
-                    <td>$100.00</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <a class="commission-provider-link" href="https://www.mercadopago.com.mx/herramientas-para-vender/lectores-point" target="_blank" rel="noopener">
-                        <span>Mercado Pago Point</span>
-                        <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
-                        <span class="sr-only"> (se abre en una pestaña nueva)</span>
-                      </a>
-                    </th>
-                    <td>3.5% + IVA</td>
-                    <td>$4.06</td>
-                    <td>$95.94</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <a class="commission-provider-link" href="https://www.clip.mx/como-funciona-clip/calculadora-clip" target="_blank" rel="noopener">
-                        <span>Clip</span>
-                        <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
-                        <span class="sr-only"> (se abre en una pestaña nueva)</span>
-                      </a>
-                    </th>
-                    <td>2.99% + $1 + IVA</td>
-                    <td>$4.63</td>
-                    <td>$95.37</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <a class="commission-provider-link" href="https://www.zettle.com/mx/comisiones" target="_blank" rel="noopener">
-                        <span>Zettle</span>
-                        <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
-                        <span class="sr-only"> (se abre en una pestaña nueva)</span>
-                      </a>
-                    </th>
-                    <td>3.5% + IVA</td>
-                    <td>$4.06</td>
-                    <td>$95.94</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <a class="commission-provider-link" href="https://www.sumup.com/es-mx/precios-del-procesamiento-de-pagos/" target="_blank" rel="noopener">
-                        <span>SumUp</span>
-                        <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
-                        <span class="sr-only"> (se abre en una pestaña nueva)</span>
-                      </a>
-                    </th>
-                    <td>3.50% + IVA</td>
-                    <td>$4.06</td>
-                    <td>$95.94</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="commission-callout-50">
-              <div class="commission-callout-head">
-                <h3 class="commission-callout-title">En una venta de $50.00</h3>
-                <p class="commission-callout-note">El cargo fijo de $1 pesa más en ventas chicas.</p>
-              </div>
-              <ul class="commission-callout-list">
-                <li class="commission-callout-item commission-callout-item-codi">
-                  <span class="commission-callout-provider">CoDi</span>
-                  <span class="commission-callout-amount">Recibes $50.00</span>
-                </li>
-                <li class="commission-callout-item">
-                  <span class="commission-callout-provider">Terminales de 3.5% + IVA</span>
-                  <span class="commission-callout-amount">Recibes $47.97</span>
-                </li>
-                <li class="commission-callout-item">
-                  <span class="commission-callout-provider">Clip</span>
-                  <span class="commission-callout-amount">Recibes $47.11</span>
-                </li>
-              </ul>
-            </div>
+          <div class="commission-action-wrap">
+            <button type="button" class="btn commission-toggle-btn" id="commission-toggle-btn" aria-expanded="false" aria-controls="commission-details">
+              <span>Comparar cuánto me quitan otras terminales (Clip, Mercado Pago...)</span>
+              <svg class="icon commission-toggle-icon" aria-hidden="true" focusable="false">
+                <use href="#ph-caret-down"></use>
+              </svg>
+            </button>
           </div>
         </div>
 
-        <p class="commission-footnote">
-          Tarifas publicadas por cada proveedor en sus páginas oficiales, consultadas el 8 de noviembre de 2026. Cálculo propio con IVA de 16% sobre venta de contado con tarjeta; no incluye pagos a meses sin intereses, que cuestan más. Con CoDi, la API de pey es gratuita por el momento.
-        </p>
+        <!-- Despliegue suave de barras, tabla y notas -->
+        <div class="commission-collapsible" id="commission-details" role="region" aria-label="Comparativa de comisiones por proveedor" aria-hidden="true">
+          <div class="commission-collapsible-inner">
+            <div class="commission-comparison">
+              <div class="commission-bars-card" aria-label="Gráfica comparativa de lo que recibes en una venta de 100 pesos">
+                <h3 class="commission-subtitle">Lo que recibes de una venta de $100.00</h3>
+                <ul class="commission-bars">
+                  <li class="commission-bar-row commission-bar-row-codi">
+                    <div class="commission-bar-meta">
+                      <span class="commission-bar-name">
+                        <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-check"></use></svg>
+                        <span>CoDi (pey)</span>
+                      </span>
+                      <span class="commission-bar-values">Recibes <strong>$100.00</strong> <span class="commission-bar-fee">(comisión $0.00)</span></span>
+                    </div>
+                    <div class="commission-bar-track" aria-hidden="true">
+                      <span class="commission-bar-fill" style="--bar-target: 100%"></span>
+                    </div>
+                  </li>
+                  <li class="commission-bar-row">
+                    <div class="commission-bar-meta">
+                      <span class="commission-bar-name">Mercado Pago Point</span>
+                      <span class="commission-bar-values">Recibes <strong>$95.94</strong> <span class="commission-bar-fee">(-$4.06)</span></span>
+                    </div>
+                    <div class="commission-bar-track" aria-hidden="true">
+                      <span class="commission-bar-fill" style="--bar-target: 95.94%"></span>
+                    </div>
+                  </li>
+                  <li class="commission-bar-row">
+                    <div class="commission-bar-meta">
+                      <span class="commission-bar-name">Clip</span>
+                      <span class="commission-bar-values">Recibes <strong>$95.37</strong> <span class="commission-bar-fee">(-$4.63)</span></span>
+                    </div>
+                    <div class="commission-bar-track" aria-hidden="true">
+                      <span class="commission-bar-fill" style="--bar-target: 95.37%"></span>
+                    </div>
+                  </li>
+                  <li class="commission-bar-row">
+                    <div class="commission-bar-meta">
+                      <span class="commission-bar-name">Zettle</span>
+                      <span class="commission-bar-values">Recibes <strong>$95.94</strong> <span class="commission-bar-fee">(-$4.06)</span></span>
+                    </div>
+                    <div class="commission-bar-track" aria-hidden="true">
+                      <span class="commission-bar-fill" style="--bar-target: 95.94%"></span>
+                    </div>
+                  </li>
+                  <li class="commission-bar-row">
+                    <div class="commission-bar-meta">
+                      <span class="commission-bar-name">SumUp</span>
+                      <span class="commission-bar-values">Recibes <strong>$95.94</strong> <span class="commission-bar-fee">(-$4.06)</span></span>
+                    </div>
+                    <div class="commission-bar-track" aria-hidden="true">
+                      <span class="commission-bar-fill" style="--bar-target: 95.94%"></span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="commission-table-wrap" role="region" aria-label="Tabla comparativa de tarifas y comisiones sobre 100 pesos" tabindex="0">
+                <table class="commission-table">
+                  <caption class="sr-only">Comparación de tarifas publicadas y monto neto recibido en una venta de $100.00 MXN con IVA de 16% incluido</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Proveedor</th>
+                      <th scope="col">Tarifa publicada</th>
+                      <th scope="col">Comisión sobre $100</th>
+                      <th scope="col">Recibes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="commission-row-codi">
+                      <th scope="row">
+                        <a class="commission-provider-link" href="https://pey.mx/codi" target="_blank" rel="noopener">
+                          <span>CoDi (pey)</span>
+                          <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
+                          <span class="sr-only"> (se abre en una pestaña nueva)</span>
+                        </a>
+                      </th>
+                      <td>0%</td>
+                      <td>$0.00</td>
+                      <td>$100.00</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <a class="commission-provider-link" href="https://www.mercadopago.com.mx/herramientas-para-vender/lectores-point" target="_blank" rel="noopener">
+                          <span>Mercado Pago Point</span>
+                          <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
+                          <span class="sr-only"> (se abre en una pestaña nueva)</span>
+                        </a>
+                      </th>
+                      <td>3.5% + IVA</td>
+                      <td>$4.06</td>
+                      <td>$95.94</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <a class="commission-provider-link" href="https://www.clip.mx/como-funciona-clip/calculadora-clip" target="_blank" rel="noopener">
+                          <span>Clip</span>
+                          <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
+                          <span class="sr-only"> (se abre en una pestaña nueva)</span>
+                        </a>
+                      </th>
+                      <td>2.99% + $1 + IVA</td>
+                      <td>$4.63</td>
+                      <td>$95.37</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <a class="commission-provider-link" href="https://www.zettle.com/mx/comisiones" target="_blank" rel="noopener">
+                          <span>Zettle</span>
+                          <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
+                          <span class="sr-only"> (se abre en una pestaña nueva)</span>
+                        </a>
+                      </th>
+                      <td>3.5% + IVA</td>
+                      <td>$4.06</td>
+                      <td>$95.94</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <a class="commission-provider-link" href="https://www.sumup.com/es-mx/precios-del-procesamiento-de-pagos/" target="_blank" rel="noopener">
+                          <span>SumUp</span>
+                          <svg class="icon" aria-hidden="true" focusable="false"><use href="#ph-arrow-square-out"></use></svg>
+                          <span class="sr-only"> (se abre en una pestaña nueva)</span>
+                        </a>
+                      </th>
+                      <td>3.50% + IVA</td>
+                      <td>$4.06</td>
+                      <td>$95.94</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="commission-callout-50">
+                <div class="commission-callout-head">
+                  <h3 class="commission-callout-title">En una venta de $50.00</h3>
+                  <p class="commission-callout-note">El cargo fijo de $1 pesa más en ventas chicas.</p>
+                </div>
+                <ul class="commission-callout-list">
+                  <li class="commission-callout-item commission-callout-item-codi">
+                    <span class="commission-callout-provider">CoDi</span>
+                    <span class="commission-callout-amount">Recibes $50.00</span>
+                  </li>
+                  <li class="commission-callout-item">
+                    <span class="commission-callout-provider">Terminales de 3.5% + IVA</span>
+                    <span class="commission-callout-amount">Recibes $47.97</span>
+                  </li>
+                  <li class="commission-callout-item">
+                    <span class="commission-callout-provider">Clip</span>
+                    <span class="commission-callout-amount">Recibes $47.11</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="commission-footnote">
+              Tarifas publicadas por cada proveedor en sus páginas oficiales, consultadas el 8 de noviembre de 2026. Cálculo propio con IVA de 16% sobre venta de contado con tarjeta; no incluye pagos a meses sin intereses, que cuestan más. Con CoDi, la API de pey es gratuita por el momento.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 

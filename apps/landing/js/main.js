@@ -59,6 +59,26 @@
     }
   }
 
+  // 2b. Commission comparison accordion toggle
+  const commissionToggleBtn = document.getElementById('commission-toggle-btn');
+  const commissionDetails = document.getElementById('commission-details');
+
+  if (commissionToggleBtn && commissionDetails) {
+    commissionToggleBtn.addEventListener('click', function () {
+      const isExpanded = commissionToggleBtn.getAttribute('aria-expanded') === 'true';
+      const nextExpanded = !isExpanded;
+
+      commissionToggleBtn.setAttribute('aria-expanded', nextExpanded ? 'true' : 'false');
+      commissionDetails.setAttribute('aria-hidden', nextExpanded ? 'false' : 'true');
+      commissionDetails.classList.toggle('is-open', nextExpanded);
+
+      // Trigger bar fill animation when expanded
+      if (nextExpanded && commissionSection) {
+        commissionSection.classList.add('is-bar-animated');
+      }
+    });
+  }
+
   // 3. Cliente <-> Negocio two-tab switch with directional 280ms swap & swipe
   const modesTablist = document.querySelector('[data-modes-tablist]');
   const modesTabs = Array.from(document.querySelectorAll('.modes-tab'));
