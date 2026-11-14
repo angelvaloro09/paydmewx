@@ -1,0 +1,54 @@
+[
+  {
+    "step": "",
+    "codes": [
+      "VALIDATION_ERROR",
+      "UNAUTHORIZED"
+    ],
+    "path": "$.error.message",
+    "reason": "Message wording only (Zod / Fastify vs Bean Validation / Spring Security). Status and code identical; the app does not parse messages."
+  },
+  {
+    "step": "business patch no business",
+    "path": "$.error.message",
+    "reason": "Same status and code, different message text."
+  },
+  {
+    "step": "register malformed json",
+    "path": "$.error.message",
+    "reason": "Same status and code BAD_REQUEST, different message text."
+  },
+  {
+    "step": "business patch clabe",
+    "pathRe": "\\.(codiStatus|peyBankAccountId)$",
+    "reason": "Spring registers the CLABE with pey (POST /bank-account) as API_CONTRACT.md states; the Node API never did, it only stores the CLABE."
+  },
+  {
+    "step": "me after clabe",
+    "pathRe": "\\.(codiStatus|peyBankAccountId)$",
+    "reason": "Same: Node never calls pey /bank-account."
+  },
+  {
+    "step": "me after bank active",
+    "pathRe": "\\.(codiStatus|peyBankAccountId)$",
+    "reason": "Same: with no bank account registered, Node has nothing for bank.account.updated to activate."
+  },
+  {
+    "step": "record: pey requests after clabe",
+    "reason": "Node sends nothing to pey here (see business patch clabe)."
+  },
+  {
+    "step": "record: pey outbound /codi/qr",
+    "pathRe": "\\.body\\.bankAccountId$",
+    "reason": "Follows from the CLABE registration: Spring routes the QR to the ACTIVE bank account."
+  },
+  {
+    "step": "discovery",
+    "pathRe": "\\.(clabe|peyBankAccountId|codiStatus)$",
+    "reason": "Spring's public DTO hides clabe and peyBankAccountId (Node leaks the owner's CLABE on unauthenticated GET /businesses); codiStatus differs as above."
+  },
+  {
+    "step": "business create bad lat",
+    "reason": "Node accepts lat/lng outside [-90,90]/[-180,180] and stores them; Spring rejects with 400 VALIDATION_ERROR."
+  }
+]
