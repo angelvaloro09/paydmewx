@@ -1,0 +1,22 @@
+node_modules/
+dist/
+build/
+.dart_tool/
+.flutter-plugins*
+.env
+.env.*
+!.env.example
+*.db
+*.db-journal
+*.sqlite
+.DS_Store
+.idea/
+.vscode/
+coverage/
+*.log
+
+# Internal working files (kept locally, not published)
+AGENTS.md
+tasks/
+docs/NEXT_SESSION_PROMPT.md
+docs/LANDING_V2_PLAN.md

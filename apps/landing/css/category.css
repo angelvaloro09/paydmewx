@@ -1,0 +1,172 @@
+/* ==========================================================================
+   PaydMex Landing — Category Cards Wireframe Overrides (T20)
+   Matches .a11y-card and .a11y-wireframe visual language using tokens only.
+   ========================================================================== */
+
+.category-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--xl);
+  box-shadow: none;
+  transition: border-color var(--fast) var(--easeStd);
+}
+
+.category-card:hover,
+.category-card:focus-within {
+  transform: none;
+}
+
+.category-illustration-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: auto;
+  min-height: 132px;
+  padding: var(--space-3);
+  margin-bottom: var(--space-4);
+  background-color: var(--surface2);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--lg);
+  overflow: hidden;
+}
+
+.category-wf-svg {
+  display: block;
+  width: 100%;
+  max-width: 184px;
+  height: auto;
+  aspect-ratio: 160 / 110;
+  color: var(--ink);
+  overflow: visible;
+}
+
+.category-wf-text {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  fill: currentColor;
+  letter-spacing: -0.01em;
+}
+
+.category-wf-text-onbrand {
+  font-family: var(--font-label);
+  font-size: 9.5px;
+  font-weight: 600;
+  fill: var(--onBrand);
+  letter-spacing: 0.02em;
+}
+
+.category-wf-highlight {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.category-wf-accent-draw {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 0;
+}
+
+@keyframes categoryHighlightPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.07);
+    opacity: 0.88;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes categoryAccentDraw {
+  0% {
+    stroke-dashoffset: 48;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .category-card:hover .category-wf-highlight,
+  .category-card:focus-within .category-wf-highlight,
+  .carousel-slide:focus-within .category-wf-highlight {
+    animation: categoryHighlightPulse 500ms var(--easeStd) 1;
+  }
+
+  .category-card:hover .category-wf-accent-draw,
+  .category-card:focus-within .category-wf-accent-draw,
+  .carousel-slide:focus-within .category-wf-accent-draw {
+    animation: categoryAccentDraw 500ms var(--easeOut) 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-card:hover .category-wf-highlight,
+  .category-card:focus-within .category-wf-highlight,
+  .carousel-slide:focus-within .category-wf-highlight,
+  .category-card:hover .category-wf-accent-draw,
+  .category-card:focus-within .category-wf-accent-draw,
+  .carousel-slide:focus-within .category-wf-accent-draw {
+    animation: none;
+  }
+}
+
+.category-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.category-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.category-icon-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--sm);
+  background-color: var(--surface2);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.category-name {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.category-copy {
+  margin: 0;
+  color: var(--inkMuted);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .category-card {
+    padding: var(--space-4);
+  }
+}
