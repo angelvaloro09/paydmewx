@@ -505,7 +505,16 @@ body {
    2. Hero inside a dark rounded frame (radius 24, inset 16px)
    ========================================================================== */
 .hero-wrapper {
+  margin-top: 88px;
   padding: var(--space-3) 16px var(--space-6) 16px;
+  scroll-margin-top: 88px;
+}
+
+@media (min-width: 760px) {
+  .hero-wrapper {
+    margin-top: 96px;
+    scroll-margin-top: 96px;
+  }
 }
 
 .hero-frame {
