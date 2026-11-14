@@ -161,8 +161,8 @@
 .category-copy {
   margin: 0;
   color: var(--inkMuted);
-  font-size: 0.9375rem;
-  line-height: 1.5;
+  font-size: 1rem; /* 18px */
+  line-height: 1.55;
 }
 
 @media (max-width: 480px) {

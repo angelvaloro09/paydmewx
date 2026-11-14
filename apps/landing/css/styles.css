@@ -9,6 +9,7 @@
 }
 
 html {
+  font-size: 18px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -19,8 +20,8 @@ body {
   background-color: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 1rem; /* 18px base text */
+  line-height: 1.6;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
@@ -113,7 +114,8 @@ body {
 
 .section-lead {
   margin: 0 0 var(--space-8) 0;
-  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  font-size: clamp(1.111rem, 1.4vw, 1.25rem); /* 20px - 22.5px */
+  line-height: 1.6;
   color: var(--inkMuted);
   max-width: 60ch;
 }
@@ -589,8 +591,8 @@ body {
 .hero-subcopy {
   margin: 0 0 var(--space-8) 0;
   max-width: 54ch;
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
-  line-height: 1.5;
+  font-size: clamp(1.111rem, 1.5vw, 1.25rem); /* 20px - 22.5px */
+  line-height: 1.6;
   color: var(--hero-inkMuted);
 }
 
@@ -1860,7 +1862,7 @@ body {
   border: 1px solid var(--line);
   border-radius: var(--pill);
   font-family: var(--font-sans);
-  font-size: 0.9375rem;
+  font-size: 1rem; /* 18px */
   font-weight: 500;
   cursor: pointer;
   transition: background-color var(--fast) var(--easeStd), border-color var(--fast) var(--easeStd);
@@ -2042,7 +2044,8 @@ body {
 .a11y-card-desc {
   margin: 0;
   color: var(--inkMuted);
-  font-size: 0.9375rem;
+  font-size: 1rem; /* 18px */
+  line-height: 1.55;
 }
 
 /* ==========================================================================

@@ -775,9 +775,9 @@
 
 .cycle-beat-text {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: 1rem; /* 18px */
   font-weight: 500;
-  line-height: 1.35;
+  line-height: 1.45;
   color: var(--ink);
   min-width: 0;
   overflow-wrap: anywhere;
