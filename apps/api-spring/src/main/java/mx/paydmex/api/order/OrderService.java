@@ -140,6 +140,12 @@ public class OrderService {
 		return hydrate(List.of(order)).getFirst();
 	}
 
+	/** Dev routes only: reads an order with no ownership check. */
+	@Transactional
+	OrderDto getUnchecked(String orderId) {
+		return hydrate(List.of(orders.findById(orderId).orElseThrow(OrderService::notFound))).getFirst();
+	}
+
 	@Transactional
 	public List<OrderDto> list(String userId, Role role, OrderStatus status) {
 		Optional<String> ownBusinessId = businesses.findIdByOwner(userId);

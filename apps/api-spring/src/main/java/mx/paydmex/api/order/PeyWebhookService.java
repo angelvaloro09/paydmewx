@@ -5,10 +5,12 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import mx.paydmex.api.business.BusinessLookup;
+import mx.paydmex.api.common.AppException;
 import mx.paydmex.api.product.StockLedger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.databind.JsonNode;
@@ -68,6 +70,15 @@ class PeyWebhookService {
 			}
 		}
 		return new Result(false);
+	}
+
+	/** Dev-only helper behind {@code /dev/orders/{id}/simulate-paid}: pays an order exactly like a webhook would. */
+	@Transactional
+	void simulatePaid(String orderId) {
+		if (orders.findById(orderId).isEmpty()) {
+			throw new AppException(HttpStatus.NOT_FOUND, "ORDER_NOT_FOUND", "Order not found");
+		}
+		markPaid(orderId, null, "sim_" + orderId, clock.instant().getEpochSecond());
 	}
 
 	private void onPaymentReceived(JsonNode data, long now) {

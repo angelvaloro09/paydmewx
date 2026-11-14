@@ -31,18 +31,23 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 class SecurityConfig {
 
 	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http, SecurityErrorHandlers errors) {
+	SecurityFilterChain filterChain(HttpSecurity http, SecurityErrorHandlers errors, AppProperties props) {
 		http.csrf(AbstractHttpConfigurer::disable)
 			.cors(Customizer.withDefaults())
 			.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-			.authorizeHttpRequests(auth -> auth
-				.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.requestMatchers(HttpMethod.GET, "/health").permitAll()
-				.requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll()
-				.requestMatchers(HttpMethod.GET, "/businesses", "/businesses/*", "/businesses/*/products")
-				.permitAll()
-				.requestMatchers(HttpMethod.POST, "/webhooks/pey").permitAll()
-				.anyRequest().authenticated())
+			.authorizeHttpRequests(auth -> {
+				auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+					.requestMatchers(HttpMethod.GET, "/health").permitAll()
+					.requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll()
+					.requestMatchers(HttpMethod.GET, "/businesses", "/businesses/*", "/businesses/*/products")
+					.permitAll()
+					.requestMatchers(HttpMethod.POST, "/webhooks/pey").permitAll();
+				if (props.devRoutes().enabled()) {
+					// Dev-only (ENABLE_DEV_ROUTES=true, never in prod): same unauthenticated helper as the Node API.
+					auth.requestMatchers(HttpMethod.POST, "/dev/orders/*/simulate-paid").permitAll();
+				}
+				auth.anyRequest().authenticated();
+			})
 			.oauth2ResourceServer(rs -> rs.jwt(Customizer.withDefaults())
 				.authenticationEntryPoint(errors)
 				.accessDeniedHandler(errors))
