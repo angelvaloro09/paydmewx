@@ -30,7 +30,7 @@
   margin-top: var(--space-4);
 }
 
-/* Main 0% / 100% CoDi Benefit Card (Centered) */
+/* Main 100% / 0% CoDi Benefit Card (Centered, Dark Frame style) */
 .commission-zero-card {
   display: flex;
   flex-direction: column;
@@ -38,13 +38,14 @@
   text-align: center;
   gap: var(--space-4);
   padding: var(--space-8) var(--space-6);
-  background-color: var(--surface);
+  background-color: var(--hero-bg);
+  color: #FFFFFF;
   border: 2px solid var(--brand);
   border-radius: var(--xl);
   width: 100%;
-  max-width: 580px;
+  max-width: 620px;
   margin-inline: auto;
-  box-shadow: 0 10px 30px rgba(0, 200, 83, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22), 0 0 24px rgba(0, 200, 83, 0.12);
   font-size: 1.125rem; /* 18px base text */
 }
 
@@ -63,30 +64,38 @@
   text-transform: uppercase;
 }
 
-.commission-zero-numeral {
-  margin: 0;
-  font-family: var(--font-label);
-  font-size: clamp(4.5rem, 10vw, 7rem);
-  font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-  font-variant-numeric: tabular-nums;
-  color: var(--brandText);
+.commission-benefit-headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  margin: var(--space-1) 0;
 }
 
-.commission-zero-label {
-  margin: 0;
-  font-size: 1.375rem; /* 22px */
-  font-weight: 600;
-  line-height: 1.25;
-  color: var(--ink);
+.commission-benefit-white {
+  font-family: var(--font-sans);
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+}
+
+.commission-benefit-green {
+  font-family: var(--font-sans);
+  font-size: clamp(2.75rem, 7.5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--brand);
+  text-shadow: 0 0 28px rgba(0, 200, 83, 0.35);
 }
 
 .commission-zero-desc {
   margin: 0;
   font-size: 1.125rem; /* 18px */
   line-height: 1.6;
-  color: var(--ink);
+  color: #D6D5D0;
   max-width: 44ch;
 }
 
@@ -95,22 +104,24 @@
   align-items: center;
   gap: var(--space-2);
   min-height: 48px;
-  padding: var(--space-2) var(--space-4);
-  margin-top: var(--space-1);
+  padding: var(--space-2) var(--space-5, 20px);
+  margin-top: var(--space-2);
   border-radius: var(--pill);
-  background-color: var(--surface2);
-  border: 1px solid var(--line);
-  color: var(--ink);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
   font-family: var(--font-label);
   font-size: 1rem;
   font-weight: 500;
   text-decoration: none;
-  transition: background-color var(--fast) var(--easeStd), border-color var(--fast) var(--easeStd);
+  transition: background-color var(--fast) var(--easeStd), border-color var(--fast) var(--easeStd), transform var(--fast) var(--easeStd);
 }
 
 .commission-source-link:hover {
-  background-color: var(--surface);
-  border-color: var(--ink);
+  background-color: rgba(255, 255, 255, 0.16);
+  border-color: var(--brand);
+  color: #FFFFFF;
+  transform: translateY(-1px);
 }
 
 /* Secondary Button (Clear with down arrow) */
