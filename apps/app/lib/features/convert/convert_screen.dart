@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -31,11 +33,40 @@ class _ConvertBusinessScreenState extends ConsumerState<ConvertBusinessScreen> {
   String? _serverError;
 
   @override
+  void initState() {
+    super.initState();
+    // Render free sleeps after 15 min idle and a cold start can take ~1 min:
+    // wake it while the user fills the form, not when they tap submit.
+    unawaited(ref.read(apiClientProvider).warmUp());
+  }
+
+  @override
   void dispose() {
     _nameController.dispose();
     _descriptionController.dispose();
     _addressController.dispose();
     super.dispose();
+  }
+
+  /// A timed-out attempt may still have been saved by the server. On retry the
+  /// API answers 409 BUSINESS_ALREADY_EXISTS: load the existing business
+  /// instead of showing the user an error for something that worked.
+  Future<Business> _createOrRecover(ApiClient api, String name) async {
+    try {
+      return await api.createBusiness(
+        name: name,
+        category: _category,
+        prepType: _prepType,
+        description: _descriptionController.text,
+        address: _addressController.text,
+      );
+    } on ApiException catch (e) {
+      if (e.code == 'BUSINESS_ALREADY_EXISTS') {
+        final existing = (await api.getMe()).business;
+        if (existing != null) return existing;
+      }
+      rethrow;
+    }
   }
 
   Future<void> _submit() async {
@@ -55,13 +86,7 @@ class _ConvertBusinessScreenState extends ConsumerState<ConvertBusinessScreen> {
 
     try {
       final api = ref.read(apiClientProvider);
-      final business = await api.createBusiness(
-        name: name,
-        category: _category,
-        prepType: _prepType,
-        description: _descriptionController.text,
-        address: _addressController.text,
-      );
+      final business = await _createOrRecover(api, name);
       ref.read(authProvider.notifier).setBusiness(business);
       await ref.read(appModeProvider.notifier).setMode(AppMode.negocio);
       if (!mounted) return;
