@@ -3,6 +3,7 @@ package mx.paydmex.api.business;
 import java.util.Set;
 
 import mx.paydmex.api.common.AppException;
+import mx.paydmex.api.common.Patch;
 
 import org.springframework.http.HttpStatus;
 import tools.jackson.databind.JsonNode;

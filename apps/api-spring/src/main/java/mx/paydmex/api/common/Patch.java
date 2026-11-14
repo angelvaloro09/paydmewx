@@ -1,4 +1,4 @@
-package mx.paydmex.api.business;
+package mx.paydmex.api.common;
 
 /** A PATCH field: absent (keep current) vs present (possibly null = clear). JSON null and a missing key differ. */
 public record Patch<T>(boolean present, T value) {
