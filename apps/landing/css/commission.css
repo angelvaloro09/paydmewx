@@ -47,7 +47,7 @@
   width: 100%;
   max-width: 620px;
   margin-inline: auto;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22), 0 0 24px rgba(0, 200, 83, 0.12);
+  box-shadow: 0 16px 40px rgba(22, 34, 47, 0.28), 0 0 24px rgba(125, 167, 217, 0.25);
   font-size: 1.125rem; /* 18px base text */
 }
 
@@ -89,15 +89,15 @@
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.035em;
-  color: var(--brand);
-  text-shadow: 0 0 28px rgba(0, 200, 83, 0.35);
+  color: #FEF7CB;
+  text-shadow: 0 0 28px rgba(254, 247, 203, 0.35);
 }
 
 .commission-zero-desc {
   margin: 0;
-  font-size: 1.125rem; /* 18px */
+  font-size: 1.125rem;
   line-height: 1.6;
-  color: #D6D5D0;
+  color: var(--hero-inkMuted);
   max-width: 44ch;
 }
 

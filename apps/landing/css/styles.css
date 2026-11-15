@@ -164,6 +164,12 @@ body {
   filter: brightness(1.05);
 }
 
+.hero-frame .btn-brand,
+.cta-final-card .btn-brand {
+  background-color: #FEF7CB;
+  color: #304860;
+}
+
 .btn-dark {
   background-color: var(--ink);
   color: var(--bg);
@@ -210,9 +216,9 @@ body {
 }
 
 .badge-live {
-  background-color: rgba(25, 227, 107, 0.14);
-  color: #19E36B;
-  border: 1px solid rgba(25, 227, 107, 0.35);
+  background-color: rgba(254, 247, 203, 0.16);
+  color: #FEF7CB;
+  border: 1px solid rgba(254, 247, 203, 0.35);
 }
 
 .badge-codi {
@@ -490,7 +496,7 @@ body {
 
 .hero-frame [data-scroll-words] .sw[data-emph],
 .cta-final-card [data-scroll-words] .sw[data-emph] {
-  --sw-end: #19E36B;
+  --sw-end: #FEF7CB;
 }
 
 @supports (color: color-mix(in srgb, black 50%, white)) {
@@ -554,7 +560,7 @@ body {
 /* Narrow screens: text spans the full frame, so keep a soft backdrop. Wide screens use the in-canvas scrim. */
 @media (max-width: 759px) {
   .hero-content {
-    background: radial-gradient(circle at 20% 50%, rgba(11, 11, 12, 0.88) 0%, rgba(11, 11, 12, 0.55) 58%, transparent 100%);
+    background: radial-gradient(circle at 20% 50%, rgba(48, 72, 96, 0.92) 0%, rgba(48, 72, 96, 0.65) 58%, transparent 100%);
   }
 }
 
@@ -606,175 +612,202 @@ body {
    4. Cómo funciona + Animated POS Mock (6s CSS loop)
    ========================================================================== */
 /* POS Phone Mock */
-.pos-showcase {
-  display: flex;
-  justify-content: center;
+/* ==========================================================================
+   4. Cómo funciona — Three-Step Cards (How It Works)
+   ========================================================================== */
+
+/* Grid: stacked on mobile, 3-col on desktop */
+.how-steps {
+  list-style: none;
+  margin: var(--space-12) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
 }
 
-.pos-phone {
-  width: 100%;
-  max-width: 440px;
-  padding: var(--space-6);
+@media (min-width: 760px) {
+  .how-steps {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+}
+
+/* Individual card */
+.how-card {
+  display: flex;
+  flex-direction: column;
   border-radius: var(--xl);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background-color: var(--surface);
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  transition: box-shadow 300ms var(--easeStd), transform 300ms var(--easeStd);
+}
+
+.how-card:hover {
+  box-shadow: var(--shadow-float);
+  transform: translateY(-3px);
+}
+
+/* Dark screen area on top */
+.how-card-screen {
   background-color: var(--hero-bg);
   color: var(--hero-ink);
-  border: 1px solid var(--hero-line);
-  box-shadow: var(--shadow-float);
+  padding: var(--space-6);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--line);
 }
 
-.pos-topbar {
+/* Success screen variant — centered content */
+.how-card-screen--success {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.how-screen-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
-  padding-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--hero-line);
 }
 
-.pos-merchant {
+.how-screen-merchant {
   font-family: var(--font-label);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--hero-inkMuted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
-.pos-stage {
-  position: relative;
-  min-height: 270px;
-  display: grid;
-  place-items: center;
-  padding-block: var(--space-4);
-}
-
-.pos-frame {
-  grid-area: 1 / 1;
-  width: 100%;
-  text-align: center;
+.how-screen-body {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
-.pos-caption {
+.how-screen-body--qr {
+  align-items: center;
+}
+
+.how-screen-label {
   font-family: var(--font-label);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
   color: var(--hero-inkMuted);
 }
 
-.pos-amount {
+.how-screen-amount {
   margin: 0;
-  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-size: clamp(2rem, 5vw, 2.75rem);
   font-weight: 400;
   font-variant-numeric: tabular-nums;
   line-height: 1;
-}
-
-.pos-currency {
-  font-family: var(--font-label);
-  font-size: 0.875rem;
-  color: var(--hero-inkMuted);
-}
-
-.pos-items {
-  margin: 0;
-  font-size: 0.875rem;
-  color: var(--hero-inkMuted);
-}
-
-.pos-pill-indicator {
-  padding: 6px 14px;
-  border-radius: var(--pill);
-  background-color: var(--hero-surface2);
-  font-family: var(--font-label);
-  font-size: 0.75rem;
   color: var(--hero-ink);
 }
 
-.pos-qr-card {
-  width: 100%;
-  max-width: 260px;
-  padding: var(--space-4);
-  border-radius: var(--lg);
-  background-color: var(--hero-surface);
-  border: 1px solid var(--hero-line);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
+.how-screen-cents {
+  font-size: 0.6em;
+  opacity: 0.6;
 }
 
-.pos-qr-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.how-screen-cur {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  color: var(--hero-inkMuted);
 }
 
-.pos-qr-amount {
+.how-screen-items {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--hero-inkMuted);
+  line-height: 1.4;
+}
+
+.how-screen-pill {
+  margin-top: var(--space-2);
+  padding: 5px 12px;
+  border-radius: var(--pill);
+  background-color: var(--hero-surface2);
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  color: var(--hero-ink);
+  align-self: flex-start;
+}
+
+/* QR display */
+.how-qr-amt {
   font-family: var(--font-label);
   font-size: 0.875rem;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
+  color: var(--hero-ink);
 }
 
-.pos-qr-matrix {
+.how-qr-matrix {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 5px;
-  width: 112px;
-  height: 112px;
-  padding: 10px;
+  gap: 4px;
+  width: 96px;
+  height: 96px;
+  padding: 8px;
   background-color: #FAF9F6;
   border-radius: var(--sm);
 }
 
-.pos-qr-matrix span {
+.how-qr-matrix span {
   background-color: #0A0A0A;
   border-radius: 2px;
 }
 
-.pos-qr-matrix span:nth-child(even) {
-  opacity: 0.22;
-}
-
-.pos-qr-matrix span:nth-child(1),
-.pos-qr-matrix span:nth-child(5),
-.pos-qr-matrix span:nth-child(13),
-.pos-qr-matrix span:nth-child(21),
-.pos-qr-matrix span:nth-child(25) {
+.how-qr-matrix span:nth-child(even) { opacity: 0.2; }
+.how-qr-matrix span:nth-child(1),
+.how-qr-matrix span:nth-child(5),
+.how-qr-matrix span:nth-child(13),
+.how-qr-matrix span:nth-child(21),
+.how-qr-matrix span:nth-child(25) {
   opacity: 1;
   background-color: #0A0A0A;
 }
 
-.pos-qr-hint {
+.how-qr-hint {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--hero-inkMuted);
+  text-align: center;
 }
 
-.pos-success-ring-wrap {
+/* Success state */
+.how-success-ring-wrap {
   position: relative;
-  width: 84px;
-  height: 84px;
+  width: 76px;
+  height: 76px;
   display: grid;
   place-items: center;
+  flex-shrink: 0;
 }
 
-.pos-expanding-ring {
+.how-success-ring {
   position: absolute;
-  inset: 0;
+  inset: -8px;
   border-radius: 50%;
   border: 2px solid var(--brand);
-  animation: posRingPulse 6s var(--easeOut) infinite;
+  opacity: 0.35;
 }
 
-.pos-success-circle {
-  width: 68px;
-  height: 68px;
+.how-success-circle {
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background-color: var(--brand);
   color: var(--onBrand);
@@ -782,64 +815,59 @@ body {
   place-items: center;
 }
 
-.pos-success-title {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 500;
+.how-success-title {
+  margin: var(--space-3) 0 0;
+  font-size: 1.35rem;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
   color: var(--hero-ink);
 }
 
-.pos-success-sub {
-  margin: 0;
-  font-size: 0.875rem;
-  color: var(--hero-inkMuted);
-}
-
-.pos-Timeline-dots {
-  display: flex;
-  justify-content: space-between;
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--hero-line);
-  font-family: var(--font-label);
+.how-success-sub {
+  margin: var(--space-1) 0 0;
   font-size: 0.75rem;
   color: var(--hero-inkMuted);
 }
 
-/* 6s POS State Animations */
-.pos-frame-amount {
-  animation: posState1 6s var(--easeStd) infinite;
+/* Text body below screen */
+.how-card-body {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
-.pos-frame-qr {
-  animation: posState2 6s var(--easeStd) infinite;
+.how-step-num {
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--brandText);
 }
 
-.pos-frame-success {
-  animation: posState3 6s var(--easeStd) infinite;
+.how-step-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
 }
 
-@keyframes posState1 {
-  0%, 28% { opacity: 1; transform: translateY(0) scale(1); visibility: visible; }
-  33%, 100% { opacity: 0; transform: translateY(-8px) scale(0.98); visibility: hidden; }
+.how-step-desc {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--inkMuted);
+  line-height: 1.55;
 }
 
-@keyframes posState2 {
-  0%, 29% { opacity: 0; transform: translateY(8px) scale(0.98); visibility: hidden; }
-  34%, 62% { opacity: 1; transform: translateY(0) scale(1); visibility: visible; }
-  67%, 100% { opacity: 0; transform: translateY(-8px) scale(0.98); visibility: hidden; }
-}
-
-@keyframes posState3 {
-  0%, 63% { opacity: 0; transform: scale(0.92); visibility: hidden; }
-  68%, 95% { opacity: 1; transform: scale(1); visibility: visible; }
-  100% { opacity: 0; transform: scale(0.98); visibility: hidden; }
-}
-
-@keyframes posRingPulse {
-  0%, 65% { transform: scale(0.8); opacity: 0; }
-  72% { transform: scale(1); opacity: 0.9; }
-  92%, 100% { transform: scale(1.45); opacity: 0; }
+/* Respect prefers-reduced-motion — card hover transitions only */
+@media (prefers-reduced-motion: reduce) {
+  .how-card {
+    transition: none;
+  }
+  .how-card:hover {
+    transform: none;
+  }
 }
 
 /* ==========================================================================

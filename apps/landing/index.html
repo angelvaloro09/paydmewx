@@ -313,76 +313,89 @@
           <span>ASÍ SE COBRA</span>
         </p>
         <h2 class="section-title" id="como-funciona-title">Del monto al pago confirmado.</h2>
-        <p class="section-lead">Escribes el monto, muestras el QR, el pago llega confirmado.</p>
+        <p class="section-lead">Tres pasos. Sin terminal. Sin comisión. El dinero llega directo a tu cuenta.</p>
 
-        <!-- CSS-only animated mock of the phone POS -->
-        <section class="pos-showcase" aria-label="Demostración visual de cobro en punto de venta">
-          <div class="pos-phone">
-            <div class="pos-topbar">
-              <span class="pos-merchant">Taquería El Porvenir</span>
-              <span class="badge badge-live">
-                <span class="badge-dot" aria-hidden="true"></span>
-                <span>PUNTO DE VENTA</span>
-              </span>
-            </div>
+        <ol class="how-steps" aria-label="Pasos del cobro con CoDi">
 
-            <div class="pos-stage">
-              <!-- State 1: Amount entry -->
-              <div class="pos-frame pos-frame-amount">
-                <span class="pos-caption">MONTO A COBRAR</span>
-                <p class="pos-amount">$85.00 <span class="pos-currency">MXN</span></p>
-                <p class="pos-items">3× Tacos al pastor · 1× Agua fresca</p>
-                <div class="pos-pill-indicator">Generando QR CoDi…</div>
+          <!-- Paso 1: Escribes el monto -->
+          <li class="how-card">
+            <div class="how-card-screen" aria-hidden="true">
+              <div class="how-screen-topbar">
+                <span class="how-screen-merchant">Taquería El Porvenir</span>
+                <span class="badge badge-live">
+                  <span class="badge-dot"></span>
+                  <span>ACTIVO</span>
+                </span>
               </div>
+              <div class="how-screen-body">
+                <span class="how-screen-label">MONTO A COBRAR</span>
+                <p class="how-screen-amount">$85<span class="how-screen-cents">.00</span> <span class="how-screen-cur">MXN</span></p>
+                <p class="how-screen-items">3× Tacos al pastor · 1× Agua fresca</p>
+                <div class="how-screen-pill">Generando QR CoDi…</div>
+              </div>
+            </div>
+            <div class="how-card-body">
+              <span class="how-step-num" aria-hidden="true">01</span>
+              <h3 class="how-step-title">Escribes el monto</h3>
+              <p class="how-step-desc">Abre PaydMex, escribe cuánto cobras y elige los productos. Listo en segundos.</p>
+            </div>
+          </li>
 
-              <!-- State 2: QR Card -->
-              <div class="pos-frame pos-frame-qr">
-                <div class="pos-qr-card">
-                  <div class="pos-qr-header">
-                    <span class="badge badge-codi">
-                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                        <rect x="2" y="2" width="5" height="5" stroke="currentColor" stroke-width="1.8"></rect>
-                        <rect x="9" y="2" width="5" height="5" stroke="currentColor" stroke-width="1.8"></rect>
-                        <rect x="2" y="9" width="5" height="5" stroke="currentColor" stroke-width="1.8"></rect>
-                        <rect x="9" y="9" width="5" height="5" fill="currentColor"></rect>
-                      </svg>
-                      <span>QR CoDi</span>
-                    </span>
-                    <span class="pos-qr-amount">$85.00</span>
-                  </div>
-                  <div class="pos-qr-matrix" aria-hidden="true">
-                    <span></span><span></span><span></span><span></span><span></span>
-                    <span></span><span></span><span></span><span></span><span></span>
-                    <span></span><span></span><span></span><span></span><span></span>
-                    <span></span><span></span><span></span><span></span><span></span>
-                    <span></span><span></span><span></span><span></span><span></span>
-                  </div>
-                  <p class="pos-qr-hint">Escanea desde la app de su banco</p>
+          <!-- Paso 2: Muestras el QR -->
+          <li class="how-card">
+            <div class="how-card-screen" aria-hidden="true">
+              <div class="how-screen-topbar">
+                <span class="badge badge-codi">
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                    <rect x="2" y="2" width="5" height="5" stroke="currentColor" stroke-width="1.8"></rect>
+                    <rect x="9" y="2" width="5" height="5" stroke="currentColor" stroke-width="1.8"></rect>
+                    <rect x="2" y="9" width="5" height="5" stroke="currentColor" stroke-width="1.8"></rect>
+                    <rect x="9" y="9" width="5" height="5" fill="currentColor"></rect>
+                  </svg>
+                  <span>QR CoDi</span>
+                </span>
+                <span class="how-qr-amt">$85.00</span>
+              </div>
+              <div class="how-screen-body how-screen-body--qr">
+                <div class="how-qr-matrix">
+                  <span></span><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <p class="how-qr-hint">Escanea desde BBVA, Banorte, Santander…</p>
+              </div>
+            </div>
+            <div class="how-card-body">
+              <span class="how-step-num" aria-hidden="true">02</span>
+              <h3 class="how-step-title">Muestras el QR</h3>
+              <p class="how-step-desc">Tu cliente escanea el código QR CoDi desde la app de su propio banco. Sin descargar nada.</p>
+            </div>
+          </li>
+
+          <!-- Paso 3: Cobrado -->
+          <li class="how-card">
+            <div class="how-card-screen how-card-screen--success" aria-hidden="true">
+              <div class="how-success-ring-wrap">
+                <span class="how-success-ring"></span>
+                <div class="how-success-circle">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 13L9.5 17.5L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
                 </div>
               </div>
-
-              <!-- State 3: Success check inside expanding brand ring -->
-              <div class="pos-frame pos-frame-success">
-                <div class="pos-success-ring-wrap">
-                  <span class="pos-expanding-ring" aria-hidden="true"></span>
-                  <div class="pos-success-circle">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M5 13L9.5 17.5L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                  </div>
-                </div>
-                <p class="pos-success-title">¡Cobrado! +$85.00</p>
-                <p class="pos-success-sub">Inventario actualizado · Orden #104 pagada</p>
-              </div>
+              <p class="how-success-title">¡Cobrado! +$85.00</p>
+              <p class="how-success-sub">Inventario actualizado · Orden #104</p>
             </div>
-
-            <div class="pos-Timeline-dots" aria-hidden="true">
-              <span class="pos-step-label">1. Monto</span>
-              <span class="pos-step-label">2. QR CoDi</span>
-              <span class="pos-step-label">3. ¡Cobrado!</span>
+            <div class="how-card-body">
+              <span class="how-step-num" aria-hidden="true">03</span>
+              <h3 class="how-step-title">¡Cobrado al instante!</h3>
+              <p class="how-step-desc">El pago llega directo a tu cuenta bancaria. 0% de comisión. Sin intermediarios.</p>
             </div>
-          </div>
-        </section>
+          </li>
+
+        </ol>
       </div>
     </section>
 

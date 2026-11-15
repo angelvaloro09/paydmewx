@@ -1,28 +1,28 @@
 :root {
   /* Color tokens — Light (Paper theme) */
-  --bg: #FAF9F6;
+  --bg: #DDEEFE;
   --surface: #FFFFFF;
-  --surface2: #F1EFEA;
-  --ink: #0A0A0A;
-  --inkMuted: #5B5B57;
-  --ink-ghost: #C2C1BE;
-  --line: rgba(10, 10, 10, .10);
-  --brand: #00C853;
-  --brandText: #00763A;
-  --onBrand: #0A0A0A;
-  --cempasuchil: #FF8A1F;
-  --rosa: #E4007C;
-  --codi: #2F6BFF;
+  --surface2: #FEF7CB;
+  --ink: #304860;
+  --inkMuted: #4A6460;
+  --ink-ghost: #9CB4CC;
+  --line: rgba(48, 72, 96, .14);
+  --brand: #304860;
+  --brandText: #304860;
+  --onBrand: #FFFFFF;
+  --cempasuchil: #D97706;
+  --rosa: #C81E68;
+  --codi: #2558D9;
   --danger: #D92D20;
 
   /* Dark frame constants (used for the inset hero & POS screen mock) */
-  --hero-bg: #0B0B0C;
-  --hero-surface: rgba(255, 255, 255, .04);
-  --hero-surface2: rgba(255, 255, 255, .08);
-  --hero-ink: #F5F4F0;
-  --hero-inkMuted: #A3A39E;
-  --hero-ink-ghost: #464649;
-  --hero-line: rgba(255, 255, 255, .10);
+  --hero-bg: #304860;
+  --hero-surface: rgba(255, 255, 255, .08);
+  --hero-surface2: rgba(254, 247, 203, .14);
+  --hero-ink: #FFFFFF;
+  --hero-inkMuted: #DDEEFE;
+  --hero-ink-ghost: #7DA7D9;
+  --hero-line: rgba(221, 238, 254, .18);
 
   /* Motion tokens */
   --easeOut: cubic-bezier(.215, .61, .355, 1);
@@ -70,22 +70,24 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0B0B0C;
-    --surface: rgba(255, 255, 255, .04);
-    --surface2: rgba(255, 255, 255, .08);
-    --ink: #F5F4F0;
-    --inkMuted: #A3A39E;
-    --ink-ghost: #464649;
-    --line: rgba(255, 255, 255, .10);
-    --brand: #19E36B;
-    --brandText: #19E36B;
-    --onBrand: #0A0A0A;
-    --cempasuchil: #FFA04D;
-    --rosa: #FF3D9A;
-    --codi: #6C9BFF;
+    --bg: #16222F;       
+    --surface: #1F3042;     
+    --surface2: #283D54;    
+    --ink: #FFFFFF;          
+    --inkMuted: #DDEEFE;     
+    --ink-ghost: #5A7694;
+    --line: rgba(221, 238, 254, .12);
+    
+    --brand: #7DA7D9;
+    --brandText: #FEF7CB;  
+    --onBrand: #16222F;   
+    
+    --cempasuchil: #FBBF24;
+    --rosa: #F472B6;
+    --codi: #7DA7D9;
     --danger: #FF6B5E;
 
-    --hero-bg: #141416;
+    --hero-bg: #1F3042;
   }
 }
 
